@@ -12,6 +12,10 @@ donate money, you can try to persuade them
 into joining your adventure, by becoming
 a volunteer at UNICEF.
 
+To complete the game, you must find and talk
+to all NPCs in the game, return safely to your
+boss at UNICEF and return the collected items.
+
 ## Workflow
 
 Before creating a new branch, pull the changes from upstream.
