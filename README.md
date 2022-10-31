@@ -4,19 +4,20 @@ This is the repository for the adventure game Booby Hood — a clone of the incr
 
 ## Workflow
 
-First thing you want to do is install the Github CLI. Go to https://cli.github.com and install the CLI tools from Github.
-
-Next thing is to add SSH keys to deal with authentication when pushing changes. Follow the instructions here: https://docs.github.com/en/authentication/connecting-to-github-with-ssh
-
-When these to steps has been completed, you can now go ahead and clone this repository with SSH.
-
-### Cloning
-
-Click the green clone button and choose the tab with SSH. Copy the command to your clipboard.
-Open your terminal or command prompt, and run the following command
-
-Make sure that you are in a folder, where you'd like the project to be saved
+Before creating a new branch, pull the changes from upstream. Your master needs to be up to date.
 
 ```
-git clone git@github.com:rasmusgrowup/BobbyHood.git
+$ git pull
+```
+
+Create the branch on your local machine and switch in this branch :
+```
+$ git checkout -b [name_of_your_new_branch]
+```
+Don't include the brackets. The command should be: git checkout -b awesome_branch
+
+Push the branch on github :
+
+```
+$ git push origin
 ```
