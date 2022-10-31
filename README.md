@@ -19,5 +19,5 @@ Don't include the brackets. The command should be: git checkout -b awesome_branc
 Push the branch on github :
 
 ```
-$ git push origin
+$ git push -u origin [name_of_your_new_branch]
 ```
