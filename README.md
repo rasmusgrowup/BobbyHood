@@ -14,10 +14,11 @@ Create the branch on your local machine and switch to this branch :
 ```
 $ git checkout -b [name_of_your_new_branch]
 ```
-Don't include the brackets. The command should be: git checkout -b awesome_branch
+Don't include the brackets. The command could be: $ git checkout -b awesome_branch
 
 Push the branch on github :
 
 ```
 $ git push -u origin [name_of_your_new_branch]
 ```
+The command would then be: $ git push -u origin awesome_branch
