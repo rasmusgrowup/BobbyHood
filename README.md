@@ -10,7 +10,7 @@ Before creating a new branch, pull the changes from upstream. Your master needs 
 $ git pull
 ```
 
-Create the branch on your local machine and switch in this branch :
+Create the branch on your local machine and switch to this branch :
 ```
 $ git checkout -b [name_of_your_new_branch]
 ```
