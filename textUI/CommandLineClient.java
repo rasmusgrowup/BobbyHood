@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package worldOfZuul.textUI;
+package BobbyHood.textUI;
 
-import worldOfZuul.Command;
-import worldOfZuul.Commands;
-import worldOfZuul.Game;
+import BobbyHood.Command;
+import BobbyHood.Commands;
+import BobbyHood.Game;
 
 /**
  *
@@ -36,9 +36,11 @@ public class CommandLineClient {
 
     private void printWelcome() {
         System.out.println();
-        System.out.println("Welcome to the World of Zuul!");
-        System.out.println("World of Zuul is a new, incredibly boring adventure game.");
-        System.out.println("Type '" + Commands.HELP + "' if you need help.");
+        System.out.println("Welcome to Bobby Hood!");
+        System.out.println("The game where you can help reduce extreme poverty.");
+        System.out.println("At any point, type '" + Commands.HELP + "' to see available commands.");
+        System.out.println();
+        System.out.println("Let the game begin!");
         System.out.println();
         System.out.println(game.getRoomDescription());
     }
