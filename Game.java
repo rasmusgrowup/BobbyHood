@@ -21,6 +21,17 @@ public class Game {
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
 
+        Person hans, lene, mathias;
+        hans = new Person("Hans", "hello");
+        lene = new Person("Lene", "hello");
+        mathias = new Person("Mathias", "hello");
+
+        outside.setPersons(hans);
+        outside.setPersons(lene);
+        theatre.setPersons(mathias);
+
+
+
         outside.setExit("east", theatre);
         outside.setExit("south", lab);
         outside.setExit("west", pub);
