@@ -6,6 +6,7 @@ public class Game {
 
     private Room currentRoom;
     private CommandWords commands;
+    private Person currentPerson;
 
     public Game() {
         createRooms();
@@ -21,16 +22,16 @@ public class Game {
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
 
+        // Create persons for the rooms
         Person hans, lene, mathias;
-        hans = new Person("Hans", "hello");
-        lene = new Person("Lene", "hello");
-        mathias = new Person("Mathias", "hello");
+        hans = new Person("Hans", "Hello, Booby");
+        lene = new Person("Lene", "Hello, you handsome fella");
+        mathias = new Person("Mathias", "Please go away");
 
+        // Position the persons in the rooms
         outside.setPersons("Hans", hans);
         outside.setPersons("Lene", lene);
         theatre.setPersons("Mathias", mathias);
-
-
 
         outside.setExit("east", theatre);
         outside.setExit("south", lab);
@@ -46,6 +47,10 @@ public class Game {
         office.setExit("west", lab);
 
         currentRoom = outside;
+        // set currentPerson to null,
+        // because no persons has been engaged
+        // at the start of a new game
+        currentPerson = null;
     }
 
     public boolean goRoom(Command command) {
@@ -68,6 +73,24 @@ public class Game {
         }
     }
 
+    public boolean talkTo(Command command) {
+         if (!command.hasCommandValue()) {
+            return false; // return false if there is no command
+         }
+         // create a string to search for the person
+         // in the HashMap of persons
+         String person = command.getCommandValue();
+         // use that string to find a specific person
+         Person engagedPerson = currentRoom.getPerson(person);
+
+        if (engagedPerson == null) {
+            return false; // return false if the person doesn't exist
+        } else {
+            currentPerson = engagedPerson; // Set currentPerson to the person we want to talk to
+            return true;
+        }
+    }
+
     public boolean quit(Command command) {
         if (command.hasCommandValue()) {
             return false;
@@ -78,6 +101,15 @@ public class Game {
 
     public String getRoomDescription() {
         return currentRoom.getLongDescription();
+    }
+
+    public String getPersonResponse() {
+        if (currentPerson.getEngaged()) {
+            return currentPerson.getRejected();
+        } else {
+            currentPerson.setEngaged(true);
+            return currentPerson.getResponse();
+        }
     }
 
     public CommandWords getCommands() {

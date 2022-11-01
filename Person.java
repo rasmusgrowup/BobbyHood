@@ -31,17 +31,20 @@ public class Person {
     }
 
     // method for setting which response the npc has to use wether they have been engaged or not
-    public void setEngaged() {
-        engaged = !engaged; //reverse the value of engaged
+    public void setEngaged(boolean b) {
+        engaged = b; //set the value of engaged
     }
 
+    public boolean getEngaged() {
+        return engaged;
+    }
     // method to retrieve response for the npc
-    public void getResponse() {
-        if(!engaged) {
-            System.out.println(response); // the response for each npc when the npc-objects are created
-        } else {
-            System.out.println("Hey Bobby, we already talked"); //add a standard message to all npc's that bobby has talked to
-        }
+    public String getResponse() {
+        return response; // the response for each npc when the npc-objects are created
+    }
+
+    public String getRejected() {
+        return "Hey Bobby, we already talked"; //add a standard message to all npc's that bobby has talked to
     }
 
     // Main method for testing purposes

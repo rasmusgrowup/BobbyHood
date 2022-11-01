@@ -58,5 +58,9 @@ public class Room
         return exits.get(direction);
     }
 
+    public Person getPerson(String person)
+    {
+        return persons.get(person);
+    }
 }
 
