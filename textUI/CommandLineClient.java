@@ -79,7 +79,6 @@ public class CommandLineClient {
             } else {
                 System.out.println("Quit what?");
             }
-
         }
         return wantToQuit;
     }

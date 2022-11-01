@@ -45,7 +45,6 @@ public class Person {
     }
 
     // Main method for testing purposes
-    // test
     public static void main(String[] args) {
         Person npc1 = new Person("Hans", "Hi, my name is Hans, 68 years old and I'm retired");
         //npc1.setEngaged();

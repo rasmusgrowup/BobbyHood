@@ -1,24 +1,36 @@
 package worldOfZuul;
 
-import java.util.Set;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.*;
 
 
-public class Room 
+public class Room
 {
     private String description;
     private HashMap<String, Room> exits;
+    private static ArrayList<Person> persons;
 
-    public Room(String description) 
-    {
+    public Room(String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
+        this.persons = new ArrayList<Person>();
     }
 
-    public void setExit(String direction, Room neighbor) 
+    public String getPersons() {
+        String allnames = "";
+        for(int i=0; i<persons.size();i++) {
+            allnames += "" + persons.get(i).getName() + "\n";
+        }
+        return allnames;
+    }
+
+
+    public void setExit(String direction, Room neighbor)
     {
         exits.put(direction, neighbor);
+    }
+
+    public void setPersons(Person person) {
+        persons.add(person);
     }
 
     public String getShortDescription()
@@ -28,11 +40,10 @@ public class Room
 
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + getExitString();
+        return "You are " + description + ".\n" + "The persons in the room: " + "\n" + getPersons() + getExitString();
     }
 
-    private String getExitString()
-    {
+    private String getExitString() {
         String returnString = "Exits:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
@@ -41,9 +52,10 @@ public class Room
         return returnString;
     }
 
-    public Room getExit(String direction) 
+    public Room getExit(String direction)
     {
         return exits.get(direction);
     }
+
 }
 
