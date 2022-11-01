@@ -73,7 +73,15 @@ public class CommandLineClient {
             } else {
                 System.out.println("Can't walk in that direction.");
             }
-        } else if (commandWord == Commands.QUIT) {
+        } else if (commandWord == Commands.TALK) {
+            if (game.talkTo(command)) {
+                System.out.println(game.getPersonResponse());
+            } else {
+                System.out.println("This person does not exist");
+            }
+            }
+
+        else if (commandWord == Commands.QUIT) {
             if (game.quit(command)) {
                 wantToQuit = true;
             } else {
