@@ -9,7 +9,7 @@ package worldOfZuul.textUI;
  *
  * @author ancla
  */
-public class WorldOfZuulApplication {
+public class BobbyHoodApp {
 
     /**
      * @param args the command line arguments

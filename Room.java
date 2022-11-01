@@ -7,20 +7,21 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> exits;
-    private static ArrayList<Person> persons;
+    private HashMap<String, Person> persons;
 
     public Room(String description) {
         this.description = description;
         exits = new HashMap<String, Room>();
-        this.persons = new ArrayList<Person>();
+        persons = new HashMap<String, Person>();
     }
 
     public String getPersons() {
-        String allnames = "";
-        for(int i=0; i<persons.size();i++) {
-            allnames += "" + persons.get(i).getName() + "\n";
+        String returnString = "";
+        Set<String> keys = persons.keySet();
+        for(String person : keys) {
+            returnString += "" + person + "\n";
         }
-        return allnames;
+        return returnString;
     }
 
 
@@ -29,8 +30,8 @@ public class Room
         exits.put(direction, neighbor);
     }
 
-    public void setPersons(Person person) {
-        persons.add(person);
+    public void setPersons(String room, Person person) {
+        persons.put(room, person);
     }
 
     public String getShortDescription()
