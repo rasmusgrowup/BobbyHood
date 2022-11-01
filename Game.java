@@ -26,9 +26,9 @@ public class Game {
         lene = new Person("Lene", "hello");
         mathias = new Person("Mathias", "hello");
 
-        outside.setPersons(hans);
-        outside.setPersons(lene);
-        theatre.setPersons(mathias);
+        outside.setPersons("Hans", hans);
+        outside.setPersons("Lene", lene);
+        theatre.setPersons("Mathias", mathias);
 
 
 
