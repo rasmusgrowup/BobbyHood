@@ -26,17 +26,10 @@ public class Inventory {
         } return coins;
     }
 
-    public void printInventory(Inventory inventory) {
-        System.out.println();
-        System.out.println("## Inventory status ##");
-        System.out.println("Coins collected: " + inventory.getCoins());
-    }
-
-    public static void main(String[] args) {
-        Inventory inventory = new Inventory();
-        inventory.addItem(new Coin("coin", 100));
-        inventory.addItem(new Coin("coin", 150));
-        inventory.addItem(new Coin("coin", 50));
-        inventory.printInventory(inventory);
+    public String printInventory(Inventory inventory) {
+        return "## Inventory status ##" + "\n" + "Coins collected: " + inventory.getCoins();
+        //System.out.println();
+        //System.out.println("## Inventory status ##");
+        //System.out.println("Coins collected: " + inventory.getCoins());
     }
 }

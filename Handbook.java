@@ -1,23 +1,31 @@
 package BobbyHood;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Handbook {
 
     private String titel;
-    private HashMap<String, Fact> facts;
+    private HashMap<String, String> facts;
 
     Handbook(String titel) {
         this.titel = titel;
-        facts = new HashMap<String, Fact>();
+        facts = new HashMap<String, String>();
     }
 
-    public void setFacts(String specificTitel, Fact fact) {
-        facts.put(specificTitel, fact);
+    public void setFact(String key, String fact) {
+        facts.put(key, fact);
     }
 
-    public static void main(String[] args) {
-        Handbook handbook = new Handbook();
-        System.out.println(handbook.printHandbook());
+    public String getTitel() {
+        return titel;
+    }
+
+    public String printHandbook(Handbook handbook) {
+        String returnString = "## " + handbook.getTitel() + " ##\n";
+        for(String fact : facts.values()) {
+            returnString += "-- " + fact + "\n \n";
+        }
+        return returnString;
     }
 }

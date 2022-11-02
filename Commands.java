@@ -2,7 +2,12 @@ package BobbyHood;
 
 public enum Commands
 {
-    GO("go"), QUIT("quit"), HELP("help"), UNKNOWN("?"), TALK("talk");
+    GO("go"),
+    QUIT("quit"),
+    HELP("help"),
+    UNKNOWN("?"),
+    TALK("talk"),
+    OPEN("open");
     
     private String commandName;
     

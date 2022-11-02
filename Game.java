@@ -8,11 +8,29 @@ public class Game {
     private CommandWords commands;
     private Person currentPerson;
 
-    private Handbook handbook;
+    private Handbook handbook = new Handbook("UNICEF Handbook");;
+    private Inventory inventory = new Inventory();
 
     public Game() {
         createRooms();
+        createHandbook();
+        createInventory();
         commands = new CommandWordsImplementation();
+    }
+
+    private void createHandbook() {
+        String fact1 = "This is fact 1";
+        String fact2 = "This is fact 2";
+        String fact3 = "This is fact 3";
+        handbook.setFact("Fact 1", fact1);
+        handbook.setFact("Fact 2", fact2);
+        handbook.setFact("Fact 3", fact3);
+    }
+
+    private void createInventory() {
+        inventory.addItem(new Coin("Æble", 100));
+        inventory.addItem(new Coin("coin", 150));
+        inventory.addItem(new Coin("coin", 50));
     }
 
     private void createRooms() {
@@ -74,6 +92,32 @@ public class Game {
             return true;
         }
     }
+
+    public String open(Command command) {
+        if (!command.hasCommandValue()) {
+            //No direction on command.
+            //Can't continue with GO command.
+            return "wrong";
+        }
+
+        String choice = command.getCommandValue();
+        if (choice.equals("inventory")) {
+            return "inventory";
+        } else if (choice.equals("handbook")) {
+            handbook.printHandbook(handbook);
+            return "handbook";
+        }
+        return "wrong";
+    }
+
+    public String getHandbook() {
+        return handbook.printHandbook(handbook);
+    }
+
+    public String getInventory() {
+        return inventory.printInventory(inventory);
+    }
+
 
     public boolean talkTo(Command command) {
          if (!command.hasCommandValue()) {

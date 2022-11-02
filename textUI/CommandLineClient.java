@@ -81,6 +81,14 @@ public class CommandLineClient {
             } else {
                 System.out.println("This person does not exist");
             }
+        } else if (commandWord == Commands.OPEN) {
+            if (game.open(command).equals("inventory")) {
+                System.out.println(game.getInventory());
+            } else if (game.open(command).equals("handbook")) {
+                System.out.println(game.getHandbook());
+            } else {
+                System.out.println("Open what?");
+            }
         } else if (commandWord == Commands.QUIT) {
             if (game.quit(command)) {
                 wantToQuit = true;
