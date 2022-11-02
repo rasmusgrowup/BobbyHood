@@ -8,6 +8,8 @@ public class Game {
     private CommandWords commands;
     private Person currentPerson;
 
+    private Handbook handbook;
+
     public Game() {
         createRooms();
         commands = new CommandWordsImplementation();
