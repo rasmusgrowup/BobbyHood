@@ -41,11 +41,11 @@ public class Room
 
     public String getLongDescription()
     {
-        return "You are " + description + ".\n" + "The persons in the room: " + "\n" + getPersons() + getExitString();
+        return "You are " + description + ".\n" + "You can talk to these persons: " + "\n" + getPersons() + getExitString();
     }
 
     private String getExitString() {
-        String returnString = "Exits:";
+        String returnString = "\nExits:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;

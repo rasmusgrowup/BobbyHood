@@ -34,39 +34,53 @@ public class Game {
     }
 
     private void createRooms() {
-        Room outside, theatre, pub, lab, office;
+        Room building, north, east, south, west;
 
-        outside = new Room("outside the main entrance of the university");
-        theatre = new Room("in a lecture theatre");
-        pub = new Room("in the campus pub");
-        lab = new Room("in a computing lab");
-        office = new Room("in the computing admin office");
+        building = new Room("in the FN headquarters");
+        north = new Room("in the north of the park");
+        east = new Room("in the east of the park");
+        south = new Room("in the south of the park");
+        west = new Room("in the west of the park");
 
         // Create persons for the rooms
-        Person hans, lene, mathias;
-        hans = new Person("Hans", "Hello, Booby");
+        Person john, hans, lene, mathias;
+        john = new Person(
+                "John",
+                "Hello, Bobby.\n" +
+                        "\nAre you ready to help fight extreme poverty? \n" +
+                        "Use your UNICEF handbook as a way to persuade \n" +
+                        "the people you meet to donate for our cause,\n" +
+                        "or join us as a volunteer.\n" +
+                        "\nGood luck!");
+        hans = new Person("Hans", "Hello, Bobby");
         lene = new Person("Lene", "Hello, you handsome fella");
         mathias = new Person("Mathias", "Please go away");
 
         // Position the persons in the rooms
-        outside.setPersons("Hans", hans);
-        outside.setPersons("Lene", lene);
-        theatre.setPersons("Mathias", mathias);
+        building.setPersons("John", john);
+        north.setPersons("Lene", lene);
+        north.setPersons("Mathias", mathias);
 
-        outside.setExit("east", theatre);
-        outside.setExit("south", lab);
-        outside.setExit("west", pub);
+        building.setExit("outside", north);
 
-        theatre.setExit("west", outside);
+        north.setExit("inside", building);
+        north.setExit("east", east);
+        north.setExit("south", south);
+        north.setExit("west", west);
 
-        pub.setExit("east", outside);
+        east.setExit("north", north);
+        east.setExit("south", south);
+        east.setExit("west", west);
 
-        lab.setExit("north", outside);
-        lab.setExit("east", office);
+        south.setExit("north", north);
+        south.setExit("east", east);
+        south.setExit("west", west);
 
-        office.setExit("west", lab);
+        west.setExit("north", north);
+        west.setExit("south", south);
+        west.setExit("east", east);
 
-        currentRoom = outside;
+        currentRoom = building;
         // set currentPerson to null,
         // because no persons has been engaged
         // at the start of a new game
