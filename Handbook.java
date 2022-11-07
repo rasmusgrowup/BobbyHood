@@ -24,7 +24,7 @@ public class Handbook {
     public String printHandbook(Handbook handbook) {
         String returnString = "## " + handbook.getTitel() + " ##\n";
         for(String fact : facts.values()) {
-            returnString += "-- " + fact + "\n \n";
+            returnString += " - " + fact + "\n \n";
         }
         return returnString;
     }

@@ -28,7 +28,7 @@ public class Game {
     }
 
     private void createInventory() {
-        inventory.addItem(new Coin("Æble", 100));
+        inventory.addItem(new Coin("coin", 100));
         inventory.addItem(new Coin("coin", 150));
         inventory.addItem(new Coin("coin", 50));
     }
@@ -101,9 +101,9 @@ public class Game {
         }
 
         String choice = command.getCommandValue();
-        if (choice.equals("inventory")) {
+        if (choice.equals("inventory") || choice.equals("Inventory")) {
             return "inventory";
-        } else if (choice.equals("handbook")) {
+        } else if (choice.equals("handbook") || choice.equals("Handbook")) {
             handbook.printHandbook(handbook);
             return "handbook";
         }
@@ -121,7 +121,7 @@ public class Game {
 
     public boolean talkTo(Command command) {
          if (!command.hasCommandValue()) {
-            return false; // return false if there is no command
+            return false; // return false if there is no second word in command
          }
          // create a string to search for the person
          // in the HashMap of persons
@@ -138,11 +138,7 @@ public class Game {
     }
 
     public boolean quit(Command command) {
-        if (command.hasCommandValue()) {
-            return false;
-        } else {
-            return true;
-        }
+        return !command.hasCommandValue();
     }
 
     public String getRoomDescription() {
