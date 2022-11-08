@@ -64,8 +64,8 @@ public class CommandLineClient {
         }
 
         if (commandWord == Commands.HELP) {
-            System.out.println("You are lost. You are alone. You wander");
-            System.out.println("around at the university.");
+            //System.out.println("You are lost. You are alone. You wander");
+            //System.out.println("around at the university.");
             System.out.println();
             System.out.println("Your command words are:");
             printHelp();
@@ -79,7 +79,7 @@ public class CommandLineClient {
             if (game.talkTo(command)) {
                 System.out.println(game.getPersonResponse());
             } else {
-                System.out.println("This person does not exist");
+                System.out.println("Nobody here, is called " + command.getCommandValue());
             }
         } else if (commandWord == Commands.OPEN) {
             if (game.open(command).equals("inventory")) {

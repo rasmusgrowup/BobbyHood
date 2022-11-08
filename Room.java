@@ -25,8 +25,7 @@ public class Room
     }
 
 
-    public void setExit(String direction, Room neighbor)
-    {
+    public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
@@ -34,18 +33,16 @@ public class Room
         persons.put(room, person);
     }
 
-    public String getShortDescription()
-    {
+    public String getShortDescription() {
         return description;
     }
 
-    public String getLongDescription()
-    {
-        return "You are " + description + ".\n" + "You can talk to these persons: " + "\n" + getPersons() + getExitString();
+    public String getLongDescription() {
+        return "You are " + getShortDescription() + ".\n" + "You can talk to these persons: " + "\n" + getPersons() + getExitString();
     }
 
     private String getExitString() {
-        String returnString = "\nExits:";
+        String returnString = "\nGo to the:";
         Set<String> keys = exits.keySet();
         for(String exit : keys) {
             returnString += " " + exit;
@@ -53,13 +50,11 @@ public class Room
         return returnString;
     }
 
-    public Room getExit(String direction)
-    {
+    public Room getExit(String direction) {
         return exits.get(direction);
     }
 
-    public Person getPerson(String person)
-    {
+    public Person getPerson(String person) {
         return persons.get(person);
     }
 }

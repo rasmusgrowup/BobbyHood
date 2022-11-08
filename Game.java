@@ -19,12 +19,15 @@ public class Game {
     }
 
     private void createHandbook() {
-        String fact1 = "This is fact 1";
-        String fact2 = "This is fact 2";
-        String fact3 = "This is fact 3";
-        handbook.setFact("Fact 1", fact1);
-        handbook.setFact("Fact 2", fact2);
-        handbook.setFact("Fact 3", fact3);
+        String fact1, fact2, fact3;
+        fact1 = "80% of all people living in extreme poverty\n" +
+                "comes from South Asia and Sub Sahara.\n";
+        fact2 = "Today, over 700 million people live in extreme\n" +
+                "poverty.\n";
+        fact3 = "The international poverty line is $2,15.\n";
+        handbook.setFact("#1", fact1);
+        handbook.setFact("#2", fact2);
+        handbook.setFact("#3", fact3);
     }
 
     private void createInventory() {
@@ -46,12 +49,16 @@ public class Game {
         Person john, hans, lene, mathias;
         john = new Person(
                 "John",
-                "Hello, Bobby.\n" +
+                "\nHello, Bobby.\n" +
                         "\nAre you ready to help fight extreme poverty? \n" +
-                        "Use your UNICEF handbook as a way to persuade \n" +
+                        "\nWe are always short of hands and funds in our\n" +
+                        "organisation.\n" +
+                        "\nUse your UNICEF handbook as a way to persuade \n" +
                         "the people you meet to donate for our cause,\n" +
                         "or join us as a volunteer.\n" +
-                        "\nGood luck!");
+                        "\nYou can start in the park just outside this building.\n" +
+                        "\nReturn to me, when you are done.\n" +
+                        "\nGood luck!\n");
         hans = new Person("Hans", "Hello, Bobby");
         lene = new Person("Lene", "Hello, you handsome fella");
         mathias = new Person("Mathias", "Please go away");
@@ -59,7 +66,8 @@ public class Game {
         // Position the persons in the rooms
         building.setPersons("John", john);
         north.setPersons("Lene", lene);
-        north.setPersons("Mathias", mathias);
+        east.setPersons("Mathias", mathias);
+        south.setPersons("Hans", hans);
 
         building.setExit("outside", north);
 
