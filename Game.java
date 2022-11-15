@@ -1,17 +1,21 @@
 package BobbyHood;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Game {
 
     private Room currentRoom;
     private CommandWords commands;
+
+    private Player bobby;
     private Person currentPerson;
 
     private Handbook handbook = new Handbook("UNICEF Handbook");;
     private Inventory inventory = new Inventory();
 
     public Game() {
+        createPlayer();
         createRooms();
         createHandbook();
         createInventory();
@@ -31,9 +35,14 @@ public class Game {
     }
 
     private void createInventory() {
-        inventory.addItem(new Coin("coin", 100));
-        inventory.addItem(new Coin("coin", 150));
-        inventory.addItem(new Coin("coin", 50));
+        this.inventory = new Inventory();
+       // inventory.addItem(new Coin("coin", 100));
+       // inventory.addItem(new Coin("coin", 150));
+       // inventory.addItem(new Coin("coin", 50));
+    }
+
+    private void createPlayer() {
+        this.bobby = new Player();
     }
 
     private void createRooms() {
@@ -59,15 +68,54 @@ public class Game {
                         "\nYou can start in the park just outside this building.\n" +
                         "\nReturn to me, when you are done.\n" +
                         "\nGood luck!\n");
-        hans = new Person("Hans", "Hello, Bobby");
-        lene = new Person("Lene", "Hello, you handsome fella");
+
+        // Create Hans and dialogs with Hans
+        String hansQuestion = new String("Your answers can be: \n" +
+                "1: 100 million\n" +
+                "2: 500 million\n" +
+                "3: 700 million\n" +
+                "type 'open handbook' if you need help to find the right answer");
+        hans = new Person("Hans", "Hello, Bobby", hansQuestion, 3, new Coin(450));
+        hans.setDialog(new String[]{
+                "Hi there, Bobby. My name is " + hans.getName() + ".",
+                "Oh no, that sounds horrible. Here, I'll donate " + hans.getValue() + " coins to your cause.",
+                "Sure. I’ll donate a 200 coins."
+        });
+        String[] hansDialog = new String[]{
+                "Hello. My name is Bobby.",
+                "Did you know that ___ million people live in extreme poverty.",
+                "Thank you"
+        };
+        bobby.setDialog(hans, hansDialog);
+
+        // Create Lene and dialogs with Lene
+        String leneQuestion = new String("The international poverty line is: \n" +
+                "1: $2,15\n" +
+                "2: $4,50\n" +
+                "3: $7,00\n" +
+                "type 'open handbook' if you need help to find the right answer");
+        lene = new Person("Lene", "Hello, you handsome fella", leneQuestion, 1, new Coin(100));
+        lene.setDialog(new String[]{
+                "Hi there, handsome Bobby. My name is " + hans.getName() + ".",
+                "Really?! I can't believe what I'm hearing. Here, I'll donate " + lene.getValue() + " coins to your cause.",
+                "Sure. I’ll donate a 200 coins."
+        });
+        String[] leneDialog = new String[]{
+                "Hello. My name is Bobby.",
+                "The international poverty line is ____ .",
+                "Thank you"
+        };
+        bobby.setDialog(lene, leneDialog);
+
+
+
         mathias = new Person("Mathias", "Please go away");
 
         // Position the persons in the rooms
         building.setPersons("John", john);
         north.setPersons("Lene", lene);
         east.setPersons("Mathias", mathias);
-        south.setPersons("Hans", hans);
+        north.setPersons("Hans", hans);
 
         building.setExit("outside", north);
 
@@ -157,6 +205,35 @@ public class Game {
             currentPerson = engagedPerson; // Set currentPerson to the person we want to talk to
             return true;
         }
+    }
+
+    public boolean startDialog(Command command) {
+        if (!command.hasCommandValue()) {
+            return false; // return false if there is no second word in command
+        }
+
+        //
+        System.out.println(bobby.getDialog(currentPerson, 0));
+        System.out.println(currentPerson.getDialog(0));
+        System.out.println();
+        System.out.println(bobby.getDialog(currentPerson, 1));
+        System.out.println(currentPerson.getQuestion());
+        Scanner scanner = new Scanner(System.in);
+        boolean correctAnswer = true;
+        while (correctAnswer) {
+            int index = currentPerson.getCorrectAnswerIndex();
+            int use = scanner.nextInt();
+            if (use == index) {
+                System.out.println(currentPerson.getDialog(1));
+                correctAnswer = false;
+                inventory.addItem(currentPerson.getItem());
+                System.out.println("\033[3m" + currentPerson.getValue() + " COINS WAS ADDED TO YOU INVENTORY\033[0m");
+                System.out.println(bobby.getDialog(currentPerson, 2));
+            } else {
+                System.out.println("Please try again");
+            }
+        }
+        return true;
     }
 
     public boolean quit(Command command) {

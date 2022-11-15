@@ -1,15 +1,20 @@
 package BobbyHood;
 
-class Coin extends Item {
+class Coin implements Item {
     private int amount;
 
-    Coin (String type, int amount) {
-        super(type);
+    Coin (int amount) {
         this.amount = amount;
     }
 
+    @Override
     public int getAmount() {
         return amount;
+    }
+
+    @Override
+    public String setType() {
+        return null;
     }
 
     public void setAmount(int amount) {

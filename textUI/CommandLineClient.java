@@ -77,7 +77,8 @@ public class CommandLineClient {
             }
         } else if (commandWord == Commands.TALK) {
             if (game.talkTo(command)) {
-                System.out.println(game.getPersonResponse());
+                //System.out.println(game.getPersonResponse());
+                game.startDialog(command);
             } else {
                 System.out.println("Nobody here, is called " + command.getCommandValue());
             }

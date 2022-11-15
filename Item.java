@@ -1,17 +1,7 @@
 package BobbyHood;
 
-abstract class Item {
-    String type;
+public interface Item {
+    String setType();
 
-    Item (String type) {
-        this.type = type;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
+    int getAmount();
 }

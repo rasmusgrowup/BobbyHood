@@ -8,11 +8,57 @@ public class Person {
     private boolean engaged;
     private String response;
 
-    // contructor for person object
+    private String question;
+    private int correctAnswerIndex;
+
+    private Item item;
+
+    // Just an array for efficiency
+    private String[] dialog;
+
+    // constructor for person object
     public Person(String name, String response) {
         this.name = name;
         engaged = false;
         this.response = response;
+    }
+
+    public Person(String name, String response, String question, int i, Item item) {
+        this.name = name;
+        engaged = false;
+        this.response = response;
+        this.question = question;
+        correctAnswerIndex = i;
+        this.item = item;
+    }
+
+    public Person() {
+        String[] dialog = new String[3];
+    }
+
+    // Set dialog method
+    public void setDialog(String[] dialog) {
+        this.dialog = dialog;
+    }
+
+    public String getDialog(int index) {
+        return getName() + " says: " + dialog[index];
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public int getValue() {
+        return item.getAmount();
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public int getCorrectAnswerIndex() {
+        return correctAnswerIndex;
     }
 
     // method to get the name of a person object
@@ -50,7 +96,13 @@ public class Person {
     // Main method for testing purposes
     public static void main(String[] args) {
         Person npc1 = new Person("Hans", "Hi, my name is Hans, 68 years old and I'm retired");
+        npc1.setDialog(new String[]{
+                "This is sentence 1",
+                "This is sentence 2",
+                "This is the last sentence"
+        });
         //npc1.setEngaged();
         npc1.getResponse();
+        System.out.println(npc1.getDialog(1) + "\n" + npc1.getDialog(1) + "\n" + npc1.getDialog(2));
     }
 }
