@@ -42,7 +42,7 @@ public class Person {
     }
 
     public String getDialog(int index) {
-        return getName() + " says: " + dialog[index];
+        return getName() + ": " + dialog[index];
     }
 
     public Item getItem() {
@@ -54,7 +54,7 @@ public class Person {
     }
 
     public String getQuestion() {
-        return question;
+        return question + "\nFill in the blank by typing the correct number." + "\nTip: Try 'open handbook' if you need help to find the right answer";
     }
 
     public int getCorrectAnswerIndex() {

@@ -1,61 +1,89 @@
 package BobbyHood;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Game {
 
-    private Room currentRoom;
     private CommandWords commands;
-
-    private Player bobby;
+    private Room currentRoom;
     private Person currentPerson;
-
-    private Handbook handbook = new Handbook("UNICEF Handbook");;
-    private Inventory inventory = new Inventory();
+    private Player bobby;
+    private Handbook handbook;
+    private Inventory inventory;
 
     public Game() {
-        createPlayer();
-        createRooms();
-        createHandbook();
-        createInventory();
+        createPlayer(); // call createPlayer() method
+        createRooms(); // call createRoom() method
+        populateHandbook(); // call populateHandbook() method
+        createInventory(); // call createInventory() method
         commands = new CommandWordsImplementation();
     }
 
-    private void createHandbook() {
-        String fact1, fact2, fact3;
+    private void populateHandbook() {
+        handbook = new Handbook("UNICEF Handbook"); // new instance of Handbook
+        String fact1, fact2, fact3; // fact variables
+
+        // the strings for the facts
         fact1 = "80% of all people living in extreme poverty\n" +
                 "comes from South Asia and Sub Sahara.\n";
         fact2 = "Today, over 700 million people live in extreme\n" +
                 "poverty.\n";
         fact3 = "The international poverty line is $2,15.\n";
+
+        // set the text for the facts
         handbook.setFact("#1", fact1);
         handbook.setFact("#2", fact2);
         handbook.setFact("#3", fact3);
     }
 
     private void createInventory() {
-        this.inventory = new Inventory();
-       // inventory.addItem(new Coin("coin", 100));
-       // inventory.addItem(new Coin("coin", 150));
-       // inventory.addItem(new Coin("coin", 50));
+        inventory = new Inventory(); // new instance of Inventory
     }
 
     private void createPlayer() {
-        this.bobby = new Player();
+        bobby = new Player(); // new instance of Player
     }
 
     private void createRooms() {
+        // room variable names
         Room building, north, east, south, west;
 
+        // descriptions for the rooms
         building = new Room("in the FN headquarters");
         north = new Room("in the north of the park");
         east = new Room("in the east of the park");
         south = new Room("in the south of the park");
         west = new Room("in the west of the park");
 
+        // define the room the player starts in
+        currentRoom = building;
+
+        // start building exit
+        building.setExit("outside", north);
+        // north exit options
+        north.setExit("inside", building);
+        north.setExit("east", east);
+        north.setExit("south", south);
+        north.setExit("west", west);
+        // east exit options
+        east.setExit("north", north);
+        east.setExit("south", south);
+        east.setExit("west", west);
+        // south exit options
+        south.setExit("north", north);
+        south.setExit("east", east);
+        south.setExit("west", west);
+        // west exit options
+        west.setExit("north", north);
+        west.setExit("south", south);
+        west.setExit("east", east);
+
         // Create persons for the rooms
         Person john, hans, lene, mathias;
+
+        // create and set the dialog for John
         john = new Person(
                 "John",
                 "\nHello, Bobby.\n" +
@@ -69,46 +97,63 @@ public class Game {
                         "\nReturn to me, when you are done.\n" +
                         "\nGood luck!\n");
 
-        // Create Hans and dialogs with Hans
-        String hansQuestion = new String("Your answers can be: \n" +
+        // create the options for Hans
+        String hansQuestion = "\n" +
                 "1: 100 million\n" +
                 "2: 500 million\n" +
-                "3: 700 million\n" +
-                "type 'open handbook' if you need help to find the right answer");
+                "3: 700 million\n";
+
+        // new instance of person, Hans
         hans = new Person("Hans", "Hello, Bobby", hansQuestion, 3, new Coin(450));
+
+        // set the dialog for Hans
         hans.setDialog(new String[]{
                 "Hi there, Bobby. My name is " + hans.getName() + ".",
                 "Oh no, that sounds horrible. Here, I'll donate " + hans.getValue() + " coins to your cause.",
                 "Sure. I’ll donate a 200 coins."
         });
+
+        // set the players dialog for Hans
         String[] hansDialog = new String[]{
                 "Hello. My name is Bobby.",
                 "Did you know that ___ million people live in extreme poverty.",
                 "Thank you"
         };
+
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
         bobby.setDialog(hans, hansDialog);
 
-        // Create Lene and dialogs with Lene
-        String leneQuestion = new String("The international poverty line is: \n" +
+        // create the options for Lene
+        String leneQuestion = "\n" +
                 "1: $2,15\n" +
                 "2: $4,50\n" +
-                "3: $7,00\n" +
-                "type 'open handbook' if you need help to find the right answer");
+                "3: $7,00\n";
+
+        // new instance of Lene
         lene = new Person("Lene", "Hello, you handsome fella", leneQuestion, 1, new Coin(100));
+
+        // set the dialog for person, Lene
         lene.setDialog(new String[]{
-                "Hi there, handsome Bobby. My name is " + hans.getName() + ".",
+                "Hi there, handsome Bobby. My name is " + lene.getName() + ".",
                 "Really?! I can't believe what I'm hearing. Here, I'll donate " + lene.getValue() + " coins to your cause.",
                 "Sure. I’ll donate a 200 coins."
         });
+
+        // set the players dialog with Lene
         String[] leneDialog = new String[]{
                 "Hello. My name is Bobby.",
-                "The international poverty line is ____ .",
+                "Did you know, that the international poverty line is ____ .",
                 "Thank you"
         };
+
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
         bobby.setDialog(lene, leneDialog);
 
-
-
+        // new instance of person, Mathias
         mathias = new Person("Mathias", "Please go away");
 
         // Position the persons in the rooms
@@ -117,26 +162,6 @@ public class Game {
         east.setPersons("Mathias", mathias);
         north.setPersons("Hans", hans);
 
-        building.setExit("outside", north);
-
-        north.setExit("inside", building);
-        north.setExit("east", east);
-        north.setExit("south", south);
-        north.setExit("west", west);
-
-        east.setExit("north", north);
-        east.setExit("south", south);
-        east.setExit("west", west);
-
-        south.setExit("north", north);
-        south.setExit("east", east);
-        south.setExit("west", west);
-
-        west.setExit("north", north);
-        west.setExit("south", south);
-        west.setExit("east", east);
-
-        currentRoom = building;
         // set currentPerson to null,
         // because no persons has been engaged
         // at the start of a new game
@@ -144,17 +169,18 @@ public class Game {
     }
 
     public boolean goRoom(Command command) {
-
+        // check if there is a command value
         if (!command.hasCommandValue()) {
-            //No direction on command.
-            //Can't continue with GO command.
             return false;
         }
 
+        // get command value and store it as a string
         String direction = command.getCommandValue();
+        // get the exit that matches the string
+        Room nextRoom = currentRoom.getExit(direction); //
 
-        Room nextRoom = currentRoom.getExit(direction);
-
+        // if the room has an exit that matches the string
+        // we go in that direction. If not, we return false
         if (nextRoom == null) {
             return false;
         } else {
@@ -164,20 +190,22 @@ public class Game {
     }
 
     public String open(Command command) {
+        // check if the command value is empty
         if (!command.hasCommandValue()) {
-            //No direction on command.
-            //Can't continue with GO command.
-            return "wrong";
+            return "empty";
         }
 
+        // get command value and store it as a string
         String choice = command.getCommandValue();
+
+        // check if the command value is inventory or handbook
         if (choice.equals("inventory") || choice.equals("Inventory")) {
             return "inventory";
         } else if (choice.equals("handbook") || choice.equals("Handbook")) {
-            handbook.printHandbook(handbook);
             return "handbook";
         }
-        return "wrong";
+        // if not, return string 'error'
+        return "error";
     }
 
     public String getHandbook() {
@@ -190,8 +218,9 @@ public class Game {
 
 
     public boolean talkTo(Command command) {
+        // check if the command value is empty
          if (!command.hasCommandValue()) {
-            return false; // return false if there is no second word in command
+            return false;
          }
          // create a string to search for the person
          // in the HashMap of persons
@@ -199,39 +228,62 @@ public class Game {
          // use that string to find a specific person
          Person engagedPerson = currentRoom.getPerson(person);
 
-        if (engagedPerson == null) {
+         // check if the person exists
+         if (engagedPerson == null) {
             return false; // return false if the person doesn't exist
-        } else {
+         } else {
             currentPerson = engagedPerson; // Set currentPerson to the person we want to talk to
             return true;
-        }
+         }
     }
 
     public boolean startDialog(Command command) {
+        // check if the command value is empty
         if (!command.hasCommandValue()) {
-            return false; // return false if there is no second word in command
+            return false;
         }
 
-        //
-        System.out.println(bobby.getDialog(currentPerson, 0));
-        System.out.println(currentPerson.getDialog(0));
-        System.out.println();
-        System.out.println(bobby.getDialog(currentPerson, 1));
-        System.out.println(currentPerson.getQuestion());
-        Scanner scanner = new Scanner(System.in);
-        boolean correctAnswer = true;
-        while (correctAnswer) {
-            int index = currentPerson.getCorrectAnswerIndex();
-            int use = scanner.nextInt();
-            if (use == index) {
-                System.out.println(currentPerson.getDialog(1));
-                correctAnswer = false;
-                inventory.addItem(currentPerson.getItem());
-                System.out.println("\033[3m" + currentPerson.getValue() + " COINS WAS ADDED TO YOU INVENTORY\033[0m");
-                System.out.println(bobby.getDialog(currentPerson, 2));
-            } else {
-                System.out.println("Please try again");
+        // get the boolean value of engaged for the current person
+        boolean hasBeenEngagedBefore = currentPerson.getEngaged();
+
+        // we first check if the current person has been engaged before
+        // if not, we start up a dialog
+        // or else we return a message telling the player
+        // that this person has been engaged before
+        if (!hasBeenEngagedBefore) {
+            // here we start the dialog
+            System.out.println(bobby.getDialog(currentPerson, 0)); // the players greeting message
+            System.out.println(currentPerson.getDialog(0)); // the current persons response
+            System.out.println();
+            System.out.println(bobby.getDialog(currentPerson, 1)); // the players question for the person
+            System.out.println(currentPerson.getQuestion()); // the possible answers for the question
+            boolean dialogActive = true; // boolean that we use to escape the following loop
+
+            // here we handle the users answer
+            // if the users answer is not an integer,
+            // we catch the exception
+            while (dialogActive) {
+                try {
+                    Scanner scanner = new Scanner(System.in); // new scanner
+                    int index = currentPerson.getCorrectAnswerIndex(); // get the index of the correct answer
+                    int userInput = scanner.nextInt(); // get the users input
+                    // check if the userInput equals the index of the correct answer
+                    if (userInput == index) {
+                        System.out.println(currentPerson.getDialog(1)); // the persons response if the answer is correct
+                        dialogActive = false; // escape the dialog
+                        inventory.addItem(currentPerson.getItem()); // add the persons items to the players inventory
+                        System.out.println("\033[3mSUCCESS! " + currentPerson.getValue() + " COINS WAS ADDED TO YOUR INVENTORY\033[0m");
+                        System.out.println(bobby.getDialog(currentPerson, 2)); // the players goodbye message
+                        currentPerson.setEngaged(true); // set the value of engaged to true for the person
+                    } else {
+                        System.out.println("Incorrect answer. Please try again");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Not a number. Please try again by typing a number, like 5");
+                }
             }
+        } else {
+            System.out.println(currentPerson.getRejected()); // the person's message if the person has already been engaged
         }
         return true;
     }

@@ -19,7 +19,7 @@ public class Player {
 
     public String getDialog(Person person, int i) {
         String[] d = dialog.get(person);
-        return "Bobby says: " + d[i];
+        return "Bobby: " + d[i];
     }
 /*
     public static void main(String[] args) {

@@ -59,7 +59,7 @@ public class CommandLineClient {
         Commands commandWord = command.getCommandName();
 
         if (commandWord == Commands.UNKNOWN) {
-            System.out.println("I don't know what you mean...");
+            System.out.println("Please type a valid command. Type 'help' to see available commands.");
             return false;
         }
 
@@ -77,7 +77,6 @@ public class CommandLineClient {
             }
         } else if (commandWord == Commands.TALK) {
             if (game.talkTo(command)) {
-                //System.out.println(game.getPersonResponse());
                 game.startDialog(command);
             } else {
                 System.out.println("Nobody here, is called " + command.getCommandValue());
@@ -87,6 +86,8 @@ public class CommandLineClient {
                 System.out.println(game.getInventory());
             } else if (game.open(command).equals("handbook")) {
                 System.out.println(game.getHandbook());
+            } else if (game.open(command).equals("empty")) {
+                System.out.println("Can't open nothing");
             } else {
                 System.out.println("Open what?");
             }
