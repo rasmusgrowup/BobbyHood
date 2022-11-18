@@ -19,7 +19,7 @@ public class Room
         String returnString = "";
         Set<String> keys = persons.keySet();
         for(String person : keys) {
-            returnString += "" + person + "\n";
+            returnString += "" + persons.get(person).getName() + "\n";
         }
         return returnString;
     }
@@ -29,8 +29,8 @@ public class Room
         exits.put(direction, neighbor);
     }
 
-    public void setPersons(String room, Person person) {
-        persons.put(room, person);
+    public void setPersons(String name, Person person) {
+        persons.put(name.toLowerCase(), person);
     }
 
     public String getShortDescription() {
@@ -55,7 +55,7 @@ public class Room
     }
 
     public Person getPerson(String person) {
-        return persons.get(person);
+        return persons.get(person.toLowerCase());
     }
 }
 

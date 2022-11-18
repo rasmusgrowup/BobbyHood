@@ -6,29 +6,28 @@ public class Person {
     private int age;
     private String description;
     private boolean engaged;
-    private String response;
-
     private String question;
     private int correctAnswerIndex;
-
+    private int correctTypeIndex;
     private Item item;
 
     // Just an array for efficiency
     private String[] dialog;
 
     // constructor for person object
-    public Person(String name, String response) {
+    public Person(String name, String description) {
         this.name = name;
         engaged = false;
-        this.response = response;
+        this.description = description;
     }
 
-    public Person(String name, String response, String question, int i, Item item) {
+    public Person(String name, String description, String question, int i, int t, Item item) {
         this.name = name;
         engaged = false;
-        this.response = response;
+        this.description = description;
         this.question = question;
         correctAnswerIndex = i;
+        correctTypeIndex = t;
         this.item = item;
     }
 
@@ -49,16 +48,24 @@ public class Person {
         return item;
     }
 
+    public void setItemAmount() {
+        item.getAmount();
+    }
+
     public int getValue() {
         return item.getAmount();
     }
 
     public String getQuestion() {
-        return question + "\nFill in the blank by typing the correct number." + "\nTip: Try 'open handbook' if you need help to find the right answer";
+        return question + "\nFill in the blank by typing the correct number.";
     }
 
     public int getCorrectAnswerIndex() {
         return correctAnswerIndex;
+    }
+
+    public int getCorrectTypeIndex() {
+        return correctTypeIndex;
     }
 
     // method to get the name of a person object
@@ -72,7 +79,7 @@ public class Person {
     }
 
     // method for getting the description for each person object created
-    public String getPersonDescription() {
+    public String getDescription() {
         return description;
     }
 
@@ -84,10 +91,6 @@ public class Person {
     public boolean getEngaged() {
         return engaged;
     }
-    // method to retrieve response for the npc
-    public String getResponse() {
-        return response; // the response for each npc when the npc-objects are created
-    }
 
     public String getRejected() {
         return "Hey Bobby, we already talked"; //add a standard message to all npc's that bobby has talked to
@@ -95,14 +98,9 @@ public class Person {
 
     // Main method for testing purposes
     public static void main(String[] args) {
-        Person npc1 = new Person("Hans", "Hi, my name is Hans, 68 years old and I'm retired");
-        npc1.setDialog(new String[]{
-                "This is sentence 1",
-                "This is sentence 2",
-                "This is the last sentence"
-        });
-        //npc1.setEngaged();
-        npc1.getResponse();
-        System.out.println(npc1.getDialog(1) + "\n" + npc1.getDialog(1) + "\n" + npc1.getDialog(2));
+        Person npc1 = new Person("Hans", "Hi, my name is Hans, 68 years old and I'm retired", "question", 2, 2, new Coin(100));
+        System.out.println(npc1.getItem().getAmount());
+        npc1.getItem().setAmount(50);
+        System.out.println(npc1.getItem().getAmount());
     }
 }

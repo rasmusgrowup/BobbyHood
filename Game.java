@@ -51,7 +51,7 @@ public class Game {
         Room building, north, east, south, west;
 
         // descriptions for the rooms
-        building = new Room("in the FN headquarters");
+        building = new Room("in the UN headquarters");
         north = new Room("in the north of the park");
         east = new Room("in the east of the park");
         south = new Room("in the south of the park");
@@ -104,12 +104,15 @@ public class Game {
                 "3: 700 million\n";
 
         // new instance of person, Hans
-        hans = new Person("Hans", "Hello, Bobby", hansQuestion, 3, new Coin(450));
+        hans = new Person("Hans",
+                "Hans is an elderly looking man, strolling through the park."
+                , hansQuestion, 3, 2, new Coin(400)
+        );
 
         // set the dialog for Hans
         hans.setDialog(new String[]{
                 "Hi there, Bobby. My name is " + hans.getName() + ".",
-                "Oh no, that sounds horrible. Here, I'll donate " + hans.getValue() + " coins to your cause.",
+                "Oh no, that sounds horrible. Here, I'll donate a little to your cause.",
                 "Sure. I’ll donate a 200 coins."
         });
 
@@ -132,12 +135,15 @@ public class Game {
                 "3: $7,00\n";
 
         // new instance of Lene
-        lene = new Person("Lene", "Hello, you handsome fella", leneQuestion, 1, new Coin(100));
+        lene = new Person("Lene",
+                "Lene is a very attractive business woman. She's walking while talking on the phone",
+                leneQuestion, 1, 1, new Coin(250)
+        );
 
         // set the dialog for person, Lene
         lene.setDialog(new String[]{
                 "Hi there, handsome Bobby. My name is " + lene.getName() + ".",
-                "Really?! I can't believe what I'm hearing. Here, I'll donate " + lene.getValue() + " coins to your cause.",
+                "Really?! I can't believe what I'm hearing. Sure, I'll donate to your cause.",
                 "Sure. I’ll donate a 200 coins."
         });
 
@@ -153,14 +159,45 @@ public class Game {
         // person and the dialog for that person
         bobby.setDialog(lene, leneDialog);
 
+        // create the options for Lene
+        String mathiasQuestion = "\n" +
+                "1: Africa\n" +
+                "2: South Asia and Sub Sahara\n" +
+                "3: South America\n";
+
         // new instance of person, Mathias
-        mathias = new Person("Mathias", "Please go away");
+        mathias = new Person("Mathias",
+                "Mathias is standing outside the university. He studies philosophy.",
+                mathiasQuestion,
+                1,
+                2,
+                new Coin(50)
+        );
+
+        // set the dialog for person, Lene
+        mathias.setDialog(new String[]{
+                "Hi there, handsome Bobby. My name is " + lene.getName() + ".",
+                "Really?! I can't believe what I'm hearing. Sure, I'll donate to your cause.",
+                "Sure. I’ll donate a 200 coins."
+        });
+
+        // set the players dialog with Lene
+        String[] mathiasDialog = new String[]{
+                "Hello. My name is Bobby.",
+                "80% of all people living in extreme poverty comes from ____.",
+                "Thank you"
+        };
+
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
+        bobby.setDialog(mathias, mathiasDialog);
 
         // Position the persons in the rooms
         building.setPersons("John", john);
         north.setPersons("Lene", lene);
-        east.setPersons("Mathias", mathias);
-        north.setPersons("Hans", hans);
+        west.setPersons("Mathias", mathias);
+        east.setPersons("Hans", hans);
 
         // set currentPerson to null,
         // because no persons has been engaged
@@ -267,6 +304,7 @@ public class Game {
                     Scanner scanner = new Scanner(System.in); // new scanner
                     int index = currentPerson.getCorrectAnswerIndex(); // get the index of the correct answer
                     int userInput = scanner.nextInt(); // get the users input
+                    int amount = currentPerson.getItem().getAmount();
                     // check if the userInput equals the index of the correct answer
                     if (userInput == index) {
                         System.out.println(currentPerson.getDialog(1)); // the persons response if the answer is correct
@@ -276,7 +314,9 @@ public class Game {
                         System.out.println(bobby.getDialog(currentPerson, 2)); // the players goodbye message
                         currentPerson.setEngaged(true); // set the value of engaged to true for the person
                     } else {
-                        System.out.println("Incorrect answer. Please try again");
+                        currentPerson.getItem().setAmount(amount / 2);
+                        System.out.println("Wrong answer. The dialog with " + currentPerson.getName() + " ended.\nTip: open your handbook to find the right answer.");
+                        break;
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Not a number. Please try again by typing a number, like 5");
@@ -296,6 +336,7 @@ public class Game {
         return currentRoom.getLongDescription();
     }
 
+    /*
     public String getPersonResponse() {
         if (currentPerson.getEngaged()) {
             return currentPerson.getRejected();
@@ -303,7 +344,7 @@ public class Game {
             currentPerson.setEngaged(true);
             return currentPerson.getResponse();
         }
-    }
+    }*/
 
     public CommandWords getCommands() {
         return commands;

@@ -17,6 +17,7 @@ class Coin implements Item {
         return null;
     }
 
+    @Override
     public void setAmount(int amount) {
         this.amount = amount;
     }

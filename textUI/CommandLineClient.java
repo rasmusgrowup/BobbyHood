@@ -38,7 +38,7 @@ public class CommandLineClient {
         System.out.println();
         System.out.println("Welcome to Bobby Hood! \n");
         System.out.println("The game where you can help reduce extreme poverty.");
-        System.out.println("At any point, type '" + Commands.HELP + "' to see available commands.");
+        System.out.println("Type '" + Commands.HELP + "' to see available commands.");
         System.out.println();
         System.out.println("Let the game begin!");
         System.out.println();
