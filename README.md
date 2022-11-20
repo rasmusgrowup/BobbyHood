@@ -34,10 +34,10 @@ $ git pull origin
 
 Create the branch on your local machine and switch to this branch :
 ```
-$ git checkout -b [name_of_your_new_branch]
+$ git checkout -b [name_of_your_new_branch] origin/main
 ```
 Don't include the brackets. The command could be:
-$ git checkout -b awesome_branch
+$ git checkout -b awesome_branch origin/main
 
 ### Pushing your changes
 Push the branch on github :
@@ -59,7 +59,7 @@ When you come back to your branch after some time away, you should pull
 the latest changes:
 
 ```
-$ git pull origin
+$ git pull
 ```
 
 ### Switching branches
@@ -70,7 +70,7 @@ You can switch branches with this command:
 $ git checkout [name_of_your_branch]
 ```
 
-Or create a list of existing branches: 
+Or display a list of existing branches: 
 
 ```
 $ git branch -a
