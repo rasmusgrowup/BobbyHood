@@ -57,10 +57,10 @@ public class Game {
         south = new Room("in the south of the park");
         west = new Room("in the west of the park");
 
-        // define the room the player starts in
+        // set the room the player starts in
         currentRoom = building;
 
-        // start building exit
+        // building exit
         building.setExit("outside", north);
         // north exit options
         north.setExit("inside", building);
@@ -86,16 +86,25 @@ public class Game {
         // create and set the dialog for John
         john = new Person(
                 "John",
-                "\nHello, Bobby.\n" +
-                        "\nAre you ready to help fight extreme poverty? \n" +
-                        "\nWe are always short of hands and funds in our\n" +
-                        "organisation.\n" +
-                        "\nUse your UNICEF handbook as a way to persuade \n" +
-                        "the people you meet to donate for our cause,\n" +
-                        "or join us as a volunteer.\n" +
-                        "\nYou can start in the park just outside this building.\n" +
-                        "\nReturn to me, when you are done.\n" +
-                        "\nGood luck!\n");
+                """
+
+                        Hello, Bobby.
+
+                        Are you ready to help fight extreme poverty?\s
+
+                        We are always short of hands and funds in our
+                        organisation.
+
+                        Use your UNICEF handbook as a way to persuade\s
+                        the people you meet to donate for our cause,
+                        or join us as a volunteer.
+
+                        You can start in the park just outside this building.
+
+                        Return to me, when you are done.
+
+                        Good luck!
+                        """);
 
         // create the options for Hans
         String hansQuestion = "\n" +
@@ -104,16 +113,21 @@ public class Game {
                 "3: 700 million\n";
 
         // new instance of person, Hans
-        hans = new Person("Hans",
-                "Hans is an elderly looking man, strolling through the park."
-                , hansQuestion, 3, 2, new Coin(400)
+        hans = new Person(
+                "Hans",
+                "Male",
+                "Hans is an elderly looking man, strolling through the park.",
+                hansQuestion,
+                3,
+                2,
+                new Coin(400)
         );
 
         // set the dialog for Hans
         hans.setDialog(new String[]{
                 "Hi there, Bobby. My name is " + hans.getName() + ".",
-                "Oh no, that sounds horrible. Here, I'll donate a little to your cause.",
-                "Sure. I’ll donate a 200 coins."
+                "Oh no, that sounds horrible.",
+                "Sure. I’ll donate to your cause."
         });
 
         // set the players dialog for Hans
@@ -135,16 +149,21 @@ public class Game {
                 "3: $7,00\n";
 
         // new instance of Lene
-        lene = new Person("Lene",
+        lene = new Person(
+                "Lene",
+                "Female",
                 "Lene is a very attractive business woman. She's walking while talking on the phone",
-                leneQuestion, 1, 1, new Coin(250)
+                leneQuestion,
+                1,
+                1,
+                new Coin(250)
         );
 
         // set the dialog for person, Lene
         lene.setDialog(new String[]{
                 "Hi there, handsome Bobby. My name is " + lene.getName() + ".",
-                "Really?! I can't believe what I'm hearing. Sure, I'll donate to your cause.",
-                "Sure. I’ll donate a 200 coins."
+                "Really?! I can't believe what I'm hearing.",
+                "Okay. I’ll donate to your cause"
         });
 
         // set the players dialog with Lene
@@ -166,19 +185,21 @@ public class Game {
                 "3: South America\n";
 
         // new instance of person, Mathias
-        mathias = new Person("Mathias",
+        mathias = new Person(
+                "Mathias",
+                "Male",
                 "Mathias is standing outside the university. He studies philosophy.",
                 mathiasQuestion,
-                1,
+                2,
                 2,
                 new Coin(50)
         );
 
         // set the dialog for person, Lene
         mathias.setDialog(new String[]{
-                "Hi there, handsome Bobby. My name is " + lene.getName() + ".",
-                "Really?! I can't believe what I'm hearing. Sure, I'll donate to your cause.",
-                "Sure. I’ll donate a 200 coins."
+                "Hi there. I'm " + mathias.getName() + ".",
+                "That sounds horrible.",
+                "I don't have much, but I'll donate a little to your cause."
         });
 
         // set the players dialog with Lene
@@ -295,31 +316,69 @@ public class Game {
             System.out.println(bobby.getDialog(currentPerson, 1)); // the players question for the person
             System.out.println(currentPerson.getQuestion()); // the possible answers for the question
             boolean dialogActive = true; // boolean that we use to escape the following loop
+            boolean firstStep = true;
+            boolean secondStep = false;
 
             // here we handle the users answer
             // if the users answer is not an integer,
             // we catch the exception
-            while (dialogActive) {
+            while (firstStep) {
                 try {
                     Scanner scanner = new Scanner(System.in); // new scanner
                     int index = currentPerson.getCorrectAnswerIndex(); // get the index of the correct answer
                     int userInput = scanner.nextInt(); // get the users input
                     int amount = currentPerson.getItem().getAmount();
-                    // check if the userInput equals the index of the correct answer
                     if (userInput == index) {
+                        // check if the userInput equals the index of the correct answer
+                        // if the user input is not a valid number, e.g. too high, print a tip
+                        // and if the answer is wrong, print a message, and quit the dialog
+                        System.out.println("\033[3mCorrect answer!\033[0m");
                         System.out.println(currentPerson.getDialog(1)); // the persons response if the answer is correct
-                        dialogActive = false; // escape the dialog
-                        inventory.addItem(currentPerson.getItem()); // add the persons items to the players inventory
-                        System.out.println("\033[3mSUCCESS! " + currentPerson.getValue() + " COINS WAS ADDED TO YOUR INVENTORY\033[0m");
-                        System.out.println(bobby.getDialog(currentPerson, 2)); // the players goodbye message
-                        currentPerson.setEngaged(true); // set the value of engaged to true for the person
+                        firstStep = false;
+                        secondStep = true;
+                    } else if (userInput > currentPerson.getDialogLength()){
+                        StringBuilder s = new StringBuilder("Please type ");
+                        for (int i = 0; i < currentPerson.getDialogLength(); i++) {
+                            if (i == currentPerson.getDialogLength() - 1) {
+                                s.append("or ").append(i + 1).append(".");
+                            } else {
+                                s.append("").append(i + 1).append(", ");
+                            }
+                        } System.out.println(s);
                     } else {
                         currentPerson.getItem().setAmount(amount / 2);
-                        System.out.println("Wrong answer. The dialog with " + currentPerson.getName() + " ended.\nTip: open your handbook to find the right answer.");
-                        break;
+                        System.out.println("Wrong answer. The dialog with " + currentPerson.getName() + " ended. Try again later.\nTip: open your handbook to find the right answer.");
+                        break; // escape the dialog
                     }
                 } catch (InputMismatchException e) {
-                    System.out.println("Not a number. Please try again by typing a number, like 5");
+                    System.out.println("Not a number. Please try again by typing a number");
+                }
+            }
+            while (secondStep) {
+                try {
+                    System.out.println("\n\033[3mUse (1)charm or (2)reason to increase " + currentPerson.getName() + "'s donation.\033[0m");
+                    Scanner scanner = new Scanner(System.in); // new scanner
+                    int index = currentPerson.getCorrectTypeIndex(); // get the index of the correct type
+                    int userInput = scanner.nextInt(); // get the users input
+                    int amount = currentPerson.getItem().getAmount();
+                    if (userInput == index) {
+                        System.out.println("\033[3mYou used " + currentPerson.printType(userInput) + " on " + currentPerson.getName() + " and it worked!\033[0m\n");
+                        currentPerson.getItem().setAmount(amount * 2); // if the right type is used, increase amount
+                    } else if (userInput > 2 || userInput == 0){
+                        throw new InputMismatchException();
+                    } else {
+                        System.out.println("\033[3m" + currentPerson.getName() + " didn't respond well to " + currentPerson.printType(userInput) + " and will not increase " + currentPerson.printGender() + " donations.\033[0m\n");
+                        currentPerson.getItem().setAmount(amount); // if the right type is used, increase amount
+                    }
+                    System.out.println(currentPerson.getDialog(2)); // the current persons response
+                    inventory.addItem(currentPerson.getItem()); // add the person's items to the players inventory
+                    System.out.println("\033[3mSUCCESS! " + currentPerson.getValue() + " COINS WAS ADDED TO YOUR INVENTORY\033[0m");
+                    System.out.println(bobby.getDialog(currentPerson, 2)); // the players goodbye message
+                    currentPerson.setEngaged(true); // set the value of engaged to true for the person
+                    secondStep = false;
+                    break; // escape the dialog;
+                } catch (InputMismatchException e) {
+                    System.out.println("Please type 1 or 2");
                 }
             }
         } else {

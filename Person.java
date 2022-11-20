@@ -1,9 +1,12 @@
 package BobbyHood;
 
+import java.util.Objects;
+
 public class Person {
     // attributes
     private String name;
     private int age;
+    private String gender;
     private String description;
     private boolean engaged;
     private String question;
@@ -21,8 +24,9 @@ public class Person {
         this.description = description;
     }
 
-    public Person(String name, String description, String question, int i, int t, Item item) {
+    public Person(String name, String gender, String description, String question, int i, int t, Item item) {
         this.name = name;
+        this.gender = gender;
         engaged = false;
         this.description = description;
         this.question = question;
@@ -44,6 +48,14 @@ public class Person {
         return getName() + ": " + dialog[index];
     }
 
+    public String[] getFullDialog() {
+        return dialog;
+    }
+
+    public int getDialogLength() {
+        return dialog.length;
+    }
+
     public Item getItem() {
         return item;
     }
@@ -57,7 +69,7 @@ public class Person {
     }
 
     public String getQuestion() {
-        return question + "\nFill in the blank by typing the correct number.";
+        return question + "\n\033[3mFill in the blank by typing the correct number.\033[0m";
     }
 
     public int getCorrectAnswerIndex() {
@@ -66,6 +78,28 @@ public class Person {
 
     public int getCorrectTypeIndex() {
         return correctTypeIndex;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String printGender() {
+        String genderString = "";
+        if (gender.equals("Male")) {
+            genderString = "his";
+        } else if (gender.equals("Female")) {
+            genderString = "her";
+        } return genderString;
+    }
+
+    public String printType(int index) {
+        String typeString = "";
+        if (index == 1) {
+            typeString = "charm";
+        } else if (index == 2) {
+            typeString = "reason";
+        } return typeString;
     }
 
     // method to get the name of a person object
@@ -98,7 +132,7 @@ public class Person {
 
     // Main method for testing purposes
     public static void main(String[] args) {
-        Person npc1 = new Person("Hans", "Hi, my name is Hans, 68 years old and I'm retired", "question", 2, 2, new Coin(100));
+        Person npc1 = new Person("Hans", "Male", "Hi, my name is Hans, 68 years old and I'm retired", "question", 2, 2, new Coin(100));
         System.out.println(npc1.getItem().getAmount());
         npc1.getItem().setAmount(50);
         System.out.println(npc1.getItem().getAmount());
