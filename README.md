@@ -7,10 +7,7 @@ Bobby Hood is a so-called Facer Simulator.
 In the game, you're playing the character
 Bobby Hood, who's job is to talk to strangers
 and try to persuade them into donating money
-for a good cause. If they're not willing to 
-donate money, you can try to persuade them
-into joining your adventure, by becoming
-a volunteer at UNICEF.
+for a good cause.
 
 To complete the game, you must find and talk
 to all NPCs in the game, return safely to your
