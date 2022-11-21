@@ -23,7 +23,7 @@ public class Game {
 
     private void populateHandbook() {
         handbook = new Handbook("UNICEF Handbook"); // new instance of Handbook
-        String fact1, fact2, fact3; // fact variables
+        String fact1, fact2, fact3, fact4; // fact variables
 
         // the strings for the facts
         fact1 = "80% of all people living in extreme poverty\n" +
@@ -31,11 +31,14 @@ public class Game {
         fact2 = "Today, over 700 million people live in extreme\n" +
                 "poverty.\n";
         fact3 = "The international poverty line is $2,15.\n";
+        fact4 = "160 million children are at risk of continuing\n" +
+                "to live in extreme poverty by 2030";
 
         // set the text for the facts
         handbook.setFact("#1", fact1);
         handbook.setFact("#2", fact2);
         handbook.setFact("#3", fact3);
+        handbook.setFact("#4", fact4);
     }
 
     private void createInventory() {
@@ -81,7 +84,7 @@ public class Game {
         west.setExit("east", east);
 
         // Create persons for the rooms
-        Person john, hans, lene, mathias;
+        Person john, hans, lene, mathias, mia;
 
         // create and set the dialog for John
         john = new Person(
@@ -105,6 +108,43 @@ public class Game {
 
                         Good luck!
                         """);
+
+        // create the options for Hans
+        String miaQuestion = "\n" +
+                "1: 60 million\n" +
+                "2: 160 million\n" +
+                "3: 260 million\n";
+
+        // new instance of person, Hans
+        mia = new Person(
+                "Mia",
+                "Female",
+                "Mia is a middle aged woman, walking her dog in the park.",
+                miaQuestion,
+                2,
+                1,
+                new Coin(200)
+        );
+
+        // set the dialog for Hans
+        mia.setDialog(new String[]{
+                "Nice to meet you Bobby. My name is " + mia.getName() + ".",
+                "No way. That's a lot of children.",
+                "Here's what I can spare for your cause."
+        });
+
+        // set the players dialog for Hans
+        String[] miaDialog = new String[]{
+                "Hello. My name is Bobby.",
+                "According to UN, ___ million children are at risk of continuing\n" +
+                "to live in extreme poverty by 2030",
+                "Thank you"
+        };
+
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
+        bobby.setDialog(mia, miaDialog);
 
         // create the options for Hans
         String hansQuestion = "\n" +
@@ -219,6 +259,7 @@ public class Game {
         north.setPersons("Lene", lene);
         west.setPersons("Mathias", mathias);
         east.setPersons("Hans", hans);
+        south.setPersons("Mia", mia);
 
         // set currentPerson to null,
         // because no persons has been engaged

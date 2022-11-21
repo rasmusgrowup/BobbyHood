@@ -38,7 +38,7 @@ public class Room
     }
 
     public String getLongDescription() {
-        return "You are " + getShortDescription() + ".\n" + "You can talk to these persons: " + "\n" + getPersons() + getExitString();
+        return "You are " + getShortDescription() + ".\n" + "You can talk to: " + "\n" + getPersons() + getExitString();
     }
 
     private String getExitString() {
