@@ -1,6 +1,6 @@
 package BobbyHood;
 
-public class John {
+public class John extends Person {
     String name;
 
     String[] dialog;

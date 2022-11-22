@@ -8,7 +8,6 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Person> persons;
-    private John john;
 
     public Room(String description) {
         this.description = description;
@@ -31,10 +30,6 @@ public class Room
 
     public void setPersons(String name, Person person) {
         persons.put(name.toLowerCase(), person);
-    }
-
-    public void setJohn(John john) {
-        this.john = john;
     }
 
     public String getShortDescription() {
@@ -60,6 +55,14 @@ public class Room
 
     public Person getPerson(String person) {
         return persons.get(person.toLowerCase());
+    }
+
+    public HashMap<String, Person> getPersonsList() {
+        return persons;
+    }
+
+    public John getJohn(String john) {
+        return (John) persons.get(john.toLowerCase());
     }
 }
 
