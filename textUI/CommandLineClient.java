@@ -27,7 +27,7 @@ public class CommandLineClient {
         printWelcome();
 
         boolean finished = false;
-        while (!finished) {
+        while (!finished && !game.isCompleted()) {
             Command command = parser.getCommand();
             finished = processCommand(command);
         }
@@ -42,7 +42,13 @@ public class CommandLineClient {
         System.out.println();
         System.out.println("Let the game begin!");
         System.out.println();
+        johnStartMessage();
+        System.out.println();
         System.out.println(game.getRoomDescription());
+    }
+
+    private void johnStartMessage() {
+        System.out.println(game.getJohnStartMessage());
     }
 
     private void printHelp() {
@@ -84,6 +90,8 @@ public class CommandLineClient {
         } else if (commandWord == Commands.TALK) {
             if (game.talkTo(command)) {
                 game.startDialog(command);
+            } else if (command.getCommandValue() == null) {
+                System.out.println("Please choose a person");
             } else {
                 System.out.println("Nobody here, is called " + command.getCommandValue());
             }
