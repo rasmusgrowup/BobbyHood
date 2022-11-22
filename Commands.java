@@ -7,8 +7,9 @@ public enum Commands
     HELP("help"),
     UNKNOWN("?"),
     TALK("talk"),
-    OPEN("open");
-    
+    OPEN("open"),
+    DESCRIBE("describe");
+
     private String commandName;
     
     Commands(String commandString)

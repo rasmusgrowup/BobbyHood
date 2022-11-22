@@ -8,6 +8,7 @@ public class Room
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Person> persons;
+    private John john;
 
     public Room(String description) {
         this.description = description;
@@ -24,13 +25,16 @@ public class Room
         return returnString;
     }
 
-
     public void setExit(String direction, Room neighbor) {
         exits.put(direction, neighbor);
     }
 
     public void setPersons(String name, Person person) {
         persons.put(name.toLowerCase(), person);
+    }
+
+    public void setJohn(John john) {
+        this.john = john;
     }
 
     public String getShortDescription() {

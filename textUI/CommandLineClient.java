@@ -75,6 +75,12 @@ public class CommandLineClient {
             } else {
                 System.out.println("Can't walk in that direction.");
             }
+        } else if (commandWord == Commands.DESCRIBE) {
+            if (game.describe(command)) {
+                System.out.println(game.getPersonDescription());
+            } else {
+                System.out.println("Can't describe a person, that doesn't exist.");
+            }
         } else if (commandWord == Commands.TALK) {
             if (game.talkTo(command)) {
                 game.startDialog(command);

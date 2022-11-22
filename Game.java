@@ -10,10 +10,12 @@ public class Game {
     private Room currentRoom;
     private Person currentPerson;
     private Player bobby;
+    private John john;
     private Handbook handbook;
     private Inventory inventory;
 
     public Game() {
+        createJohn();
         createPlayer(); // call createPlayer() method
         createRooms(); // call createRoom() method
         populateHandbook(); // call populateHandbook() method
@@ -43,6 +45,10 @@ public class Game {
 
     private void createInventory() {
         inventory = new Inventory(); // new instance of Inventory
+    }
+
+    private void createJohn() {
+        john = new John(); // new instance of Player
     }
 
     private void createPlayer() {
@@ -84,30 +90,26 @@ public class Game {
         west.setExit("east", east);
 
         // Create persons for the rooms
-        Person john, hans, lene, mathias, mia;
+        Person hans, lene, mathias, mia;
 
         // create and set the dialog for John
-        john = new Person(
-                "John",
-                """
-
-                        Hello, Bobby.
-
-                        Are you ready to help fight extreme poverty?\s
-
-                        We are always short of hands and funds in our
-                        organisation.
-
-                        Use your UNICEF handbook as a way to persuade\s
-                        the people you meet to donate for our cause,
-                        or join us as a volunteer.
-
-                        You can start in the park just outside this building.
-
-                        Return to me, when you are done.
-
-                        Good luck!
-                        """);
+        john.setDialog(new String[] {
+                "Hello, Bobby. My name is " + john.getName() + "\n" +
+                "Thank you for joining the UNICEF volunteer program. " +
+                "Are you ready to help fight extreme poverty?\n" +
+                "Your mission is to collect donations from people at the park. " +
+                "Use this handbook as your guide on what to say\n" +
+                "\033[3mYOU RECIEVED A HANDBOOK FROM JOHN\033[0m\n" +
+                "Use the handbook wisely. People will decrease their donations " +
+                "if they detect you are stating incorrect facts\n" +
+                "You can try to increase their donations, by either using " +
+                "charm or reason. Each person has their own personality, " +
+                "so use their description to find the right approach.\n" +
+                "Talk to every person in the park, and return to me " +
+                "when you're done. Good luck.",
+                "You're not done yet.",
+                "Congratulations."
+        });
 
         // create the options for Hans
         String miaQuestion = "\n" +
@@ -255,7 +257,7 @@ public class Game {
         bobby.setDialog(mathias, mathiasDialog);
 
         // Position the persons in the rooms
-        building.setPersons("John", john);
+        building.setJohn(john);
         north.setPersons("Lene", lene);
         west.setPersons("Mathias", mathias);
         east.setPersons("Hans", hans);
@@ -284,6 +286,26 @@ public class Game {
             return false;
         } else {
             currentRoom = nextRoom;
+            return true;
+        }
+    }
+
+    public boolean describe(Command command) {
+        // check if the command value is empty
+        if (!command.hasCommandValue()) {
+            return false;
+        }
+        // create a string to search for the person
+        // in the HashMap of persons
+        String person = command.getCommandValue();
+        // use that string to find a specific person
+        Person engagedPerson = currentRoom.getPerson(person);
+
+        // check if the person exists
+        if (engagedPerson == null) {
+            return false; // return false if the person doesn't exist
+        } else {
+            currentPerson = engagedPerson; // Set currentPerson to the person we want to talk to
             return true;
         }
     }
@@ -434,6 +456,10 @@ public class Game {
 
     public String getRoomDescription() {
         return currentRoom.getLongDescription();
+    }
+
+    public String getPersonDescription() {
+        return currentPerson.getDescription();
     }
 
     /*
