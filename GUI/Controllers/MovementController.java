@@ -1,4 +1,4 @@
-package BobbyHood.GUI;
+package BobbyHood.GUI.Controllers;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
@@ -9,6 +9,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+
+// reference:
+// https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8
 
 public class MovementController {
 
@@ -27,8 +30,8 @@ public class MovementController {
     @FXML
     private AnchorPane scene;
 
-    public void makeMovable(ImageView sprite, AnchorPane scene){
-        this.bobby = sprite;
+    public void makeMovable(ImageView bobby, AnchorPane scene){
+        this.bobby = bobby;
         this.scene = scene;
 
         movementSetup();
@@ -49,7 +52,7 @@ public class MovementController {
             if(wPressed.get()) {
                 bobby.setLayoutY(bobby.getLayoutY() - movementVariable);
             }
-
+            
             if(sPressed.get()){
                 bobby.setLayoutY(bobby.getLayoutY() + movementVariable);
             }
