@@ -22,13 +22,13 @@ public class MovementController {
     private int movementVariable = 2;
 
     @FXML
-    private ImageView sprite;
+    private ImageView bobby;
 
     @FXML
     private AnchorPane scene;
 
     public void makeMovable(ImageView sprite, AnchorPane scene){
-        this.sprite = sprite;
+        this.bobby = sprite;
         this.scene = scene;
 
         movementSetup();
@@ -47,19 +47,19 @@ public class MovementController {
         public void handle(long timestamp) {
 
             if(wPressed.get()) {
-                sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
+                bobby.setLayoutY(bobby.getLayoutY() - movementVariable);
             }
 
             if(sPressed.get()){
-                sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+                bobby.setLayoutY(bobby.getLayoutY() + movementVariable);
             }
 
             if(aPressed.get()){
-                sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+                bobby.setLayoutX(bobby.getLayoutX() - movementVariable);
             }
 
             if(dPressed.get()){
-                sprite.setLayoutX(sprite.getLayoutX() + movementVariable);
+                bobby.setLayoutX(bobby.getLayoutX() + movementVariable);
             }
         }
     };

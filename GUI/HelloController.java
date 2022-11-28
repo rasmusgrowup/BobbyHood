@@ -5,15 +5,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
-
-    @FXML
-    private AnchorPane scene;
 
     private MovementController movementController =
             new MovementController();
@@ -24,6 +20,8 @@ public class HelloController implements Initializable {
     @FXML
     ImageView bobby = new ImageView(bobbyImage);
 
+    @FXML
+    private AnchorPane scene;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
