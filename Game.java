@@ -266,15 +266,15 @@ public class Game {
                 "Hello, Bobby. My name is " + john.getName() + "\n" +
                         "Thank you for joining the UNICEF volunteer program. " +
                         "Are you ready to help fight extreme poverty?\n" +
-                        "Your mission is to collect donations from people at the park. " +
+                        "\nYour mission is to collect donations from people at the park. " +
                         "Use this handbook as your guide on what to say\n" +
-                        "\033[3mYOU RECIEVED A HANDBOOK FROM JOHN\033[0m\n" +
+                        "\n\033[3mYOU RECIEVED A HANDBOOK FROM JOHN\033[0m\n" +
                         "Use the handbook wisely. People will decrease their donations " +
                         "if they detect you are stating incorrect facts\n" +
-                        "You can try to increase their donations, by either using " +
+                        "\nYou can try to increase their donations, by either using " +
                         "charm or reason. Each person has their own personality, " +
                         "so use their description to find the right approach.\n" +
-                        "Talk to every person in the park, and return to me " +
+                        "\nTalk to every person in the park, and return to me " +
                         "when you're done. Good luck.",
                 "You're not done yet. You've talked to " + personsCompleted + " out of " + getPersonCount() + "",
                 "Congratulations! You completed your mission."
