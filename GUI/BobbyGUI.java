@@ -14,7 +14,7 @@ public class BobbyGUI extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-            FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("Building.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Building.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             scene.getRoot().requestFocus();
             stage.setTitle("BobbyHood");
