@@ -7,7 +7,7 @@
 
 <AnchorPane fx:id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.BuildingController">
    <children>
-      <ImageView fx:id="bobby" fitHeight="60.0" fitWidth="62.0" layoutX="270.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bobby" fitHeight="90" fitWidth="93" layoutX="270.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bobby.png" />
          </image>

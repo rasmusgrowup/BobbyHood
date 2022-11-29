@@ -5,10 +5,16 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 
 // reference:
 // https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8
@@ -22,7 +28,10 @@ public class MovementController {
 
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed);
 
-    private int movementVariable = 2;
+    private int movementVariable = 3;
+
+    private final Image BOBBY_RIGHT = new Image("file:GUI/images/bobby_right.png");
+    private final Image BOBBY_LEFT = new Image("file:GUI/images/bobby.png");
 
     @FXML
     private ImageView bobby;
@@ -30,14 +39,14 @@ public class MovementController {
     @FXML
     private AnchorPane scene;
 
-    public void makeMovable(ImageView bobby, AnchorPane scene){
+    public void makeMovable(ImageView bobby, AnchorPane scene) {
         this.bobby = bobby;
         this.scene = scene;
 
         movementSetup();
 
         keyPressed.addListener(((observableValue, aBoolean, t1) -> {
-            if(!aBoolean){
+            if (!aBoolean) {
                 timer.start();
             } else {
                 timer.stop();
@@ -49,57 +58,59 @@ public class MovementController {
         @Override
         public void handle(long timestamp) {
 
-            if(wPressed.get()) {
+            if (wPressed.get()) {
                 bobby.setLayoutY(bobby.getLayoutY() - movementVariable);
             }
-            
-            if(sPressed.get()){
+
+            if (sPressed.get()) {
                 bobby.setLayoutY(bobby.getLayoutY() + movementVariable);
             }
 
-            if(aPressed.get()){
+            if (aPressed.get()) {
                 bobby.setLayoutX(bobby.getLayoutX() - movementVariable);
+                bobby.setImage(BOBBY_LEFT);
             }
 
-            if(dPressed.get()){
+            if (dPressed.get()) {
                 bobby.setLayoutX(bobby.getLayoutX() + movementVariable);
+                bobby.setImage(BOBBY_RIGHT);
             }
         }
     };
 
-    private void movementSetup(){
+    private void movementSetup() {
         scene.setOnKeyPressed(e -> {
-            if(e.getCode() == KeyCode.W) {
+            if (e.getCode() == KeyCode.W) {
                 wPressed.set(true);
             }
 
-            if(e.getCode() == KeyCode.A) {
+            if (e.getCode() == KeyCode.A) {
                 aPressed.set(true);
             }
 
-            if(e.getCode() == KeyCode.S) {
+            if (e.getCode() == KeyCode.S) {
                 sPressed.set(true);
             }
 
-            if(e.getCode() == KeyCode.D) {
+            if (e.getCode() == KeyCode.D) {
                 dPressed.set(true);
             }
         });
 
-        scene.setOnKeyReleased(e ->{
-            if(e.getCode() == KeyCode.W) {
+        scene.setOnKeyReleased(e -> {
+            if (e.getCode() == KeyCode.W) {
                 wPressed.set(false);
             }
 
-            if(e.getCode() == KeyCode.A) {
+            if (e.getCode() == KeyCode.A) {
                 aPressed.set(false);
             }
 
-            if(e.getCode() == KeyCode.S) {
+            if (e.getCode() == KeyCode.S) {
                 sPressed.set(false);
             }
 
-            if(e.getCode() == KeyCode.D) {
+            if (e.getCode() == KeyCode.D) {
                 dPressed.set(false);
             }
         });

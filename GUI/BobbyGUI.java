@@ -19,6 +19,9 @@ public class BobbyGUI extends Application {
             scene.getRoot().requestFocus();
             stage.setTitle("BobbyHood");
             stage.setScene(scene);
+            stage.setResizable(false);
+            stage.setHeight(800);
+            stage.setWidth(1200);
             stage.show();
     }
 }
