@@ -18,9 +18,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class OutsideController implements Initializable {
+public class OutsideController extends MasterController implements Initializable {
 
-    private MovementController movementController = new MovementController();
+    private MasterController masterController = new MasterController();
     private static final String bobbyPath = "file:GUI/bobby.png";
     private final Image bobbyImage = new Image(bobbyPath);
     @FXML
@@ -30,7 +30,7 @@ public class OutsideController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        movementController.makeMovable(bobby, scene);
+        masterController.makeMovable(bobby, scene);
     }
 
     private Stage stage;

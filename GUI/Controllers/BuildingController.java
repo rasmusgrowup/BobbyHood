@@ -17,9 +17,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class BuildingController implements Initializable {
+public class BuildingController extends MasterController implements Initializable {
 
-    private MovementController movementController = new MovementController();
+    private MasterController masterController = new MasterController();
     private static final String bobbyPath = "file:GUI/bobby.png";
     private final Image bobbyImage = new Image(bobbyPath);
 
@@ -35,7 +35,7 @@ public class BuildingController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        movementController.makeMovable(bobby, scene);
+        masterController.makeMovable(bobby, scene);
     }
     public void switchtoOutside(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Outside.fxml"));
