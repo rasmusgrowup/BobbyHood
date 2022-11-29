@@ -5,6 +5,7 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 // reference:
 // https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8
 
-public class MovementController {
+public class MasterController {
 
     private BooleanProperty wPressed = new SimpleBooleanProperty();
     private BooleanProperty aPressed = new SimpleBooleanProperty();
@@ -24,14 +25,13 @@ public class MovementController {
 
     private int movementVariable = 2;
 
-    @FXML
-    private ImageView bobby;
-
-    @FXML
+    private static final String bobbyPath = "file:GUI/bobby.png";
+    private final Image bobbyImage = new Image(bobbyPath);
+    private final ImageView bobby = new ImageView(bobbyImage);
+    
     private AnchorPane scene;
 
-    public void makeMovable(ImageView bobby, AnchorPane scene){
-        this.bobby = bobby;
+    public void makeMovable(AnchorPane scene){
         this.scene = scene;
 
         movementSetup();
