@@ -527,4 +527,8 @@ public class Game {
     public boolean isCompleted() {
         return isGameCompleted;
     }
+
+    public Inventory returnInventory() {
+        return inventory;
+    }
 }

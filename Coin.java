@@ -1,9 +1,9 @@
 package BobbyHood;
 
-class Coin implements Item {
+public class Coin implements Item {
     private int amount;
 
-    Coin (int amount) {
+    public Coin (int amount) {
         this.amount = amount;
     }
 

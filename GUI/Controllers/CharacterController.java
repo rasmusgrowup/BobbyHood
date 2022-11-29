@@ -10,11 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 
-
 // reference:
 // https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8
 
-public class MasterController {
+public class CharacterController {
 
     private BooleanProperty wPressed = new SimpleBooleanProperty();
     private BooleanProperty aPressed = new SimpleBooleanProperty();
