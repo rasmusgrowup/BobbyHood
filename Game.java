@@ -78,9 +78,6 @@ public class Game {
 
         // building exit
         building.setExit("north", north);
-        building.setExit("west", west);
-        building.setExit("east", east);
-        building.setExit("south", south);
         // north exit options
         north.setExit("building", building);
         north.setExit("east", east);
@@ -88,17 +85,10 @@ public class Game {
         north.setExit("west", west);
         // east exit options
         east.setExit("north", north);
-        east.setExit("south", south);
-        east.setExit("west", west);
         // south exit options
         south.setExit("north", north);
-        south.setExit("east", east);
-        south.setExit("west", west);
         // west exit options
-        west.setExit("building", building);
         west.setExit("north", north);
-        west.setExit("south", south);
-        west.setExit("east", east);
 
         // Create persons for the rooms
         Person hans, lene, mathias, mia;

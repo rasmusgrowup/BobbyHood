@@ -25,26 +25,34 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class NorthController extends GameController implements Initializable {
 
     private final CharacterController characterController = new CharacterController();
+    private HashMap<String, Rectangle> doors = new HashMap<>();
     @FXML
     private AnchorPane scene;
     @FXML
-    ImageView bobby;
+    ImageView bobby, person;
     @FXML
     Text inventoryText;
-
     @FXML
-    Rectangle door = new Rectangle();
+    Rectangle doorBuilding, doorEast, doorSouth, doorWest = new Rectangle();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String direction = "north";
-        characterController.makeMovable(bobby, scene, door, direction);
-        door.setFill(Color.WHITE);
+        characterController.makeMovable(bobby, scene, doors);
+        doorBuilding.setFill(Color.TRANSPARENT);
+        doorEast.setFill(Color.TRANSPARENT);
+        doorSouth.setFill(Color.TRANSPARENT);
+        doorWest.setFill(Color.TRANSPARENT);
+        doors.put("building", doorBuilding);
+        doors.put("east", doorEast);
+        doors.put("south", doorSouth);
+        doors.put("west", doorWest);
         //System.out.println(game.currentRoom.getShortDescription());
     }
 }

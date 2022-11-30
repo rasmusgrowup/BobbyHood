@@ -8,21 +8,21 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="scene" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.NorthController">
+<AnchorPane fx:id="scene" prefHeight="800.0" prefWidth="120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.SouthController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/North.png" />
+            <Image url="@../images/South.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bobby" fitHeight="60.0" fitWidth="62.0" layoutX="688.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bobby" fitHeight="60.0" fitWidth="62.0" layoutX="456.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bobby.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="person" fitHeight="96.0" fitWidth="106.0" layoutX="884.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="john" fitHeight="163.0" fitWidth="163.0" layoutX="867.0" layoutY="334.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Woman_left.png" />
+            <Image url="@../images/Woman_2_left.png" />
          </image>
       </ImageView>
       <Pane fx:id="flow" layoutX="14.0" layoutY="698.0" prefHeight="88.0" prefWidth="400" style="-fx-background-color: #f6f6f6;">
@@ -31,9 +31,6 @@
          </children>
       </Pane>
       <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
-      <Rectangle fx:id="doorEast" height="80" layoutX="1170" layoutY="115" width="30" />
-      <Rectangle fx:id="doorSouth" height="60" layoutX="439.0" layoutY="740.0" width="80" />
-      <Rectangle fx:id="doorBuilding" height="30.0" layoutX="671.0" layoutY="-1.0" width="80.0" />
-      <Rectangle fx:id="doorWest" height="80" layoutY="406.0" width="30" />
+      <Rectangle fx:id="door" height="30.0" layoutX="439.0" layoutY="0" width="80.0" />
    </children>
 </AnchorPane>

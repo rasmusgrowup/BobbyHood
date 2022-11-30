@@ -5,19 +5,24 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.shape.Rectangle?>
-<AnchorPane fx:id="scene" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.OutsideController">
+<AnchorPane fx:id="scene" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.EastController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/East.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bobby" fitHeight="60.0" fitWidth="62.0" layoutX="270.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bobby" fitHeight="60.0" fitWidth="62.0" layoutX="46.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bobby.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="person" fitHeight="114.0" fitWidth="124.0" layoutX="450.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/Old_man_left.png" />
          </image>
       </ImageView>
       <Pane fx:id="flow" layoutX="14.0" layoutY="698.0" prefHeight="88.0" prefWidth="400" style="-fx-background-color: #f6f6f6;">
@@ -26,6 +31,6 @@
          </children>
       </Pane>
       <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
-      <Rectangle fx:id="door" height="80" width="30" layoutX="1170" layoutY="400"></Rectangle>
+      <Rectangle fx:id="door" height="80" layoutX="0" layoutY="120.0" width="30" />
    </children>
 </AnchorPane>

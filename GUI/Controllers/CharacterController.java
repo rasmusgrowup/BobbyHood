@@ -19,6 +19,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 // reference:
 // https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8
@@ -44,11 +46,11 @@ public class CharacterController {
     @FXML
     private AnchorPane scene;
 
-    public void makeMovable(ImageView bobby, AnchorPane scene, Rectangle door, String direction) {
+    public void makeMovable(ImageView bobby, AnchorPane scene, HashMap<String, Rectangle> doors) {
         this.bobby = bobby;
         this.scene = scene;
 
-        movementSetup(door, direction);
+        movementSetup(doors);
 
         keyPressed.addListener(((observableValue, aBoolean, t1) -> {
             if (!aBoolean) {
@@ -87,7 +89,7 @@ public class CharacterController {
         }
     };
 
-    void movementSetup(Rectangle door, String direction) {
+    void movementSetup(HashMap<String, Rectangle> doors) {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case W -> wPressed.set(true);
@@ -97,7 +99,7 @@ public class CharacterController {
                 case SHIFT -> shiftPressed.set(true);
             }
             try {
-                checkDoor(door, direction);
+                checkDoor(doors);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -115,37 +117,27 @@ public class CharacterController {
                 }
             }
             try {
-                checkDoor(door, direction);
+                checkDoor(doors);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
     }
 
-    public void checkDoor(Rectangle rect, String direction) throws IOException {
-        if (bobby.getBoundsInParent().intersects(rect.getBoundsInParent())) {
-            System.out.println("collision detected");
-            switch (direction) {
-                case "building": goInside(); break;
-                case "west": goWest(); break;
-                case "north": goNorth(); break;
+    public void checkDoor(HashMap<String, Rectangle> doors) throws IOException {
+        for (HashMap.Entry<String, Rectangle> set: doors.entrySet()) {
+            Rectangle door = set.getValue();
+            if (bobby.getBoundsInParent().intersects(door.getBoundsInParent())) {
+                String direction = set.getKey();
+                switch (direction) {
+                    case "building": goInside(); break;
+                    case "north": goNorth(); break;
+                    case "east": goEast(); break;
+                    case "south": goSouth(); break;
+                    case "west": goWest(); break;
+                }
             }
         }
-    }
-
-    public void goWest() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Outside.fxml"));
-        Scene sceneSwitch = new Scene(fxmlLoader.load());
-        sceneSwitch.getRoot().requestFocus();
-        Stage stage = BobbyGUI.getStage();
-        stage.setScene(sceneSwitch);
-        stage.show();
-        GameController gameController = fxmlLoader.getController();
-        gameController.persistGame(BobbyGUI.getGame());
-        currentRoom = BobbyGUI.getGame().getCurrentRoom();
-        nextRoom = currentRoom.getExit("west");
-        BobbyGUI.getGame().setCurrentRoom(nextRoom);
-        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
     }
 
     public void goNorth() throws IOException {
@@ -159,6 +151,51 @@ public class CharacterController {
         gameController.persistGame(BobbyGUI.getGame());
         currentRoom = BobbyGUI.getGame().getCurrentRoom();
         nextRoom = currentRoom.getExit("north");
+        BobbyGUI.getGame().setCurrentRoom(nextRoom);
+        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
+    }
+
+    public void goSouth() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/South.fxml"));
+        Scene sceneSwitch = new Scene(fxmlLoader.load());
+        sceneSwitch.getRoot().requestFocus();
+        Stage stage = BobbyGUI.getStage();
+        stage.setScene(sceneSwitch);
+        stage.show();
+        GameController gameController = fxmlLoader.getController();
+        gameController.persistGame(BobbyGUI.getGame());
+        currentRoom = BobbyGUI.getGame().getCurrentRoom();
+        nextRoom = currentRoom.getExit("south");
+        BobbyGUI.getGame().setCurrentRoom(nextRoom);
+        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
+    }
+
+    public void goWest() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/West.fxml"));
+        Scene sceneSwitch = new Scene(fxmlLoader.load());
+        sceneSwitch.getRoot().requestFocus();
+        Stage stage = BobbyGUI.getStage();
+        stage.setScene(sceneSwitch);
+        stage.show();
+        GameController gameController = fxmlLoader.getController();
+        gameController.persistGame(BobbyGUI.getGame());
+        currentRoom = BobbyGUI.getGame().getCurrentRoom();
+        nextRoom = currentRoom.getExit("west");
+        BobbyGUI.getGame().setCurrentRoom(nextRoom);
+        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
+    }
+
+    public void goEast() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/East.fxml"));
+        Scene sceneSwitch = new Scene(fxmlLoader.load());
+        sceneSwitch.getRoot().requestFocus();
+        Stage stage = BobbyGUI.getStage();
+        stage.setScene(sceneSwitch);
+        stage.show();
+        GameController gameController = fxmlLoader.getController();
+        gameController.persistGame(BobbyGUI.getGame());
+        currentRoom = BobbyGUI.getGame().getCurrentRoom();
+        nextRoom = currentRoom.getExit("east");
         BobbyGUI.getGame().setCurrentRoom(nextRoom);
         System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
     }
