@@ -5,7 +5,7 @@ import java.util.*;
 public class Game {
 
     private CommandWords commands;
-    private Room currentRoom;
+    public static Room currentRoom;
     private NPC currentPerson;
     private Player bobby;
     private John john;
@@ -77,9 +77,12 @@ public class Game {
         currentRoom = building;
 
         // building exit
-        building.setExit("outside", north);
+        building.setExit("north", north);
+        building.setExit("west", west);
+        building.setExit("east", east);
+        building.setExit("south", south);
         // north exit options
-        north.setExit("inside", building);
+        north.setExit("building", building);
         north.setExit("east", east);
         north.setExit("south", south);
         north.setExit("west", west);
@@ -92,6 +95,7 @@ public class Game {
         south.setExit("east", east);
         south.setExit("west", west);
         // west exit options
+        west.setExit("building", building);
         west.setExit("north", north);
         west.setExit("south", south);
         west.setExit("east", east);
@@ -300,6 +304,14 @@ public class Game {
             currentRoom = nextRoom;
             return true;
         }
+    }
+
+    public void setCurrentRoom(Room room) {
+        currentRoom = room;
+    }
+
+    public Room getCurrentRoom() {
+        return currentRoom;
     }
 
     public boolean describe(Command command) {

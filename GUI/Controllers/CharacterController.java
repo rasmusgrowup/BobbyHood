@@ -1,6 +1,8 @@
 package BobbyHood.GUI.Controllers;
 
+import BobbyHood.Command;
 import BobbyHood.GUI.BobbyGUI;
+import BobbyHood.Room;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -21,7 +23,7 @@ import java.io.IOException;
 // reference:
 // https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8
 
-public class CharacterController extends GameController {
+public class CharacterController {
 
     private BooleanProperty wPressed = new SimpleBooleanProperty();
     private BooleanProperty aPressed = new SimpleBooleanProperty();
@@ -32,6 +34,7 @@ public class CharacterController extends GameController {
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
     private int movementVariable = 3;
+    private Room currentRoom, nextRoom;
 
     private final Image BOBBY_RIGHT = new Image("file:GUI/images/bobby_right.png");
     private final Image BOBBY_LEFT = new Image("file:GUI/images/bobby.png");
@@ -40,12 +43,6 @@ public class CharacterController extends GameController {
     private ImageView bobby;
     @FXML
     private AnchorPane scene;
-    @FXML
-    Text inventoryText;
-    @FXML
-    Rectangle door;
-    @FXML
-    Pane pane = new Pane();
 
     public void makeMovable(ImageView bobby, AnchorPane scene, Rectangle door, String direction) {
         this.bobby = bobby;
@@ -93,11 +90,11 @@ public class CharacterController extends GameController {
     void movementSetup(Rectangle door, String direction) {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case W:     wPressed.set(true); break;
-                case S:     sPressed.set(true); break;
-                case A:     aPressed.set(true); break;
-                case D:     dPressed.set(true); break;
-                case SHIFT: shiftPressed.set(true); break;
+                case W -> wPressed.set(true);
+                case S -> sPressed.set(true);
+                case A -> aPressed.set(true);
+                case D -> dPressed.set(true);
+                case SHIFT -> shiftPressed.set(true);
             }
             try {
                 checkDoor(door, direction);
@@ -108,11 +105,14 @@ public class CharacterController extends GameController {
 
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
-                case W:     wPressed.set(false); break;
-                case S:     sPressed.set(false); break;
-                case A:     aPressed.set(false); break;
-                case D:     dPressed.set(false); break;
-                case SHIFT: shiftPressed.set(false); movementVariable = 3; break;
+                case W -> wPressed.set(false);
+                case S -> sPressed.set(false);
+                case A -> aPressed.set(false);
+                case D -> dPressed.set(false);
+                case SHIFT -> {
+                    shiftPressed.set(false);
+                    movementVariable = 3;
+                }
             }
             try {
                 checkDoor(door, direction);
@@ -126,29 +126,55 @@ public class CharacterController extends GameController {
         if (bobby.getBoundsInParent().intersects(rect.getBoundsInParent())) {
             System.out.println("collision detected");
             switch (direction) {
-                case "inside": goInside(); break;
-                case "east": goEast(); break;
+                case "building": goInside(); break;
+                case "west": goWest(); break;
+                case "north": goNorth(); break;
             }
         }
     }
 
-    public void goEast() throws IOException {
+    public void goWest() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Outside.fxml"));
         Scene sceneSwitch = new Scene(fxmlLoader.load());
+        sceneSwitch.getRoot().requestFocus();
         Stage stage = BobbyGUI.getStage();
         stage.setScene(sceneSwitch);
         stage.show();
         GameController gameController = fxmlLoader.getController();
         gameController.persistGame(BobbyGUI.getGame());
+        currentRoom = BobbyGUI.getGame().getCurrentRoom();
+        nextRoom = currentRoom.getExit("west");
+        BobbyGUI.getGame().setCurrentRoom(nextRoom);
+        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
+    }
+
+    public void goNorth() throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/North.fxml"));
+        Scene sceneSwitch = new Scene(fxmlLoader.load());
+        sceneSwitch.getRoot().requestFocus();
+        Stage stage = BobbyGUI.getStage();
+        stage.setScene(sceneSwitch);
+        stage.show();
+        GameController gameController = fxmlLoader.getController();
+        gameController.persistGame(BobbyGUI.getGame());
+        currentRoom = BobbyGUI.getGame().getCurrentRoom();
+        nextRoom = currentRoom.getExit("north");
+        BobbyGUI.getGame().setCurrentRoom(nextRoom);
+        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
     }
 
     public void goInside() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Building.fxml"));
         Scene sceneSwitch = new Scene(fxmlLoader.load());
+        sceneSwitch.getRoot().requestFocus();
         Stage stage = BobbyGUI.getStage();
         stage.setScene(sceneSwitch);
         stage.show();
         GameController gameController = fxmlLoader.getController();
         gameController.persistGame(BobbyGUI.getGame());
+        currentRoom = BobbyGUI.getGame().getCurrentRoom();
+        nextRoom = currentRoom.getExit("building");
+        BobbyGUI.getGame().setCurrentRoom(nextRoom);
+        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
     }
 }

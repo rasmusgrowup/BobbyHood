@@ -3,6 +3,9 @@ package BobbyHood.GUI.Controllers;
 
 import BobbyHood.Coin;
 import BobbyHood.GUI.BobbyGUI;
+import BobbyHood.Game;
+import BobbyHood.Person;
+import BobbyHood.Room;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,25 +38,13 @@ public class OutsideController extends GameController implements Initializable {
     Text inventoryText;
 
     @FXML
-    Pane pane = new Pane();
-
-    @FXML
     Rectangle door = new Rectangle();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String direction = "inside";
+        String direction = "building";
         characterController.makeMovable(bobby, scene, door, direction);
         door.setFill(Color.WHITE);
-    }
-
-    public void switchtoBuilding(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Building.fxml"));
-        Stage stage = BobbyGUI.getStage();
-        Scene sceneSwitch = new Scene(fxmlLoader.load());
-        stage.setScene(sceneSwitch);
-        stage.show();
-        GameController gameController = fxmlLoader.getController();
-        gameController.persistGame(BobbyGUI.getGame());
+        //System.out.println(game.currentRoom.getShortDescription());
     }
 }

@@ -1,6 +1,7 @@
 package BobbyHood.GUI;
 import BobbyHood.GUI.Controllers.GameController;
 import BobbyHood.Game;
+import BobbyHood.Room;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import java.io.IOException;
 public class BobbyGUI extends Application {
     private static Stage primaryStage; // ** Declare static Stage **
     public static Game game;
+    private Room building;
 
     private void setStage(Stage stage) {
         BobbyGUI.primaryStage = stage;

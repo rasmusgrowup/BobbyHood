@@ -8,14 +8,14 @@
 <?import javafx.scene.text.Text?>
 
 <?import javafx.scene.shape.Rectangle?>
-<AnchorPane fx:id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.BuildingController">
+<AnchorPane fx:id="scene" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.OutsideController">
    <children>
-      <ImageView fitHeight="800" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Building.png" />
+            <Image url="@../images/North.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bobby" fitHeight="90" fitWidth="93" layoutX="555" layoutY="355" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bobby" fitHeight="60.0" fitWidth="62.0" layoutX="270.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bobby.png" />
          </image>
@@ -25,6 +25,7 @@
             <Text fx:id="inventoryText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0" />
          </children>
       </Pane>
-      <Rectangle fx:id="door" height="100" width="300" layoutX="440" layoutY="700"></Rectangle>
+      <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
+      <Rectangle fx:id="door" height="80" width="30" layoutX="1170" layoutY="400"></Rectangle>
    </children>
 </AnchorPane>
