@@ -13,7 +13,6 @@ import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
     protected Game game;
-
     @FXML
     Pane pane = new Pane();
     @FXML
@@ -27,7 +26,7 @@ public class GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //inventoryText.setText(game.getInventory());
+        inventoryText.setText(game.getInventory());
     }
 
     public void addCoins(ActionEvent event) throws IOException {

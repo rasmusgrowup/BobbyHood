@@ -9,23 +9,42 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class BobbyGUI extends Application {
-    public Game game = new Game();
+    private static Stage primaryStage; // ** Declare static Stage **
+    public static Game game;
+
+    private void setStage(Stage stage) {
+        BobbyGUI.primaryStage = stage;
+    }
+
+    private void setGame() {
+        BobbyGUI.game = new Game();
+    }
+
+    public static Stage getStage() {
+        return BobbyGUI.primaryStage;
+    }
+
+    public static Game getGame() {
+        return BobbyGUI.game;
+    }
     public static void main(String[] args) {
         launch(args);
     }
 
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage primaryStage) throws IOException {
+        setStage(primaryStage);
+        setGame();
         FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Building.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         GameController gameController = fxmlLoader.getController();
         gameController.persistGame(game);
         scene.getRoot().requestFocus();
-        stage.setTitle("BobbyHood");
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setHeight(800);
-        stage.setWidth(1200);
-        stage.show();
+        primaryStage.setTitle("BobbyHood");
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(false);
+        primaryStage.setHeight(800);
+        primaryStage.setWidth(1200);
+        primaryStage.show();
     }
 }
