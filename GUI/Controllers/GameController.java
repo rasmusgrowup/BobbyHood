@@ -1,6 +1,7 @@
 package BobbyHood.GUI.Controllers;
 
 import BobbyHood.Coin;
+import BobbyHood.GUI.BobbyGUI;
 import BobbyHood.Game;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ public class GameController implements Initializable {
     public void persistGame(Game game) {
         this.game = game;
         pane = new Pane();
-        inventoryText.setText(game.getInventory());
+        inventoryText.setText(BobbyGUI.getGame().getInventory());
     }
 
     @Override

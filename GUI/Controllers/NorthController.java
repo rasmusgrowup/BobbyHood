@@ -1,32 +1,20 @@
 package BobbyHood.GUI.Controllers;
 
-
-import BobbyHood.Coin;
 import BobbyHood.GUI.BobbyGUI;
 import BobbyHood.GUI.Door;
-import BobbyHood.Game;
+import BobbyHood.John;
+import BobbyHood.NPC;
 import BobbyHood.Person;
 import BobbyHood.Room;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -34,6 +22,8 @@ public class NorthController extends GameController implements Initializable {
 
     private final CharacterController characterController = new CharacterController();
     private HashMap<String, Door> doors = new HashMap<>();
+    private HashMap<Person, ImageView> persons = new HashMap();
+    private NPC npc;
     private Door doorBuilding = new Door();
     private Door doorSouth = new Door();
     private Door doorWest = new Door();
@@ -43,12 +33,14 @@ public class NorthController extends GameController implements Initializable {
     @FXML
     ImageView bobby, person;
     @FXML
-    Text inventoryText;
+    Text inventoryText, dialogText;
     @FXML
     Rectangle doorBuildingRect, doorEastRect, doorSouthRect, doorWestRect;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        System.out.println(BobbyGUI.getGame().getCurrentRoom().getShortDescription());
+        setPersonsForRoom();
         doorBuilding.setRect(doorBuildingRect);
         doorEast.setRect(doorEastRect);
         doorSouth.setRect(doorSouthRect);
@@ -57,7 +49,7 @@ public class NorthController extends GameController implements Initializable {
         doorEast.setFxmlPath("fxml/East.fxml");
         doorSouth.setFxmlPath("fxml/South.fxml");
         doorWest.setFxmlPath("fxml/West.fxml");
-        doorBuilding.setDirection("north");
+        doorBuilding.setDirection("building");
         doorEast.setDirection("east");
         doorSouth.setDirection("south");
         doorWest.setDirection("west");
@@ -70,6 +62,15 @@ public class NorthController extends GameController implements Initializable {
         doors.put("east", doorEast);
         doors.put("south", doorSouth);
         doors.put("west", doorWest);
-        //System.out.println(game.currentRoom.getShortDescription());
+        characterController.setPersons(persons);
+    }
+
+    public void setPersonsForRoom() {
+        Room room = BobbyGUI.getGame().getCurrentRoom();
+        HashMap<String, Person> list = room.getPersonsList();
+        for (HashMap.Entry<String, Person> set: list.entrySet()) {
+            persons.put(set.getValue(), person);
+            System.out.println(set.getKey());
+        }
     }
 }

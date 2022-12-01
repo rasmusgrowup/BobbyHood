@@ -30,6 +30,11 @@
             <Text fx:id="inventoryText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0" />
          </children>
       </Pane>
+      <Pane layoutX="800" layoutY="600" prefHeight="200" prefWidth="400" style="-fx-background-color: #f6f6f6;">
+         <children>
+            <Text fx:id="dialogText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0" />
+         </children>
+      </Pane>
       <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
       <Rectangle fx:id="doorEastRect" height="80" layoutX="1170" layoutY="115" width="30" />
       <Rectangle fx:id="doorSouthRect" height="60" layoutX="439.0" layoutY="740.0" width="80" />

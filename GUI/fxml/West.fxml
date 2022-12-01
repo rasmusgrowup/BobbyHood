@@ -22,7 +22,7 @@
       </ImageView>
       <ImageView fx:id="person" fitHeight="114.0" fitWidth="124.0" layoutX="196.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/Old_man_right.png" />
+            <Image url="@../images/Mathias_right.png" />
          </image>
       </ImageView>
       <Pane fx:id="flow" layoutX="14.0" layoutY="698.0" prefHeight="88.0" prefWidth="400" style="-fx-background-color: #f6f6f6;">

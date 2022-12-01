@@ -1,5 +1,7 @@
 package BobbyHood;
 
+import javafx.scene.image.ImageView;
+
 import java.util.Objects;
 
 public class Person {
@@ -7,6 +9,8 @@ public class Person {
     private String name;
     private String description;
     private String[] dialog; // Just an array for efficiency
+    private ImageView image;
+
 
     // constructor for person object
     public Person(String name, String description) {
@@ -27,6 +31,13 @@ public class Person {
         return getName() + ": " + dialog[index];
     }
 
+    public void setImage(ImageView image) {
+        this.image = image;
+    }
+
+    public ImageView getImage() {
+        return image;
+    }
 
     public int getDialogLength() {
         return dialog.length;

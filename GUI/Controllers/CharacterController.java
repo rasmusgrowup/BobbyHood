@@ -1,9 +1,8 @@
 package BobbyHood.GUI.Controllers;
 
-import BobbyHood.Command;
+import BobbyHood.*;
 import BobbyHood.GUI.BobbyGUI;
 import BobbyHood.GUI.Door;
-import BobbyHood.Room;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -14,13 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 // reference:
@@ -38,6 +34,9 @@ public class CharacterController {
 
     private int movementVariable = 3;
     private Room currentRoom, nextRoom;
+    private NPC currentPerson;
+
+    private HashMap<Person, ImageView> persons = new HashMap();
 
     private final Image BOBBY_RIGHT = new Image("file:GUI/images/bobby_right.png");
     private final Image BOBBY_LEFT = new Image("file:GUI/images/bobby.png");
@@ -46,6 +45,8 @@ public class CharacterController {
     private ImageView bobby;
     @FXML
     private AnchorPane scene;
+    @FXML
+    Text inventoryText, dialogText;
 
     public void makeMovable(ImageView bobby, AnchorPane scene, HashMap<String, Door> doors) {
         this.bobby = bobby;
@@ -101,6 +102,7 @@ public class CharacterController {
             }
             try {
                 checkDoor(doors);
+                checkPerson();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -136,7 +138,28 @@ public class CharacterController {
         }
     }
 
+    public void checkPerson() {
+        for (HashMap.Entry<Person, ImageView> set: persons.entrySet()) {
+            Person person = set.getKey();
+            if (bobby.getBoundsInParent().intersects(set.getValue().getBoundsInParent())) {
+                if (person instanceof NPC) {
+                    BobbyGUI.getGame().setCurrentPerson((NPC) person);
+                    BobbyGUI.getGame().startDialog((NPC) person);
+                } else {
+                    BobbyGUI.getGame().johnDialog((John) person);
+                }
+            }
+        }
+    }
+
+    public void setPersons(HashMap<Person, ImageView> persons) {
+        this.persons = persons;
+    }
+
     public void switchDoor(String fxmlPath, String direction) throws IOException {
+        currentRoom = BobbyGUI.getGame().getCurrentRoom();
+        nextRoom = currentRoom.getExit(direction);
+        BobbyGUI.getGame().setCurrentRoom(nextRoom);
         FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource(fxmlPath));
         Scene sceneSwitch = new Scene(fxmlLoader.load());
         sceneSwitch.getRoot().requestFocus();
@@ -145,9 +168,5 @@ public class CharacterController {
         stage.show();
         GameController gameController = fxmlLoader.getController();
         gameController.persistGame(BobbyGUI.getGame());
-        currentRoom = BobbyGUI.getGame().getCurrentRoom();
-        nextRoom = currentRoom.getExit(direction);
-        BobbyGUI.getGame().setCurrentRoom(nextRoom);
-        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
     }
 }

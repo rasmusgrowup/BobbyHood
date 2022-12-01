@@ -89,7 +89,7 @@ public class CommandLineClient {
             }
         } else if (commandWord == Commands.TALK) {
             if (game.talkTo(command)) {
-                game.startDialog(command);
+                //game.startDialog(command);
             } else if (command.getCommandValue() == null) {
                 System.out.println("Please choose a person");
             } else {
