@@ -3,6 +3,7 @@ package BobbyHood.GUI.Controllers;
 
 import BobbyHood.Coin;
 import BobbyHood.GUI.BobbyGUI;
+import BobbyHood.GUI.Door;
 import BobbyHood.Game;
 import BobbyHood.Person;
 import BobbyHood.Room;
@@ -32,7 +33,11 @@ import java.util.ResourceBundle;
 public class NorthController extends GameController implements Initializable {
 
     private final CharacterController characterController = new CharacterController();
-    private HashMap<String, Rectangle> doors = new HashMap<>();
+    private HashMap<String, Door> doors = new HashMap<>();
+    private Door doorBuilding = new Door();
+    private Door doorSouth = new Door();
+    private Door doorWest = new Door();
+    private Door doorEast = new Door();
     @FXML
     private AnchorPane scene;
     @FXML
@@ -40,15 +45,27 @@ public class NorthController extends GameController implements Initializable {
     @FXML
     Text inventoryText;
     @FXML
-    Rectangle doorBuilding, doorEast, doorSouth, doorWest = new Rectangle();
+    Rectangle doorBuildingRect, doorEastRect, doorSouthRect, doorWestRect;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        doorBuilding.setRect(doorBuildingRect);
+        doorEast.setRect(doorEastRect);
+        doorSouth.setRect(doorSouthRect);
+        doorWest.setRect(doorWestRect);
+        doorBuilding.setFxmlPath("fxml/Building.fxml");
+        doorEast.setFxmlPath("fxml/East.fxml");
+        doorSouth.setFxmlPath("fxml/South.fxml");
+        doorWest.setFxmlPath("fxml/West.fxml");
+        doorBuilding.setDirection("north");
+        doorEast.setDirection("east");
+        doorSouth.setDirection("south");
+        doorWest.setDirection("west");
         characterController.makeMovable(bobby, scene, doors);
-        doorBuilding.setFill(Color.TRANSPARENT);
-        doorEast.setFill(Color.TRANSPARENT);
-        doorSouth.setFill(Color.TRANSPARENT);
-        doorWest.setFill(Color.TRANSPARENT);
+        doorBuilding.getRect().setFill(Color.TRANSPARENT);
+        doorEast.getRect().setFill(Color.TRANSPARENT);
+        doorSouth.getRect().setFill(Color.TRANSPARENT);
+        doorWest.getRect().setFill(Color.TRANSPARENT);
         doors.put("building", doorBuilding);
         doors.put("east", doorEast);
         doors.put("south", doorSouth);

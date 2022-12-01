@@ -31,9 +31,9 @@
          </children>
       </Pane>
       <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
-      <Rectangle fx:id="doorEast" height="80" layoutX="1170" layoutY="115" width="30" />
-      <Rectangle fx:id="doorSouth" height="60" layoutX="439.0" layoutY="740.0" width="80" />
-      <Rectangle fx:id="doorBuilding" height="30.0" layoutX="671.0" layoutY="-1.0" width="80.0" />
-      <Rectangle fx:id="doorWest" height="80" layoutY="406.0" width="30" />
+      <Rectangle fx:id="doorEastRect" height="80" layoutX="1170" layoutY="115" width="30" />
+      <Rectangle fx:id="doorSouthRect" height="60" layoutX="439.0" layoutY="740.0" width="80" />
+      <Rectangle fx:id="doorBuildingRect" height="30.0" layoutX="671.0" layoutY="-1.0" width="80.0" />
+      <Rectangle fx:id="doorWestRect" height="80" layoutY="406.0" width="30" />
    </children>
 </AnchorPane>

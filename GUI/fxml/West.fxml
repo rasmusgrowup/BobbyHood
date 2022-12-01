@@ -31,6 +31,6 @@
          </children>
       </Pane>
       <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
-      <Rectangle fx:id="door" height="80" layoutX="1170" layoutY="400" width="30" />
+      <Rectangle fx:id="doorRect" height="80" layoutX="1170" layoutY="400" width="30" />
    </children>
 </AnchorPane>

@@ -2,6 +2,7 @@ package BobbyHood.GUI.Controllers;
 
 import BobbyHood.Command;
 import BobbyHood.GUI.BobbyGUI;
+import BobbyHood.GUI.Door;
 import BobbyHood.Room;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
@@ -46,7 +47,7 @@ public class CharacterController {
     @FXML
     private AnchorPane scene;
 
-    public void makeMovable(ImageView bobby, AnchorPane scene, HashMap<String, Rectangle> doors) {
+    public void makeMovable(ImageView bobby, AnchorPane scene, HashMap<String, Door> doors) {
         this.bobby = bobby;
         this.scene = scene;
 
@@ -89,7 +90,7 @@ public class CharacterController {
         }
     };
 
-    void movementSetup(HashMap<String, Rectangle> doors) {
+    void movementSetup(HashMap<String, Door> doors) {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case W -> wPressed.set(true);
@@ -124,24 +125,19 @@ public class CharacterController {
         });
     }
 
-    public void checkDoor(HashMap<String, Rectangle> doors) throws IOException {
-        for (HashMap.Entry<String, Rectangle> set: doors.entrySet()) {
-            Rectangle door = set.getValue();
-            if (bobby.getBoundsInParent().intersects(door.getBoundsInParent())) {
-                String direction = set.getKey();
-                switch (direction) {
-                    case "building": goInside(); break;
-                    case "north": goNorth(); break;
-                    case "east": goEast(); break;
-                    case "south": goSouth(); break;
-                    case "west": goWest(); break;
-                }
+    public void checkDoor(HashMap<String, Door> doors) throws IOException {
+        for (HashMap.Entry<String, Door> set: doors.entrySet()) {
+            Door door = set.getValue();
+            if (bobby.getBoundsInParent().intersects(door.getRect().getBoundsInParent())) {
+                String direction = door.getDirection();
+                String fxmlPath = door.getFxmlPath();
+                switchDoor(fxmlPath, direction);
             }
         }
     }
 
-    public void goNorth() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/North.fxml"));
+    public void switchDoor(String fxmlPath, String direction) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource(fxmlPath));
         Scene sceneSwitch = new Scene(fxmlLoader.load());
         sceneSwitch.getRoot().requestFocus();
         Stage stage = BobbyGUI.getStage();
@@ -150,67 +146,7 @@ public class CharacterController {
         GameController gameController = fxmlLoader.getController();
         gameController.persistGame(BobbyGUI.getGame());
         currentRoom = BobbyGUI.getGame().getCurrentRoom();
-        nextRoom = currentRoom.getExit("north");
-        BobbyGUI.getGame().setCurrentRoom(nextRoom);
-        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
-    }
-
-    public void goSouth() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/South.fxml"));
-        Scene sceneSwitch = new Scene(fxmlLoader.load());
-        sceneSwitch.getRoot().requestFocus();
-        Stage stage = BobbyGUI.getStage();
-        stage.setScene(sceneSwitch);
-        stage.show();
-        GameController gameController = fxmlLoader.getController();
-        gameController.persistGame(BobbyGUI.getGame());
-        currentRoom = BobbyGUI.getGame().getCurrentRoom();
-        nextRoom = currentRoom.getExit("south");
-        BobbyGUI.getGame().setCurrentRoom(nextRoom);
-        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
-    }
-
-    public void goWest() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/West.fxml"));
-        Scene sceneSwitch = new Scene(fxmlLoader.load());
-        sceneSwitch.getRoot().requestFocus();
-        Stage stage = BobbyGUI.getStage();
-        stage.setScene(sceneSwitch);
-        stage.show();
-        GameController gameController = fxmlLoader.getController();
-        gameController.persistGame(BobbyGUI.getGame());
-        currentRoom = BobbyGUI.getGame().getCurrentRoom();
-        nextRoom = currentRoom.getExit("west");
-        BobbyGUI.getGame().setCurrentRoom(nextRoom);
-        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
-    }
-
-    public void goEast() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/East.fxml"));
-        Scene sceneSwitch = new Scene(fxmlLoader.load());
-        sceneSwitch.getRoot().requestFocus();
-        Stage stage = BobbyGUI.getStage();
-        stage.setScene(sceneSwitch);
-        stage.show();
-        GameController gameController = fxmlLoader.getController();
-        gameController.persistGame(BobbyGUI.getGame());
-        currentRoom = BobbyGUI.getGame().getCurrentRoom();
-        nextRoom = currentRoom.getExit("east");
-        BobbyGUI.getGame().setCurrentRoom(nextRoom);
-        System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
-    }
-
-    public void goInside() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Building.fxml"));
-        Scene sceneSwitch = new Scene(fxmlLoader.load());
-        sceneSwitch.getRoot().requestFocus();
-        Stage stage = BobbyGUI.getStage();
-        stage.setScene(sceneSwitch);
-        stage.show();
-        GameController gameController = fxmlLoader.getController();
-        gameController.persistGame(BobbyGUI.getGame());
-        currentRoom = BobbyGUI.getGame().getCurrentRoom();
-        nextRoom = currentRoom.getExit("building");
+        nextRoom = currentRoom.getExit(direction);
         BobbyGUI.getGame().setCurrentRoom(nextRoom);
         System.out.println(BobbyGUI.getGame().getCurrentRoom().getPersons());
     }

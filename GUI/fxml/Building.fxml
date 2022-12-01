@@ -29,6 +29,6 @@
             <Text fx:id="inventoryText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0" />
          </children>
       </Pane>
-      <Rectangle fx:id="door" height="100" layoutX="440" layoutY="700" width="300" />
+      <Rectangle fx:id="doorRect" height="100" layoutX="440" layoutY="700" width="300" />
    </children>
 </AnchorPane>
