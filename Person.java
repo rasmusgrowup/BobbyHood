@@ -10,6 +10,7 @@ public class Person {
     private String description;
     private String[] dialog; // Just an array for efficiency
     private ImageView image;
+    private boolean engaged;
 
 
     // constructor for person object
@@ -51,5 +52,17 @@ public class Person {
     // method for getting the description for each person object created
     public String getDescription() {
         return description;
+    }
+
+    public void setEngaged(boolean b) {
+        engaged = b; //set the value of engaged
+    }
+
+    public boolean getEngaged() {
+        return engaged;
+    }
+
+    public String getRejected() {
+        return "Hey Bobby, we already talked"; //add a standard message to all npc's that bobby has talked to
     }
 }

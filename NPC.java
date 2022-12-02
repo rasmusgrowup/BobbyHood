@@ -40,7 +40,7 @@ public class NPC extends Person {
     }
 
     public String getQuestion() {
-        return question + "\n\033[3mFill in the blank by typing the correct number.\033[0m";
+        return question + "\nPress Z=1, X=2 or C=3 to answer";
     }
 
     public int getCorrectAnswerIndex() {
@@ -72,18 +72,4 @@ public class NPC extends Person {
             typeString = "reason";
         } return typeString;
     }
-
-    // method for setting which response the npc has to use wether they have been engaged or not
-    public void setEngaged(boolean b) {
-        engaged = b; //set the value of engaged
-    }
-
-    public boolean getEngaged() {
-        return engaged;
-    }
-
-    public String getRejected() {
-        return "Hey Bobby, we already talked"; //add a standard message to all npc's that bobby has talked to
-    }
-
 }

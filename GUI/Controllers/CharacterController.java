@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -20,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 // reference:
 // https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8
@@ -31,9 +31,13 @@ public class CharacterController {
     private BooleanProperty sPressed = new SimpleBooleanProperty();
     private BooleanProperty dPressed = new SimpleBooleanProperty();
     private BooleanProperty shiftPressed = new SimpleBooleanProperty();
-    private boolean paused = false;
-    private boolean enter = new Boolean(false);
+    private boolean paused, enter;
+    private boolean isDialogActive;
+    private boolean isHandbookOpen;
     private int dIndex = 0;
+    private int userInput = 0;
+    private boolean dialogSwitch = true;
+    private boolean questionIsActive;
 
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
@@ -99,11 +103,19 @@ public class CharacterController {
     void movementSetup(HashMap<String, Door> doors) {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
+                case Z -> userInput = 1;
+                case X -> userInput = 2;
+                case C -> userInput = 3;
                 case W -> wPressed.set(true);
                 case S -> sPressed.set(true);
                 case A -> aPressed.set(true);
                 case D -> dPressed.set(true);
                 case P -> setPaused();
+                case H -> {
+                    if (!isDialogActive) {
+                        displayHandbook();
+                    }
+                }
                 case ENTER -> checkPerson();
                 case SHIFT -> shiftPressed.set(true);
             }
@@ -117,6 +129,9 @@ public class CharacterController {
 
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
+                case Z -> userInput = 1;
+                case X -> userInput = 2;
+                case C -> userInput = 3;
                 case W -> wPressed.set(false);
                 case S -> sPressed.set(false);
                 case A -> aPressed.set(false);
@@ -136,7 +151,7 @@ public class CharacterController {
 
     public void setPaused() {
         paused = !paused;
-        System.out.println(paused);
+        //System.out.println(paused);
     }
 
     public void checkDoor(HashMap<String, Door> doors) throws IOException {
@@ -177,16 +192,114 @@ public class CharacterController {
         gameController.persistGame(BobbyGUI.getGame());
     }
 
-    public void dialog(Person person) {
+    public void displayHandbook() {
+        isHandbookOpen = !isHandbookOpen;
         setPaused();
-        String dialogString = person.getDialog(0);
+        Text text = (Text) scene.lookup("#handbook");
+        Pane pane = (Pane) scene.lookup("#handbookPane");
+        if (isHandbookOpen) {
+            pane.setOpacity(1.0);
+            text.setText(BobbyGUI.getGame().getHandbook());
+        } else {
+            pane.setOpacity(0.0);
+        }
+    }
+
+    public void setDialogSwitch() {
+        dialogSwitch = !dialogSwitch;
+    }
+
+    public void dialog(Person person) {
+        paused = true;
+        isDialogActive = true;
         currentRoom = BobbyGUI.getGame().getCurrentRoom();
         Text text = (Text) scene.lookup("#dialogText");
+        text.setStyle("-fx-font: 16 arial;");
         Pane pane = (Pane) scene.lookup("#dialogPane");
-        text.setText(dialogString);
         pane.setOpacity(1.0);
-        scene.setOnKeyPressed(event -> {
+        if (person instanceof John) {
+            if (dIndex < 1) {
+                text.setText(BobbyGUI.getGame().johnsProgress());
+                dIndex++;
+            } else {
+                dIndex = 0;
+                paused = false;
+                pane.setOpacity(0);
+                isDialogActive = false;
+            }
+        } else {
+            NPC npc = (NPC) person;
+            if (npc.getEngaged()) {
+                if (dIndex < 1) {
+                    text.setText(npc.getRejected());
+                    dIndex++;
+                } else {
+                    dIndex = 0;
+                    paused = false;
+                    pane.setOpacity(0);
+                    isDialogActive = false;
+                }
+            } else {
+                switch (dIndex) {
+                    case 0 -> {
+                        if (dialogSwitch) {
+                            text.setText(BobbyGUI.getGame().getBobby().getDialog(npc, dIndex));
+                            setDialogSwitch();
+                        } else {
+                            text.setText(npc.getDialog(dIndex));
+                            setDialogSwitch();
+                            dIndex++;
+                        }
+                    }
+                    case 1 -> {
+                        if (dialogSwitch) {
+                            text.setText(BobbyGUI.getGame().getBobby().getDialog(npc, dIndex) + "\n" + npc.getQuestion());
+                            setDialogSwitch();
+                        } else {
+                            startQuiz(npc);
+                            //text.setText(npc.getDialog(dIndex));
+                            //setDialogSwitch();
+                            //dIndex++;
+                        }
+                    }
+                    case 2 -> {
+                        if (dialogSwitch) {
+                            text.setText(npc.getDialog(dIndex));
+                            setDialogSwitch();
+                        } else {
+                            text.setText(BobbyGUI.getGame().getBobby().getDialog(npc, dIndex));
+                            setDialogSwitch();
+                            dIndex++;
+                        }
+                    }
+                    case 3 -> {
+                        npc.setEngaged(true);
+                        BobbyGUI.getGame().setPersonsCompleted();
+                        dIndex = 0;
+                        paused = false;
+                        pane.setOpacity(0);
+                        isDialogActive = false;
+                        //BobbyGUI.getGame().returnInventory().addItem(npc.getItem());
+                    }
+                }
+            }
+        }
+    }
 
-        });
+    public void startQuiz(NPC npc) {
+        Text text = (Text) scene.lookup("#dialogText");
+        int correctAnswer = npc.getCorrectAnswerIndex();
+        userInput = 0;
+        if (questionIsActive) {
+            if (correctAnswer == userInput) {
+                text.setText("Correct answer");
+                questionIsActive = false;
+            } else {
+                text.setText("Wrong answer");
+                dialogSwitch = true;
+                dIndex = 0;
+            }
+        }
+        userInput = 0;
     }
 }

@@ -400,6 +400,10 @@ public class Game {
         return true;
     }
 
+    public String johnsProgress() {
+        return "You're not done yet. You've talked to " + personsCompleted + " out of " + getPersonCount() + "";
+    }
+
     public boolean startDialog(NPC npc) {
         // check if the command value is empty
         /*
@@ -508,16 +512,6 @@ public class Game {
         return currentPerson.getDescription();
     }
 
-    /*
-    public String getPersonResponse() {
-        if (currentPerson.getEngaged()) {
-            return currentPerson.getRejected();
-        } else {
-            currentPerson.setEngaged(true);
-            return currentPerson.getResponse();
-        }
-    }*/
-
     public CommandWords getCommands() {
         return commands;
     }
@@ -542,7 +536,13 @@ public class Game {
         return isGameCompleted;
     }
 
+    public void setPersonsCompleted() {
+        personsCompleted++;
+    }
+
     public Inventory returnInventory() {
         return inventory;
     }
+
+    public Player getBobby() { return bobby; }
 }
