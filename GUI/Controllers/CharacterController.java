@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -30,6 +31,9 @@ public class CharacterController {
     private BooleanProperty sPressed = new SimpleBooleanProperty();
     private BooleanProperty dPressed = new SimpleBooleanProperty();
     private BooleanProperty shiftPressed = new SimpleBooleanProperty();
+    private boolean paused = false;
+    private boolean enter = new Boolean(false);
+    private int dIndex = 0;
 
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
@@ -56,7 +60,7 @@ public class CharacterController {
         movementSetup(doors);
 
         keyPressed.addListener(((observableValue, aBoolean, t1) -> {
-            if (!aBoolean) {
+            if (!paused && !aBoolean) {
                 timer.start();
             } else {
                 timer.stop();
@@ -99,11 +103,13 @@ public class CharacterController {
                 case S -> sPressed.set(true);
                 case A -> aPressed.set(true);
                 case D -> dPressed.set(true);
+                case P -> setPaused();
+                case ENTER -> checkPerson();
                 case SHIFT -> shiftPressed.set(true);
             }
             try {
                 checkDoor(doors);
-                checkPerson();
+                //checkPerson();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -128,6 +134,11 @@ public class CharacterController {
         });
     }
 
+    public void setPaused() {
+        paused = !paused;
+        System.out.println(paused);
+    }
+
     public void checkDoor(HashMap<String, Door> doors) throws IOException {
         for (HashMap.Entry<String, Door> set: doors.entrySet()) {
             Door door = set.getValue();
@@ -143,14 +154,7 @@ public class CharacterController {
         for (HashMap.Entry<Person, ImageView> set: persons.entrySet()) {
             Person person = set.getKey();
             if (bobby.getBoundsInParent().intersects(set.getValue().getBoundsInParent())) {
-                if (person instanceof NPC) {
-                    //BobbyGUI.getGame().setCurrentPerson((NPC) person);
-                    //BobbyGUI.getGame().startDialog((NPC) person);
-                    dialog(((NPC) person).getDialog(0));
-                } else {
-                    //BobbyGUI.getGame().johnDialog((John) person);
-                    dialog(person.getDialog(1));
-                }
+                dialog(person);
             }
         }
     }
@@ -173,11 +177,16 @@ public class CharacterController {
         gameController.persistGame(BobbyGUI.getGame());
     }
 
-    public void dialog(String dialogString) {
+    public void dialog(Person person) {
+        setPaused();
+        String dialogString = person.getDialog(0);
         currentRoom = BobbyGUI.getGame().getCurrentRoom();
         Text text = (Text) scene.lookup("#dialogText");
         Pane pane = (Pane) scene.lookup("#dialogPane");
         text.setText(dialogString);
         pane.setOpacity(1.0);
+        scene.setOnKeyPressed(event -> {
+
+        });
     }
 }

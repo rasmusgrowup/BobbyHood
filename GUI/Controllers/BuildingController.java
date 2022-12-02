@@ -58,7 +58,4 @@ public class BuildingController extends GameController implements Initializable 
             System.out.println(set.getKey());
         }
     }
-
-
-
 }
