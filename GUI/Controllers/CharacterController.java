@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -34,7 +35,7 @@ public class CharacterController {
 
     private int movementVariable = 3;
     private Room currentRoom, nextRoom;
-    private NPC currentPerson;
+    //private NPC currentPerson;
 
     private HashMap<Person, ImageView> persons = new HashMap();
 
@@ -143,10 +144,12 @@ public class CharacterController {
             Person person = set.getKey();
             if (bobby.getBoundsInParent().intersects(set.getValue().getBoundsInParent())) {
                 if (person instanceof NPC) {
-                    BobbyGUI.getGame().setCurrentPerson((NPC) person);
-                    BobbyGUI.getGame().startDialog((NPC) person);
+                    //BobbyGUI.getGame().setCurrentPerson((NPC) person);
+                    //BobbyGUI.getGame().startDialog((NPC) person);
+                    dialog(((NPC) person).getDialog(0));
                 } else {
-                    BobbyGUI.getGame().johnDialog((John) person);
+                    //BobbyGUI.getGame().johnDialog((John) person);
+                    dialog(person.getDialog(1));
                 }
             }
         }
@@ -161,12 +164,20 @@ public class CharacterController {
         nextRoom = currentRoom.getExit(direction);
         BobbyGUI.getGame().setCurrentRoom(nextRoom);
         FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource(fxmlPath));
-        Scene sceneSwitch = new Scene(fxmlLoader.load());
-        sceneSwitch.getRoot().requestFocus();
+        Scene scene = new Scene(fxmlLoader.load());
+        scene.getRoot().requestFocus();
         Stage stage = BobbyGUI.getStage();
-        stage.setScene(sceneSwitch);
+        stage.setScene(scene);
         stage.show();
         GameController gameController = fxmlLoader.getController();
         gameController.persistGame(BobbyGUI.getGame());
+    }
+
+    public void dialog(String dialogString) {
+        currentRoom = BobbyGUI.getGame().getCurrentRoom();
+        Text text = (Text) scene.lookup("#dialogText");
+        Pane pane = (Pane) scene.lookup("#dialogPane");
+        text.setText(dialogString);
+        pane.setOpacity(1.0);
     }
 }

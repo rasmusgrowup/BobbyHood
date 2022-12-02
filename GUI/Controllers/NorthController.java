@@ -39,7 +39,7 @@ public class NorthController extends GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println(BobbyGUI.getGame().getCurrentRoom().getShortDescription());
+        //System.out.println(BobbyGUI.getGame().getCurrentRoom().getShortDescription());
         setPersonsForRoom();
         doorBuilding.setRect(doorBuildingRect);
         doorEast.setRect(doorEastRect);
