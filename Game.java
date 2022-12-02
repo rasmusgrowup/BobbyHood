@@ -65,7 +65,7 @@ public class Game {
 
     private void createRooms() {
         // room variable names
-        Room building, north, east, south, west;
+        Room building, north, east, south, west, start;
 
         // descriptions for the rooms
         building = new Room("in the UN headquarters");

@@ -14,6 +14,7 @@ public class BobbyGUI extends Application {
     public static Game game;
     private Room building;
 
+
     private void setStage(Stage stage) {
         BobbyGUI.primaryStage = stage;
     }
@@ -37,7 +38,7 @@ public class BobbyGUI extends Application {
     public void start(Stage primaryStage) throws IOException {
         setStage(primaryStage);
         setGame();
-        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Building.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Start.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         GameController gameController = fxmlLoader.getController();
         gameController.persistGame(game);
