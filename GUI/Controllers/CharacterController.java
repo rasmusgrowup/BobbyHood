@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -103,9 +104,18 @@ public class CharacterController {
     void movementSetup(HashMap<String, Door> doors) {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case Z -> userInput = 1;
-                case X -> userInput = 2;
-                case C -> userInput = 3;
+                case Z -> {
+                    userInput = 1;
+                    checkPerson();
+                }
+                case X -> {
+                    userInput = 2;
+                    checkPerson();
+                }
+                case C -> {
+                    userInput = 3;
+                    checkPerson();
+                }
                 case W -> wPressed.set(true);
                 case S -> sPressed.set(true);
                 case A -> aPressed.set(true);
@@ -129,9 +139,6 @@ public class CharacterController {
 
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
-                case Z -> userInput = 1;
-                case X -> userInput = 2;
-                case C -> userInput = 3;
                 case W -> wPressed.set(false);
                 case S -> sPressed.set(false);
                 case A -> aPressed.set(false);
@@ -209,6 +216,10 @@ public class CharacterController {
         dialogSwitch = !dialogSwitch;
     }
 
+    public void setUserInput(int answer) {
+        userInput = answer;
+    }
+
     public void dialog(Person person) {
         paused = true;
         isDialogActive = true;
@@ -255,11 +266,21 @@ public class CharacterController {
                         if (dialogSwitch) {
                             text.setText(BobbyGUI.getGame().getBobby().getDialog(npc, dIndex) + "\n" + npc.getQuestion());
                             setDialogSwitch();
+                            questionIsActive = true;
+                        } else if (questionIsActive) {
+                            int correctAnswer = npc.getCorrectAnswerIndex();
+                            if (correctAnswer == userInput) {
+                                text.setText("Correct answer");
+                            } else {
+                                text.setText("Wrong answer");
+                                dialogSwitch = true;
+                                dIndex = 0;
+                            } questionIsActive = false;
+                            userInput = 0;
                         } else {
-                            startQuiz(npc);
-                            //text.setText(npc.getDialog(dIndex));
-                            //setDialogSwitch();
-                            //dIndex++;
+                            text.setText(npc.getDialog(dIndex));
+                            setDialogSwitch();
+                            dIndex++;
                         }
                     }
                     case 2 -> {
@@ -284,22 +305,5 @@ public class CharacterController {
                 }
             }
         }
-    }
-
-    public void startQuiz(NPC npc) {
-        Text text = (Text) scene.lookup("#dialogText");
-        int correctAnswer = npc.getCorrectAnswerIndex();
-        userInput = 0;
-        if (questionIsActive) {
-            if (correctAnswer == userInput) {
-                text.setText("Correct answer");
-                questionIsActive = false;
-            } else {
-                text.setText("Wrong answer");
-                dialogSwitch = true;
-                dIndex = 0;
-            }
-        }
-        userInput = 0;
     }
 }
