@@ -176,8 +176,8 @@ public class Game {
         // new instance of Lene
         lene = new NPC(
                 "Lene",
-                "Female",
                 "Lene is a very attractive business woman. She's walking while talking on the phone",
+                "Female",
                 leneQuestion,
                 1,
                 1,
