@@ -18,7 +18,7 @@
          <font>
             <Font size="40.0" />
          </font></Button>
-      <Text fill="WHITE" layoutX="257.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Bobby Hood" textAlignment="CENTER" wrappingWidth="650.21630859375" style="-fx-stroke: firebrick;
+      <Text fill="WHITE" layoutX="150" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to Bobby Hood" textAlignment="CENTER" wrappingWidth="900" style="-fx-stroke: firebrick;
             -fx-stroke-width: 2px;">
          <font>
             <Font name="System Bold" size="56.0" />

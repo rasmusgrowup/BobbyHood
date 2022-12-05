@@ -20,9 +20,14 @@
             <Image url="@../images/bobby.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="person" fitHeight="114.0" fitWidth="124.0" layoutX="450.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="hans" fitHeight="114.0" fitWidth="124.0" layoutX="450.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/Old_man_left.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="gurli" fitHeight="114.0" fitWidth="124.0" layoutX="149.0" layoutY="509.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/gurli.png" />
          </image>
       </ImageView>
       <Pane fx:id="flow" layoutX="14.0" layoutY="698.0" prefHeight="88.0" prefWidth="400" style="-fx-background-color: #f6f6f6;">
@@ -30,9 +35,14 @@
             <Text fx:id="inventoryText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0" />
          </children>
       </Pane>
+      <Pane fx:id="dialogPane" layoutX="650" layoutY="450" prefHeight="300" prefWidth="500" style="-fx-background-color: #f6f6f6; -fx-border-radius: 20 20 20 20; -fx-background-radius: 20 20 20 20; -fx-opacity: 0.0">
+         <children>
+            <Text fx:id="dialogText" layoutX="40.0" layoutY="40.0" wrappingWidth="420" />
+         </children>
+      </Pane>
       <Pane fx:id="handbookPane" layoutX="400" layoutY="100" prefHeight="600" prefWidth="400" style="-fx-background-color: #f6f6f6; -fx-opacity: 0.0">
          <children>
-            <Text fx:id="handbook" layoutX="20.0" layoutY="20.0" wrappingWidth="360.0"/>
+            <Text fx:id="handbook" layoutX="20.0" layoutY="20.0" wrappingWidth="360.0" />
          </children>
       </Pane>
       <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
