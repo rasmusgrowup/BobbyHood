@@ -30,22 +30,44 @@ public class Game {
 
     private void populateHandbook() {
         handbook = new Handbook("UNICEF Handbook"); // new instance of Handbook
-        String fact1, fact2, fact3, fact4; // fact variables
+        String fact1, fact2, fact3, fact4, fact5, fact6, fact7, fact8, fact9, fact10; // fact variables
 
         // the strings for the facts
         fact1 = "80% of all people living in extreme poverty\n" +
-                "comes from South Asia and Sub Sahara.\n";
+                "   comes from South Asia and Sub Sahara.\n";
         fact2 = "Today, over 700 million people live in extreme\n" +
-                "poverty.\n";
+                "   poverty.\n";
         fact3 = "The international poverty line is $2,15.\n";
         fact4 = "160 million children are at risk of continuing\n" +
-                "to live in extreme poverty by 2030";
-
+                "   to live in extreme poverty by 2030.\n";
+        fact5 = "Almost 22 000 children dies every day\n"+
+                "   due to living in poverty.\n";
+        fact6 = "1.6 billion people lives without electricity\n";
+        fact7 = "It’s estimated that, because of the COVID-19\n" +
+                "   pandemic and subsequent global recession,\n" +
+                "   poverty rates will increase for the first\n" +
+                "   time since 1990.\n";
+        fact8 = "Approximately 297,000 children under five die\n" +
+                "   every year from diarrhoeal diseases due to\n" +
+                "   poor sanitation, poor hygiene, or unsafe\n" +
+                "   drinking water.\n";
+        fact9 = "The entire health budget of Ethiopia, a country\n" +
+                "   of 105 million people, is equivalent to just 1%\n" +
+                "   of the fortune of the world’s richest man,\n" +
+                "   Amazon CEO Jeff Bezos.\n";
+        fact10 = "Children are more than twice as likely as adults\n" +
+                "   to live in extreme poverty.\n";
         // set the text for the facts
         handbook.setFact("#1", fact1);
         handbook.setFact("#2", fact2);
         handbook.setFact("#3", fact3);
         handbook.setFact("#4", fact4);
+        handbook.setFact("#5", fact5);
+        handbook.setFact("#6", fact6);
+        handbook.setFact("#7", fact7);
+        handbook.setFact("#8", fact8);
+        handbook.setFact("#9", fact9);
+        handbook.setFact("#10", fact10);
     }
 
     public String getJohnStartMessage() {
@@ -93,33 +115,250 @@ public class Game {
         west.setExit("north", north);
 
         // Create persons for the rooms
-        Person hans, lene, mathias, mia;
+        Person hans, lene, mathias, mia, niels, kurt, gurli, hanne, johnny, lolita;
 
-        // create the options for Hans
+        // create the options for Lolita
+        String lolitaQuestion = "\n" +
+                "1: 2 times\n" +
+                "2: 3 times\n" +
+                "3: 4 times\n";
+
+        // new instance of person, Lolita
+        lolita = new NPC(
+                "Lolita",
+                "Lolita is laying in the grass in the park, enjoying the sun.",
+                "Female",
+                lolitaQuestion,
+                2,
+                2,
+                new Coin(200)
+        );
+
+        // set the dialog for Lolita
+        lolita.setDialog(new String[]{
+                "Hi! My name is " + lolita.getName() + ".",
+                "Oh no! That is really unfair.",
+                "Here you go"
+        });
+
+        // set the players dialog for Lolita
+        String[] lolitaDialog = new String[]{
+                "Hey. My name is Bobby.",
+                "Children are more than ___ as likely as adults to live in extreme poverty",
+                "Thank you. We will do our best to make some change."
+        };
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
+        bobby.setDialog(lolita, lolitaDialog);
+
+        // create the options for Johnny
+        String johnnyQuestion = "\n" +
+                "1: 0.5 %\n" +
+                "2: 1 %\n" +
+                "3: 5 %\n";
+
+        // new instance of person, Johnny
+        johnny = new NPC(
+                "Johnny",
+                "Johnny is walking past with a group of friends.",
+                "Male",
+                johnnyQuestion,
+                2,
+                2,
+                new Coin(200)
+        );
+
+        // set the dialog for Johnny
+        johnny.setDialog(new String[]{
+                "Hi! My name is " + johnny.getName() + ".",
+                "Seriously?! It's absurd that one man could have all that.",
+                "We must all work together. Especially if people like Bezos does not. Here you go!"
+        });
+
+        // set the players dialog for Johnny
+        String[] johnnyDialog = new String[]{
+                "Hey. My name is Bobby.",
+                "The entire health budget of Ethiopia a country of 105 million people\n" +
+                "is equivalent to ___ of the fortune of the world’s richest man, Amazon CEO Jeff Bezos.",
+                "You are absolutely right and thank you very much."
+        };
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
+        bobby.setDialog(johnny, johnnyDialog);
+
+        // create the options for Hanne
+        String hanneQuestion = "\n" +
+                "1: 115 thousand\n" +
+                "2: 186 thousand\n" +
+                "3: 297 thousand\n";
+
+        // new instance of person, Hanne
+        hanne = new NPC(
+                "Hanne",
+                "Hanne is walking slowly through the park while drinking a coffee",
+                "Female",
+                hanneQuestion,
+                3,
+                1,
+                new Coin(200)
+        );
+
+        // set the dialog for Hanne
+        hanne.setDialog(new String[]{
+                "Hey. My name is " + hanne.getName() + ".",
+                "Really! That's horrible.",
+                "I might be a student, but in this case it is definitely worth contributing."
+        });
+
+        // set the players dialog for Hanne
+        String[] hanneDialog = new String[]{
+                "Hello there. My name is Bobby.",
+                "Every single year ___ children under five die from diseases due to poor\n" +
+                "sanitation, poor hygiene, or unsafe drinking water.",
+                "Thank you so much!"
+        };
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
+        bobby.setDialog(hanne, hanneDialog);
+
+        // create the options for Gurli
+        String gurliQuestion = "\n" +
+                "1: 1990\n" +
+                "2: 1995\n" +
+                "3: 2000\n";
+
+        // new instance of person, Gurli
+        gurli = new NPC(
+                "Gurli",
+                "Gurli is an elderly lady. She is feeding the birds.",
+                "Female",
+                gurliQuestion,
+                1,
+                1,
+                new Coin(200)
+        );
+
+        // set the dialog for Gurli
+        gurli.setDialog(new String[]{
+                "Nice to meet you young man. My name is " + gurli.getName() + ".",
+                "Oh! What a shame that the progress was hindered by the pandemic.",
+                "Take this young man. Sounds like you need it more than i do."
+        });
+
+        // set the players dialog for Gurli
+        String[] gurliDialog = new String[]{
+                "Hello there. My name is Bobby Hood.",
+                "We have been doing well in reducing the amount of people living in poverty\n." +
+                "But were you aware that, because of the covid pandemic\n" +
+                "poverty rates will increase for the first time since ___?",
+                "Thank you"
+        };
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
+        bobby.setDialog(gurli, gurliDialog);
+
+        // create the options for Kurt
+        String kurtQuestion = "\n" +
+                "1: 700 million\n" +
+                "2: 1.6 billion\n" +
+                "3: 2.2 billion\n";
+
+        // new instance of person, Kurt
+        kurt = new NPC(
+                "Kurt",
+                "Kurt is a young man. He is listening to music and reading a book in the park.",
+                "Male",
+                kurtQuestion,
+                2,
+                2,
+                new Coin(200)
+        );
+
+        // set the dialog for Kurt
+        kurt.setDialog(new String[]{
+                "Hello Bobby nice to meet you. My name is " + kurt.getName() + ".",
+                "Wow. I would'nt know how to survive without that. Must be tough!",
+                "Here you go. I am sure you will put it to good use."
+        });
+
+        // set the players dialog for Kurt
+        String[] kurtDialog = new String[]{
+                "Hello. My name is Bobby.",
+                "Have you ever considered that, ___ people lives without electricity",
+                "Thank you"
+        };
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
+        bobby.setDialog(kurt, kurtDialog);
+
+        // create the options for Niels
+        String nielsQuestion = "\n" +
+                "1: 10 thousand\n" +
+                "2: 14 thousand\n" +
+                "3: 22 thousand\n";
+
+        // new instance of person, Mia
+        niels = new NPC(
+                "Niels",
+                "Niels is standing still. Looking across the small pond.",
+                "Male",
+                nielsQuestion,
+                3,
+                2,
+                new Coin(200)
+        );
+
+        // set the dialog for Niels
+        niels.setDialog(new String[]{
+                "Eey, what up my man Bobby! My name is " + niels.getName() + ".",
+                "Daaaamn! We should definitely do something about that.",
+                "Here's all i got. I hope you guys can make a difference."
+        });
+
+        // set the players dialog for Mia
+        String[] nielsDialog = new String[]{
+                "Hello. My name is Bobby.",
+                "Did you know that almost, ___ thousand children die every day\n" +
+                "due to living in poverty?",
+                "Thank you"
+        };
+
+        // add this dialog to the players dialog list.
+        // the dialog list is a HashMap that accepts a
+        // person and the dialog for that person
+        bobby.setDialog(niels, nielsDialog);
+
+
+        // create the options for Mia
         String miaQuestion = "\n" +
                 "1: 60 million\n" +
                 "2: 160 million\n" +
                 "3: 260 million\n";
 
-        // new instance of person, Hans
+        // new instance of person, Mia
         mia = new NPC(
                 "Mia",
-                "Female",
                 "Mia is a middle aged woman, walking her dog in the park.",
+                "Female",
                 miaQuestion,
                 2,
                 1,
                 new Coin(200)
         );
 
-        // set the dialog for Hans
+        // set the dialog for Mia
         mia.setDialog(new String[]{
                 "Nice to meet you Bobby. My name is " + mia.getName() + ".",
                 "No way. That's a lot of children.",
                 "Here's what I can spare for your cause."
         });
 
-        // set the players dialog for Hans
+        // set the players dialog for Mia
         String[] miaDialog = new String[]{
                 "Hello. My name is Bobby.",
                 "According to UN, ___ million children are at risk of continuing\n" +
