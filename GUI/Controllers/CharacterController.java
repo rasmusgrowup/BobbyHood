@@ -182,8 +182,10 @@ public class CharacterController {
                     shiftPressed.set(false);
                     movementVariable = 3;
                 }
+                case P -> displayControls("#pButton");
+                case H -> displayControls("#hButton");
                 case ENTER -> displayControls("#enterButton");
-            }
+                }
             try {
                 checkDoor(doors);
             } catch (IOException e) {
