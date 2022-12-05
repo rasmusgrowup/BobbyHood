@@ -41,6 +41,7 @@ public class CharacterController {
     private int johnIndex;
     private boolean dialogSwitch = true;
     private boolean questionIsActive;
+    public boolean isControlsPressed;
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
     private int movementVariable = 3;
@@ -62,6 +63,7 @@ public class CharacterController {
     private AnchorPane scene;
     @FXML
     Text inventoryText, dialogText;
+
 
     public void makeMovable(ImageView bobby, AnchorPane scene, HashMap<String, Door> doors) {
         this.bobby = bobby;
@@ -121,17 +123,36 @@ public class CharacterController {
                     userInput = 3;
                     checkPerson();
                 }
-                case W -> wPressed.set(true);
-                case S -> sPressed.set(true);
-                case A -> aPressed.set(true);
-                case D -> dPressed.set(true);
-                case P -> setPaused();
+                case W -> {
+                    wPressed.set(true);
+                    fadeControls("#wButton");
+                }
+                case S -> {
+                    sPressed.set(true);
+                    fadeControls("#sButton");
+                }
+                case A -> {
+                    aPressed.set(true);
+                    fadeControls("#aButton");
+                }
+                case D -> {
+                    dPressed.set(true);
+                    fadeControls("#dButton");
+                }
+                case P -> {
+                    setPaused();
+                    fadeControls("#pButton");
+                }
                 case H -> {
                     if (!isDialogActive) {
                         displayHandbook();
+                        fadeControls("#hButton");
                     }
                 }
-                case ENTER -> checkPerson();
+                case ENTER -> {
+                    checkPerson();
+                    fadeControls("#enterButton");
+                }
                 case SHIFT -> shiftPressed.set(true);
             }
             try {
@@ -144,14 +165,27 @@ public class CharacterController {
 
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
-                case W -> wPressed.set(false);
-                case S -> sPressed.set(false);
-                case A -> aPressed.set(false);
-                case D -> dPressed.set(false);
+                case W -> {
+                    wPressed.set(false);
+                    displayControls("#wButton");
+                }
+                case S -> {
+                    sPressed.set(false);
+                    displayControls("#sButton");
+                }
+                case A -> {
+                    aPressed.set(false);
+                    displayControls("#aButton");
+                }
+                case D -> {
+                    dPressed.set(false);
+                    displayControls("#dButton");
+                }
                 case SHIFT -> {
                     shiftPressed.set(false);
                     movementVariable = 3;
                 }
+                case ENTER -> displayControls("#enterButton");
             }
             try {
                 checkDoor(doors);
@@ -223,6 +257,16 @@ public class CharacterController {
         System.out.println("" + isHandbookOpen);
     }
 
+
+    public void fadeControls(String id) {
+        ImageView controls = (ImageView) scene.lookup(id);
+        controls.setOpacity(0.5);
+    }
+
+    public void displayControls(String id) {
+        ImageView controls = (ImageView) scene.lookup(id);
+        controls.setOpacity(1);
+    }
     public void setDialogSwitch() {
         dialogSwitch = !dialogSwitch;
     }
