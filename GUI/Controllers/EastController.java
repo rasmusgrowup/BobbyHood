@@ -2,6 +2,7 @@ package BobbyHood.GUI.Controllers;
 
 
 import BobbyHood.GUI.Door;
+import BobbyHood.Person;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -20,10 +21,12 @@ public class EastController extends GameController implements Initializable {
     private final CharacterController characterController = new CharacterController();
     private HashMap<String, Door> doors = new HashMap<>();
     private Door door = new Door();
+    private HashMap<Person, ImageView> persons = new HashMap();
+    private ArrayList<ImageView> images = new ArrayList<>();
     @FXML
     private AnchorPane scene;
     @FXML
-    ImageView bobby, person;
+    ImageView bobby, hans, gurli;
     @FXML
     Text inventoryText;
 
@@ -32,11 +35,15 @@ public class EastController extends GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        images.add(gurli);
+        images.add(hans);
+        setPersonsForRoom(persons, images);
         door.setRect(doorRect);
         door.setFxmlPath("fxml/North.fxml");
         door.setDirection("north");
         characterController.makeMovable(bobby, scene, doors);
         door.getRect().setFill(Color.TRANSPARENT);
         doors.put("north", door);
+        characterController.setPersons(persons);
     }
 }
