@@ -14,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -22,6 +23,7 @@ public class BuildingController extends GameController implements Initializable 
     private final CharacterController characterController = new CharacterController();
     private HashMap<String, Door> doors = new HashMap<>();
     private HashMap<Person, ImageView> persons = new HashMap();
+    private ArrayList<ImageView> images = new ArrayList<>();
     private Door door;
     private John johnCharacter;
 
@@ -39,7 +41,8 @@ public class BuildingController extends GameController implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setPersonsForRoom(persons, john);
+        images.add(john);
+        setPersonsForRoom(persons, images);
         this.door = new Door();
         this.johnCharacter = new John();
         door.setRect(doorRect);

@@ -15,6 +15,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -23,6 +24,7 @@ public class NorthController extends GameController implements Initializable {
     private final CharacterController characterController = new CharacterController();
     private HashMap<String, Door> doors = new HashMap<>();
     private HashMap<Person, ImageView> persons = new HashMap();
+    private ArrayList<ImageView> images = new ArrayList<>();
     private Door doorBuilding = new Door();
     private Door doorSouth = new Door();
     private Door doorWest = new Door();
@@ -30,7 +32,7 @@ public class NorthController extends GameController implements Initializable {
     @FXML
     private AnchorPane scene;
     @FXML
-    ImageView bobby, person;
+    ImageView bobby, lene, lolita, niels;
     @FXML
     Text inventoryText, dialogText;
     @FXML
@@ -38,8 +40,10 @@ public class NorthController extends GameController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        //System.out.println(BobbyGUI.getGame().getCurrentRoom().getShortDescription());
-        setPersonsForRoom(persons, person);
+        images.add(lene);
+        images.add(lolita);
+        images.add(niels);
+        setPersonsForRoom(persons, images);
         doorBuilding.setRect(doorBuildingRect);
         doorEast.setRect(doorEastRect);
         doorSouth.setRect(doorSouthRect);

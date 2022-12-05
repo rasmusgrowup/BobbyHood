@@ -16,11 +16,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 // reference:
 // https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8

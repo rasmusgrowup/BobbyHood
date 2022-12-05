@@ -55,7 +55,7 @@ public class Game {
                 "   of 105 million people, is equivalent to just 1%\n" +
                 "   of the fortune of the world’s richest man,\n" +
                 "   Amazon CEO Jeff Bezos.\n";
-        fact10 = "Children are more than twice as likely as adults\n" +
+        fact10 = "Children are twice as likely as adults\n" +
                 "   to live in extreme poverty.\n";
         // set the text for the facts
         handbook.setFact("#1", fact1);
@@ -129,8 +129,8 @@ public class Game {
                 "Lolita is laying in the grass in the park, enjoying the sun.",
                 "Female",
                 lolitaQuestion,
-                2,
-                2,
+                1,
+                1,
                 new Coin(200)
         );
 
@@ -481,7 +481,9 @@ public class Game {
 
         // Position the persons in the rooms
         building.setPersons("John", john);
+        north.setPersons("Lolita", lolita);
         north.setPersons("Lene", lene);
+        north.setPersons("Niels", niels);
         west.setPersons("Mathias", mathias);
         east.setPersons("Hans", hans);
         south.setPersons("Mia", mia);
