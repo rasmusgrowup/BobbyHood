@@ -49,5 +49,6 @@ public class BuildingController extends GameController implements Initializable 
         characterController.setPersons(persons);
         characterController.makeMovable(bobby, scene, doors);
         doorRect.setFill(Color.TRANSPARENT);
+        characterController.setBorderValues(120, 1200, 800);
     }
 }

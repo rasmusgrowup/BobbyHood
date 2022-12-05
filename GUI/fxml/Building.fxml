@@ -34,9 +34,9 @@
             <Text fx:id="dialogText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0"/>
          </children>
       </Pane>
-      <Pane fx:id="handbookPane" layoutX="400" layoutY="100" prefHeight="600" prefWidth="400" style="-fx-background-color: #f6f6f6; -fx-opacity: 0.0">
+      <Pane fx:id="handbookPane" layoutX="300" layoutY="100" prefHeight="600" prefWidth="600" style="-fx-background-color: #f6f6f6; -fx-opacity: 0.0;">
          <children>
-            <Text fx:id="handbook" layoutX="20.0" layoutY="20.0" wrappingWidth="360.0"/>
+            <Text fx:id="handbook" layoutX="40.0" layoutY="40.0" wrappingWidth="520" style="-fx-font: 16 monospace;"/>
          </children>
       </Pane>
       <Rectangle fx:id="doorRect" height="100" layoutX="440" layoutY="700" width="300" />

@@ -44,7 +44,10 @@ public class CharacterController {
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
     private int movementVariable = 3;
-    private int startheight, width, height;
+    private int startheight = 0;
+    private int width = 1200;
+    private int height = 800;
+
     private Room currentRoom, nextRoom;
     //private NPC currentPerson;
 
@@ -217,6 +220,7 @@ public class CharacterController {
         } else {
             pane.setOpacity(0.0);
         }
+        System.out.println("" + isHandbookOpen);
     }
 
     public void setDialogSwitch() {
@@ -239,15 +243,18 @@ public class CharacterController {
         } else if (BobbyGUI.getGame().getJohnsIndex() == 6) {
             pane.setOpacity(0.0);
             BobbyGUI.getGame().setJohnsIndex(++johnIndex);
-            paused = false;
+            setPaused();
+            isDialogActive = false;
         } else if (BobbyGUI.getGame().getJohnsIndex() == 7) {
             text.setText(BobbyGUI.getGame().johnsProgress());
             BobbyGUI.getGame().setJohnsIndex(++johnIndex);
+            setPaused();
         } else {
             pane.setOpacity(0.0);
             BobbyGUI.getGame().setJohnsIndex(7);
             johnIndex = 7;
-            paused = false;
+            setPaused();
+            isDialogActive = false;
         }
     }
 
