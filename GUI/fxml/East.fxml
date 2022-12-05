@@ -37,5 +37,40 @@
       </Pane>
       <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
       <Rectangle fx:id="doorRect" height="80" layoutX="0" layoutY="120.0" width="30" />
+      <ImageView fx:id="wButton" fitHeight="64.0" fitWidth="57.0" layoutX="889.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/wKey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="aButton" fitHeight="74.0" fitWidth="64.0" layoutX="836.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/aKey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="sButton" fitHeight="74.0" fitWidth="64.0" layoutX="887.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/sKey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="dButton" fitHeight="74.0" fitWidth="64.0" layoutX="940.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/dKey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="hButton" fitHeight="74.0" fitWidth="64.0" layoutX="1006.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/hKey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="pButton" fitHeight="74.0" fitWidth="64.0" layoutX="1006.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/pKey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="enterButton" fitHeight="122.0" fitWidth="121.0" layoutX="1051.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/enterKey.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

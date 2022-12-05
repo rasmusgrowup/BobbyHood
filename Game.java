@@ -485,8 +485,12 @@ public class Game {
         north.setPersons("Lene", lene);
         north.setPersons("Niels", niels);
         west.setPersons("Mathias", mathias);
+        west.setPersons("Hanne", hanne);
         east.setPersons("Hans", hans);
+        east.setPersons("Gurli", gurli);
         south.setPersons("Mia", mia);
+        south.setPersons("Kurt", kurt);
+        south.setPersons("Johnny", johnny);
 
         // set currentPerson to null,
         // because no persons has been engaged
