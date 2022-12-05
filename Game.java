@@ -16,6 +16,7 @@ public class Game {
     private int personCount;
     private int personsCompleted;
     boolean isGameCompleted = false;
+    private int johnIndex = 0;
 
     public Game() {
         createJohn();
@@ -259,19 +260,26 @@ public class Game {
         // create and set the dialog for John
         john.setDialog(new String[] {
                 "Hello, Bobby. My name is " + john.getName() + "\n" +
-                        "Thank you for joining the UNICEF volunteer program. " +
-                        "Are you ready to help fight extreme poverty?\n" +
-                        "\nYour mission is to collect donations from people at the park. " +
-                        "Use this handbook as your guide on what to say\n" +
-                        "\n\033[3mYOU RECIEVED A HANDBOOK FROM JOHN\033[0m\n" +
-                        "Use the handbook wisely. People will decrease their donations " +
-                        "if they detect you are stating incorrect facts\n" +
-                        "\nYou can try to increase their donations, by either using " +
-                        "charm or reason. Each person has their own personality, " +
-                        "so use their description to find the right approach.\n" +
-                        "\nTalk to every person in the park, and return to me " +
-                        "when you're done. Good luck.",
+                "Thank you for joining the UNICEF volunteer program. " +
+                "Are you ready to help fight extreme poverty?\n",
+
+                "Your mission is to collect donations from people at the park. " +
+                "Use this handbook as your guide on what to say\n",
+
+                "YOU RECIEVED A HANDBOOK FROM JOHN",
+
+                "Use the handbook wisely. People will decrease their donations " +
+                "if they detect you are stating incorrect facts\n",
+
+                "You can try to increase their donations, by either using " +
+                "charm or reason. Each person has their own personality, " +
+                "so use their description to find the right approach.\n",
+
+                "Talk to every person in the park, and return to me " +
+                "when you're done. Good luck.",
+
                 "You're not done yet. You've talked to " + personsCompleted + " out of " + getPersonCount() + "",
+
                 "Congratulations! You completed your mission."
         });
     }
@@ -402,6 +410,18 @@ public class Game {
 
     public String johnsProgress() {
         return "You're not done yet. You've talked to " + personsCompleted + " out of " + getPersonCount() + "";
+    }
+
+    public String getJohnDialog(int index) {
+        return john.getDialog(index);
+    }
+
+    public void setJohnsIndex(int index) {
+        johnIndex = index;
+    }
+
+    public int getJohnsIndex() {
+        return johnIndex;
     }
 
     public boolean startDialog(NPC npc) {

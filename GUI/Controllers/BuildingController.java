@@ -4,11 +4,11 @@ import BobbyHood.GUI.BobbyGUI;
 import BobbyHood.GUI.Door;
 import BobbyHood.John;
 import BobbyHood.Person;
-import BobbyHood.Room;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -28,6 +28,8 @@ public class BuildingController extends GameController implements Initializable 
     @FXML
     private AnchorPane scene;
     @FXML
+    Pane dialogPane;
+    @FXML
     ImageView bobby, john;
     @FXML
     Text inventoryText, dialogText;
@@ -37,25 +39,15 @@ public class BuildingController extends GameController implements Initializable 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setPersonsForRoom();
+        setPersonsForRoom(persons, john);
         this.door = new Door();
         this.johnCharacter = new John();
         door.setRect(doorRect);
         door.setFxmlPath("fxml/North.fxml");
         door.setDirection("north");
         doors.put("north", door);
-        //persons.put(johnCharacter, john);
         characterController.setPersons(persons);
         characterController.makeMovable(bobby, scene, doors);
         doorRect.setFill(Color.TRANSPARENT);
-    }
-
-    public void setPersonsForRoom() {
-        Room room = BobbyGUI.getGame().getCurrentRoom();
-        HashMap<String, Person> list = room.getPersonsList();
-        for (HashMap.Entry<String, Person> set: list.entrySet()) {
-            persons.put(set.getValue(), john);
-            System.out.println(set.getKey());
-        }
     }
 }

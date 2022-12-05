@@ -32,12 +32,13 @@ public class CharacterController {
     private BooleanProperty sPressed = new SimpleBooleanProperty();
     private BooleanProperty dPressed = new SimpleBooleanProperty();
     private BooleanProperty shiftPressed = new SimpleBooleanProperty();
-    private boolean paused, enter, success;
+    private boolean paused, enter, success, atEdge;
     private boolean isDialogActive;
     private boolean isHandbookOpen;
     private int dIndex = 0;
     private int charmIndex = 0;
     private int userInput = 0;
+    private int johnIndex;
     private boolean dialogSwitch = true;
     private boolean questionIsActive;
 
@@ -178,6 +179,11 @@ public class CharacterController {
             Person person = set.getKey();
             if (bobby.getBoundsInParent().intersects(set.getValue().getBoundsInParent())) {
                 dialog(person);
+                wPressed.set(false);
+                sPressed.set(false);
+                aPressed.set(false);
+                dPressed.set(false);
+                shiftPressed.set(false);
             }
         }
     }
@@ -217,6 +223,34 @@ public class CharacterController {
         dialogSwitch = !dialogSwitch;
     }
 
+    public void johnDialog() {
+        //paused = true;
+        johnIndex = BobbyGUI.getGame().getJohnsIndex();
+        System.out.println("local variable:" + johnIndex);
+        System.out.println("game variable:" + BobbyGUI.getGame().getJohnsIndex());
+        Text text = (Text) scene.lookup("#dialogText");
+        text.setStyle("-fx-font: 18 monospace;");
+        Pane pane = (Pane) scene.lookup("#dialogPane");
+        text.setText(BobbyGUI.getGame().getJohnStartMessage());
+        pane.setOpacity(1.0);
+        if (BobbyGUI.getGame().getJohnsIndex() <= 5) {
+            text.setText(BobbyGUI.getGame().getJohnDialog(BobbyGUI.getGame().getJohnsIndex()));
+            BobbyGUI.getGame().setJohnsIndex(++johnIndex);
+        } else if (BobbyGUI.getGame().getJohnsIndex() == 6) {
+            pane.setOpacity(0.0);
+            BobbyGUI.getGame().setJohnsIndex(++johnIndex);
+            paused = false;
+        } else if (BobbyGUI.getGame().getJohnsIndex() == 7) {
+            text.setText(BobbyGUI.getGame().johnsProgress());
+            BobbyGUI.getGame().setJohnsIndex(++johnIndex);
+        } else {
+            pane.setOpacity(0.0);
+            BobbyGUI.getGame().setJohnsIndex(7);
+            johnIndex = 7;
+            paused = false;
+        }
+    }
+
     public void dialog(Person person) {
         paused = true;
         isDialogActive = true;
@@ -227,15 +261,7 @@ public class CharacterController {
         Pane pane = (Pane) scene.lookup("#dialogPane");
         pane.setOpacity(1.0);
         if (person instanceof John) {
-            if (dIndex < 1) {
-                text.setText(BobbyGUI.getGame().johnsProgress());
-                dIndex++;
-            } else {
-                dIndex = 0;
-                paused = false;
-                pane.setOpacity(0);
-                isDialogActive = false;
-            }
+            johnDialog();
         } else {
             NPC npc = (NPC) person;
             if (npc.getEngaged()) {

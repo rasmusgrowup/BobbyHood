@@ -3,16 +3,22 @@ package BobbyHood.GUI.Controllers;
 import BobbyHood.Coin;
 import BobbyHood.GUI.BobbyGUI;
 import BobbyHood.Game;
+import BobbyHood.Person;
+import BobbyHood.Room;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
+
     protected Game game;
     @FXML
     Pane pane = new Pane();
@@ -33,5 +39,14 @@ public class GameController implements Initializable {
     public void addCoins(ActionEvent event) throws IOException {
         game.returnInventory().addItem(new Coin(100));
         inventoryText.setText(game.getInventory());
+    }
+
+    public void setPersonsForRoom(HashMap<Person, ImageView> persons, ImageView person) {
+        Room room = BobbyGUI.getGame().getCurrentRoom();
+        HashMap<String, Person> list = room.getPersonsList();
+        for (HashMap.Entry<String, Person> set : list.entrySet()) {
+            persons.put(set.getValue(), person);
+            System.out.println(set.getKey());
+        }
     }
 }

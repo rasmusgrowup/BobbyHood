@@ -14,7 +14,7 @@
             <Image url="@../images/Building.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bobby" fitHeight="90" fitWidth="93" layoutX="555" layoutY="355" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bobby" fitHeight="90" fitWidth="93" layoutX="450" layoutY="365" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bobby.png" />
          </image>
@@ -29,7 +29,7 @@
             <Text fx:id="inventoryText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0" />
          </children>
       </Pane>
-      <Pane fx:id="dialogPane" layoutX="800" layoutY="600" prefHeight="200" prefWidth="400" style="-fx-background-color: #f6f6f6; -fx-opacity: 0.0">
+      <Pane fx:id="dialogPane" layoutX="650" layoutY="600" prefHeight="150" prefWidth="500" style="-fx-background-color: #f6f6f6; -fx-border-radius: 20 20 20 20; -fx-background-radius: 20 20 20 20; -fx-opacity: 1.0">
          <children>
             <Text fx:id="dialogText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0"/>
          </children>
