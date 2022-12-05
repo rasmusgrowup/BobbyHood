@@ -147,7 +147,7 @@ public class CharacterController {
                     }
                 }
                 case ENTER -> {
-                    checkPerson();
+                    if (!questionIsActive) { checkPerson(); }
                     fadeControls("#enterButton");
                 }
                 case SHIFT -> shiftPressed.set(true);
@@ -347,12 +347,10 @@ public class CharacterController {
                             text.setText(success ? "Correct answer!" : "Wrong answer. Try again later.");
                             if (!success) { npc.getItem().setAmount(amount / 2); }
                             questionIsActive = false;
-                            userInput = 0;
                         } else {
                             if (success) {
                                 text.setText(npc.getDialog(dIndex));
                                 setDialogSwitch();
-                                questionIsActive = true;
                                 dIndex++;
                             } else {
                                 dIndex = 0;
@@ -367,6 +365,7 @@ public class CharacterController {
                             case 0 -> {
                                 text.setText("Use charm (Z) or reason (X) to persuade " + npc.getName() + " into increasing " + npc.printGender() + " donation.");
                                 charmIndex++;
+                                questionIsActive = true;
                             }
                             case 1 -> {
                                 int correctAnswer = npc.getCorrectTypeIndex();
@@ -379,6 +378,7 @@ public class CharacterController {
                                     npc.getItem().setAmount(amount * 2);
                                 }
                                 charmIndex++;
+                                questionIsActive = false;
                             }
                             case 2 -> {
                                 text.setText(npc.getDialog(dIndex));
