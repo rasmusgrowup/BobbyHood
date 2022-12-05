@@ -179,7 +179,7 @@ public class Game {
         // set the players dialog for Johnny
         String[] johnnyDialog = new String[]{
                 "Hey. My name is Bobby.",
-                "The entire health budget of Ethiopia a country of 105 million people\n" +
+                "The entire health budget of Ethiopia a country of 105 million people " +
                 "is equivalent to ___ of the fortune of the world’s richest man, Amazon CEO Jeff Bezos.",
                 "You are absolutely right and thank you very much."
         };
@@ -215,7 +215,7 @@ public class Game {
         // set the players dialog for Hanne
         String[] hanneDialog = new String[]{
                 "Hello there. My name is Bobby.",
-                "Every single year ___ children under five die from diseases due to poor\n" +
+                "Every single year ___ children under five die from diseases due to poor " +
                 "sanitation, poor hygiene, or unsafe drinking water.",
                 "Thank you so much!"
         };
@@ -251,8 +251,8 @@ public class Game {
         // set the players dialog for Gurli
         String[] gurliDialog = new String[]{
                 "Hello there. My name is Bobby Hood.",
-                "We have been doing well in reducing the amount of people living in poverty\n." +
-                "But were you aware that, because of the covid pandemic\n" +
+                "We have been doing well in reducing the amount of people living in poverty. " +
+                "But were you aware that, because of the covid pandemic " +
                 "poverty rates will increase for the first time since ___?",
                 "Thank you"
         };
@@ -323,7 +323,7 @@ public class Game {
         // set the players dialog for Mia
         String[] nielsDialog = new String[]{
                 "Hello. My name is Bobby.",
-                "Did you know that almost, ___ thousand children die every day\n" +
+                "Did you know that almost, ___ thousand children die every day " +
                 "due to living in poverty?",
                 "Thank you"
         };
@@ -361,7 +361,7 @@ public class Game {
         // set the players dialog for Mia
         String[] miaDialog = new String[]{
                 "Hello. My name is Bobby.",
-                "According to UN, ___ million children are at risk of continuing\n" +
+                "According to UN, ___ million children are at risk of continuing " +
                 "to live in extreme poverty by 2030",
                 "Thank you"
         };

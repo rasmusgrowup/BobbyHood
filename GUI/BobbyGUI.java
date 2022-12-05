@@ -46,10 +46,11 @@ public class BobbyGUI extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/Start.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        Media media = new Media(new File("GUI/images/TitleTheme.mp3").toURI().toString());
+        Media media = new Media(new File("GUI/images/bobbyhoodtheme.mp3").toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(2);
 
 
         GameController gameController = fxmlLoader.getController();
