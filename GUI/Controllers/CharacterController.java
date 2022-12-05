@@ -40,10 +40,12 @@ public class CharacterController {
     private int userInput = 0;
     private boolean dialogSwitch = true;
     private boolean questionIsActive;
-
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
     private int movementVariable = 3;
+    private int startheight;
+    private int width;
+    private int height;
     private Room currentRoom, nextRoom;
     //private NPC currentPerson;
 
@@ -78,20 +80,20 @@ public class CharacterController {
         @Override
         public void handle(long timestamp) {
 
-            if (wPressed.get()) {
+            if (wPressed.get() && bobby.getLayoutY() > startheight) {
                 bobby.setLayoutY(bobby.getLayoutY() - movementVariable);
             }
 
-            if (sPressed.get()) {
+            if (sPressed.get() && (bobby.getLayoutY() + bobby.getBoundsInLocal().getHeight() + 35 < height)) {
                 bobby.setLayoutY(bobby.getLayoutY() + movementVariable);
             }
 
-            if (aPressed.get()) {
+            if (aPressed.get() && bobby.getLayoutX() > 0) {
                 bobby.setLayoutX(bobby.getLayoutX() - movementVariable);
                 bobby.setImage(BOBBY_LEFT);
             }
 
-            if (dPressed.get()) {
+            if (dPressed.get() && (bobby.getLayoutX() + bobby.getBoundsInLocal().getWidth() + 5) < width) {
                 bobby.setLayoutX(bobby.getLayoutX() + movementVariable);
                 bobby.setImage(BOBBY_RIGHT);
             }
@@ -335,5 +337,10 @@ public class CharacterController {
                 }
             }
         }
+    }
+    public void setBorderValues(int startheight,int width, int height) {
+        this.startheight = startheight;
+        this.width = width;
+        this.height = height;
     }
 }
