@@ -21,7 +21,7 @@ public class StartController extends GameController implements Initializable {
 
     private Stage stage;
     private Scene sceneswitch;
-
+    CharacterController characterController = new CharacterController();
 
 
     @Override

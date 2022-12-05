@@ -23,7 +23,6 @@ public class NorthController extends GameController implements Initializable {
     private final CharacterController characterController = new CharacterController();
     private HashMap<String, Door> doors = new HashMap<>();
     private HashMap<Person, ImageView> persons = new HashMap();
-    private NPC npc;
     private Door doorBuilding = new Door();
     private Door doorSouth = new Door();
     private Door doorWest = new Door();
@@ -40,7 +39,7 @@ public class NorthController extends GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         //System.out.println(BobbyGUI.getGame().getCurrentRoom().getShortDescription());
-        setPersonsForRoom();
+        setPersonsForRoom(persons, person);
         doorBuilding.setRect(doorBuildingRect);
         doorEast.setRect(doorEastRect);
         doorSouth.setRect(doorSouthRect);
@@ -63,14 +62,5 @@ public class NorthController extends GameController implements Initializable {
         doors.put("south", doorSouth);
         doors.put("west", doorWest);
         characterController.setPersons(persons);
-    }
-
-    public void setPersonsForRoom() {
-        Room room = BobbyGUI.getGame().getCurrentRoom();
-        HashMap<String, Person> list = room.getPersonsList();
-        for (HashMap.Entry<String, Person> set: list.entrySet()) {
-            persons.put(set.getValue(), person);
-            System.out.println(set.getKey());
-        }
     }
 }

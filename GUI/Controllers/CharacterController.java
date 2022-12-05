@@ -32,18 +32,20 @@ public class CharacterController {
     private BooleanProperty sPressed = new SimpleBooleanProperty();
     private BooleanProperty dPressed = new SimpleBooleanProperty();
     private BooleanProperty shiftPressed = new SimpleBooleanProperty();
-    private boolean paused, enter;
+    private boolean paused, success;
     private boolean isDialogActive;
     private boolean isHandbookOpen;
     private int dIndex = 0;
+    private int charmIndex = 0;
     private int userInput = 0;
+    private int johnIndex;
     private boolean dialogSwitch = true;
     private boolean questionIsActive;
     public boolean isControlsPressed;
-
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
     private int movementVariable = 3;
+    private int startheight, width, height;
     private Room currentRoom, nextRoom;
     //private NPC currentPerson;
 
@@ -79,20 +81,20 @@ public class CharacterController {
         @Override
         public void handle(long timestamp) {
 
-            if (wPressed.get()) {
+            if (wPressed.get() && bobby.getLayoutY() > startheight) {
                 bobby.setLayoutY(bobby.getLayoutY() - movementVariable);
             }
 
-            if (sPressed.get()) {
+            if (sPressed.get() && (bobby.getLayoutY() + bobby.getBoundsInLocal().getHeight() + 35 < height)) {
                 bobby.setLayoutY(bobby.getLayoutY() + movementVariable);
             }
 
-            if (aPressed.get()) {
+            if (aPressed.get() && bobby.getLayoutX() > 0) {
                 bobby.setLayoutX(bobby.getLayoutX() - movementVariable);
                 bobby.setImage(BOBBY_LEFT);
             }
 
-            if (dPressed.get()) {
+            if (dPressed.get() && (bobby.getLayoutX() + bobby.getBoundsInLocal().getWidth() + 5) < width) {
                 bobby.setLayoutX(bobby.getLayoutX() + movementVariable);
                 bobby.setImage(BOBBY_RIGHT);
             }
@@ -211,6 +213,11 @@ public class CharacterController {
             Person person = set.getKey();
             if (bobby.getBoundsInParent().intersects(set.getValue().getBoundsInParent())) {
                 dialog(person);
+                wPressed.set(false);
+                sPressed.set(false);
+                aPressed.set(false);
+                dPressed.set(false);
+                shiftPressed.set(false);
             }
         }
     }
@@ -260,8 +267,32 @@ public class CharacterController {
         dialogSwitch = !dialogSwitch;
     }
 
-    public void setUserInput(int answer) {
-        userInput = answer;
+    public void johnDialog() {
+        //paused = true;
+        johnIndex = BobbyGUI.getGame().getJohnsIndex();
+        System.out.println("local variable:" + johnIndex);
+        System.out.println("game variable:" + BobbyGUI.getGame().getJohnsIndex());
+        Text text = (Text) scene.lookup("#dialogText");
+        text.setStyle("-fx-font: 18 monospace;");
+        Pane pane = (Pane) scene.lookup("#dialogPane");
+        text.setText(BobbyGUI.getGame().getJohnStartMessage());
+        pane.setOpacity(1.0);
+        if (BobbyGUI.getGame().getJohnsIndex() <= 5) {
+            text.setText(BobbyGUI.getGame().getJohnDialog(BobbyGUI.getGame().getJohnsIndex()));
+            BobbyGUI.getGame().setJohnsIndex(++johnIndex);
+        } else if (BobbyGUI.getGame().getJohnsIndex() == 6) {
+            pane.setOpacity(0.0);
+            BobbyGUI.getGame().setJohnsIndex(++johnIndex);
+            paused = false;
+        } else if (BobbyGUI.getGame().getJohnsIndex() == 7) {
+            text.setText(BobbyGUI.getGame().johnsProgress());
+            BobbyGUI.getGame().setJohnsIndex(++johnIndex);
+        } else {
+            pane.setOpacity(0.0);
+            BobbyGUI.getGame().setJohnsIndex(7);
+            johnIndex = 7;
+            paused = false;
+        }
     }
 
     public void dialog(Person person) {
@@ -269,19 +300,12 @@ public class CharacterController {
         isDialogActive = true;
         currentRoom = BobbyGUI.getGame().getCurrentRoom();
         Text text = (Text) scene.lookup("#dialogText");
-        text.setStyle("-fx-font: 16 arial;");
+        Text inventoryText = (Text) scene.lookup("#inventoryText");
+        text.setStyle("-fx-font: 18 monospace;");
         Pane pane = (Pane) scene.lookup("#dialogPane");
         pane.setOpacity(1.0);
         if (person instanceof John) {
-            if (dIndex < 1) {
-                text.setText(BobbyGUI.getGame().johnsProgress());
-                dIndex++;
-            } else {
-                dIndex = 0;
-                paused = false;
-                pane.setOpacity(0);
-                isDialogActive = false;
-            }
+            johnDialog();
         } else {
             NPC npc = (NPC) person;
             if (npc.getEngaged()) {
@@ -295,6 +319,7 @@ public class CharacterController {
                     isDialogActive = false;
                 }
             } else {
+                int amount = npc.getItem().getAmount();
                 switch (dIndex) {
                     case 0 -> {
                         if (dialogSwitch) {
@@ -307,34 +332,65 @@ public class CharacterController {
                         }
                     }
                     case 1 -> {
+                        boolean wasAnswerCorrect = false;
                         if (dialogSwitch) {
                             text.setText(BobbyGUI.getGame().getBobby().getDialog(npc, dIndex) + "\n" + npc.getQuestion());
                             setDialogSwitch();
                             questionIsActive = true;
                         } else if (questionIsActive) {
                             int correctAnswer = npc.getCorrectAnswerIndex();
-                            if (correctAnswer == userInput) {
-                                text.setText("Correct answer");
-                            } else {
-                                text.setText("Wrong answer");
-                                dialogSwitch = true;
-                                dIndex = 0;
-                            } questionIsActive = false;
+                            success = correctAnswer == userInput;
+                            text.setText(success ? "Correct answer!" : "Wrong answer. Try again later.");
+                            if (!success) { npc.getItem().setAmount(amount / 2); }
+                            questionIsActive = false;
                             userInput = 0;
                         } else {
-                            text.setText(npc.getDialog(dIndex));
-                            setDialogSwitch();
-                            dIndex++;
+                            if (success) {
+                                text.setText(npc.getDialog(dIndex));
+                                setDialogSwitch();
+                                questionIsActive = true;
+                                dIndex++;
+                            } else {
+                                dIndex = 0;
+                                setDialogSwitch();
+                                setPaused();
+                                pane.setOpacity(0.0);
+                            } success = false;
                         }
                     }
                     case 2 -> {
-                        if (dialogSwitch) {
-                            text.setText(npc.getDialog(dIndex));
-                            setDialogSwitch();
-                        } else {
-                            text.setText(BobbyGUI.getGame().getBobby().getDialog(npc, dIndex));
-                            setDialogSwitch();
-                            dIndex++;
+                        switch (charmIndex) {
+                            case 0 -> {
+                                text.setText("Use charm (Z) or reason (X) to persuade " + npc.getName() + " into increasing " + npc.printGender() + " donation.");
+                                charmIndex++;
+                            }
+                            case 1 -> {
+                                int correctAnswer = npc.getCorrectTypeIndex();
+                                success = correctAnswer == userInput;
+                                text.setText(success ?
+                                        "You used " + npc.printType(userInput) + ", and it worked!" :
+                                        "" + npc.getName() + " didn't respond well to '" + npc.printType(userInput) + "' and will not increase " + npc.printGender() + " donations."
+                                );
+                                if (success) {
+                                    npc.getItem().setAmount(amount * 2);
+                                }
+                                charmIndex++;
+                            }
+                            case 2 -> {
+                                text.setText(npc.getDialog(dIndex));
+                                charmIndex++;
+                            }
+                            case 3 -> {
+                                BobbyGUI.getGame().returnInventory().addItem(npc.getItem());
+                                text.setText(npc.getValue() + " COINS WAS ADDED TO YOUR INVENTORY");
+                                inventoryText.setText(BobbyGUI.getGame().getInventory());
+                                charmIndex++;
+                            }
+                            case 4 -> {
+                                text.setText(BobbyGUI.getGame().getBobby().getDialog(npc, dIndex));
+                                charmIndex = 0;
+                                dIndex++;
+                            }
                         }
                     }
                     case 3 -> {
@@ -349,5 +405,10 @@ public class CharacterController {
                 }
             }
         }
+    }
+    public void setBorderValues(int startheight,int width, int height) {
+        this.startheight = startheight;
+        this.width = width;
+        this.height = height;
     }
 }

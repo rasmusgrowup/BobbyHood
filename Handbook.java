@@ -22,7 +22,7 @@ public class Handbook {
     }
 
     public String printHandbook(Handbook handbook) {
-        String returnString = "\n## " + handbook.getTitel() + " ##\n";
+        String returnString = "\n  " + handbook.getTitel() + " ##\n";
         for(String fact : facts.values()) {
             returnString += "-- " + fact + "";
         }
