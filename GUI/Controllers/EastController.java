@@ -21,7 +21,7 @@ public class EastController extends GameController implements Initializable {
     private final CharacterController characterController = new CharacterController();
     private HashMap<String, Door> doors = new HashMap<>();
     private Door door = new Door();
-    private HashMap<Person, ImageView> persons = new HashMap();
+    private HashMap<Person, ImageView> persons = new HashMap<>();
     private ArrayList<ImageView> images = new ArrayList<>();
     @FXML
     private AnchorPane scene;

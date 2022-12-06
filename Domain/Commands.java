@@ -1,7 +1,6 @@
 package BobbyHood.Domain;
 
-public enum Commands
-{
+public enum Commands {
     GO("go"),
     QUIT("quit"),
     HELP("help"),

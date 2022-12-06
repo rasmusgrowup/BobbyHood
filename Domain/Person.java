@@ -2,10 +2,7 @@ package BobbyHood.Domain;
 
 import javafx.scene.image.ImageView;
 
-import java.util.Objects;
-
 public class Person {
-    // attributes
     private String name;
     private String description;
     private String[] dialog; // Just an array for efficiency
@@ -19,9 +16,7 @@ public class Person {
         this.description = description;
     }
 
-    public Person() {
-        String[] dialog = new String[3];
-    }
+    public Person() {}
 
     // Set dialog method
     public void setDialog(String[] dialog) {

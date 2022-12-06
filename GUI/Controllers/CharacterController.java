@@ -22,9 +22,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 
-// reference:
-// https://gist.github.com/Da9el00/421d6f02d52093ac07a9e65b99241bf8
-
 public class CharacterController {
 
     private BooleanProperty wPressed = new SimpleBooleanProperty();
@@ -44,7 +41,6 @@ public class CharacterController {
     private int johnIndex;
     private boolean dialogSwitch = true;
     private boolean questionIsActive;
-    //public boolean isControlsPressed;
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
     private int movementVariable = 3;
@@ -53,7 +49,6 @@ public class CharacterController {
     private int height = 800;
 
     private Room currentRoom, nextRoom;
-    //private NPC currentPerson;
 
     private HashMap<Person, ImageView> persons = new HashMap();
 
@@ -64,8 +59,7 @@ public class CharacterController {
     private ImageView bobby;
     @FXML
     private AnchorPane scene;
-    @FXML
-    Text inventoryText, dialogText;
+
 
 
     public void makeMovable(ImageView bobby, AnchorPane scene, HashMap<String, Door> doors) {
@@ -162,7 +156,6 @@ public class CharacterController {
             }
             try {
                 checkDoor(doors);
-                //checkPerson();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -170,7 +163,6 @@ public class CharacterController {
 
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
-                //case DIGIT1 ->
                 case W -> {
                     wPressed.set(false);
                     displayControls("#wButton");
@@ -260,9 +252,7 @@ public class CharacterController {
         } else {
             pane.setOpacity(0.0);
         }
-        System.out.println("" + isHandbookOpen);
     }
-
 
     public void fadeControls(String id) {
         ImageView controls = (ImageView) scene.lookup(id);
@@ -278,16 +268,12 @@ public class CharacterController {
     }
 
     public void johnDialog() {
-        //paused = true;
         johnIndex = BobbyGUI.getGame().getJohnsIndex();
-        //System.out.println("local variable:" + johnIndex);
-        //System.out.println("game variable:" + BobbyGUI.getGame().getJohnsIndex());
         Text text = (Text) scene.lookup("#dialogText");
         text.setStyle("-fx-font: 18 monospace;");
         Pane pane = (Pane) scene.lookup("#dialogPane");
         text.setText(BobbyGUI.getGame().getJohnStartMessage());
         int coins = BobbyGUI.getGame().returnInventory().getCoins();
-        //pane.setOpacity(1.0);
         if (BobbyGUI.getGame().getJohnsIndex() <= 5) {
             pane.setOpacity(1.0);
             text.setText(BobbyGUI.getGame().getJohnDialog(BobbyGUI.getGame().getJohnsIndex()));
@@ -333,10 +319,7 @@ public class CharacterController {
                     text.setText("But to solve this problem before 2030, we'd need " + ((700000000 * personCost) / coins) + " volunteers like you.");
                     endDialogIndex++;
                 }
-                case 7 -> {
-                    System.out.println("end the game");
-                    endGame();
-                }
+                case 7 -> endGame();
             }
             BobbyGUI.getGame().setJohnsIndex(++johnIndex);
             endTheGame = true;
@@ -350,7 +333,6 @@ public class CharacterController {
     }
 
     public void dialog(Person person) {
-        //System.out.println(isDialogActive);
         paused = true;
         isDialogActive = true;
         currentRoom = BobbyGUI.getGame().getCurrentRoom();
@@ -461,7 +443,6 @@ public class CharacterController {
                 }
             }
         }
-        System.out.println(isDialogActive);
     }
     public void setBorderValues(int startheight,int width, int height) {
         this.startheight = startheight;

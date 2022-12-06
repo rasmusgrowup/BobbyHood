@@ -1,6 +1,5 @@
 package BobbyHood.GUI.Controllers;
 
-
 import BobbyHood.Domain.Door;
 import BobbyHood.Domain.Person;
 import javafx.fxml.FXML;
@@ -10,7 +9,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,7 +19,7 @@ public class SouthController extends GameController implements Initializable {
     private final CharacterController characterController = new CharacterController();
     private HashMap<String, Door> doors = new HashMap<>();
     private Door door = new Door();
-    private HashMap<Person, ImageView> persons = new HashMap();
+    private HashMap<Person, ImageView> persons = new HashMap<>();
     private ArrayList<ImageView> images = new ArrayList<>();
     @FXML
     private AnchorPane scene;
@@ -46,6 +44,5 @@ public class SouthController extends GameController implements Initializable {
         door.getRect().setFill(Color.TRANSPARENT);
         doors.put("north", door);
         characterController.setPersons(persons);
-        //System.out.println(game.currentRoom.getShortDescription());
     }
 }

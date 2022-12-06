@@ -10,7 +10,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class NorthController extends GameController implements Initializable {
 
     private final CharacterController characterController = new CharacterController();
     private HashMap<String, Door> doors = new HashMap<>();
-    private HashMap<Person, ImageView> persons = new HashMap();
+    private HashMap<Person, ImageView> persons = new HashMap<>();
     private ArrayList<ImageView> images = new ArrayList<>();
     private Door doorBuilding = new Door();
     private Door doorSouth = new Door();

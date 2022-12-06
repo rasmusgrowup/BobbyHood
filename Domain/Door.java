@@ -8,12 +8,6 @@ public class Door {
 
     public Door() {}
 
-    public Door(Rectangle door, String direction, String fxmlPath) {
-        this.door = door;
-        this.direction = direction;
-        this.fxmlPath = fxmlPath;
-    }
-
     public Rectangle getRect() {
         return door;
     }
