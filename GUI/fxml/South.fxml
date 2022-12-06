@@ -8,6 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.text.Font?>
 <AnchorPane fx:id="scene" prefHeight="800.0" prefWidth="120.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.SouthController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
@@ -35,9 +36,9 @@
             <Image url="@../images/kurt.png" />
          </image>
       </ImageView>
-      <Pane fx:id="flow" layoutX="14.0" layoutY="698.0" prefHeight="88.0" prefWidth="400" style="-fx-background-color: #f6f6f6;">
+      <Pane fx:id="flow" layoutX="14.0" layoutY="698.0" prefHeight="50.0" prefWidth="250.0" style="-fx-background-color: #f6f6f6;">
          <children>
-            <Text fx:id="inventoryText" layoutX="20.0" layoutY="20.0" wrappingWidth="352.0" />
+            <Text fx:id="inventoryText" layoutX="18.0" layoutY="18.0" style="-fx-font: 16 monospace;" textAlignment="CENTER" wrappingWidth="220.0" />
          </children>
       </Pane>
       <Pane fx:id="dialogPane" layoutX="650" layoutY="450" prefHeight="300" prefWidth="500" style="-fx-background-color: #f6f6f6; -fx-border-radius: 20 20 20 20; -fx-background-radius: 20 20 20 20; -fx-opacity: 0.0">
@@ -45,47 +46,66 @@
             <Text fx:id="dialogText" layoutX="40.0" layoutY="40.0" wrappingWidth="420" />
          </children>
       </Pane>
-      <Pane fx:id="handbookPane" layoutX="400" layoutY="100" prefHeight="600" prefWidth="400" style="-fx-background-color: #f6f6f6; -fx-opacity: 0.0">
+      <Pane fx:id="handbookPane" layoutX="37.0" layoutY="32.0" prefHeight="600" prefWidth="600" style="-fx-background-color: #f6f6f6; -fx-opacity: 0.0;">
          <children>
-            <Text fx:id="handbook" layoutX="20.0" layoutY="20.0" wrappingWidth="360.0" />
+            <Text fx:id="handbook" layoutX="40.0" layoutY="40.0" style="-fx-font: 16 monospace;" wrappingWidth="520" />
          </children>
       </Pane>
-      <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#addCoins" text="Add coins to inventory" />
       <Rectangle fx:id="doorRect" height="30.0" layoutX="439.0" layoutY="0" width="80.0" />
-      <ImageView fx:id="wButton" fitHeight="64.0" fitWidth="57.0" layoutX="889.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="wButton" fitHeight="74.0" fitWidth="64.0" layoutX="887.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/wKey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="aButton" fitHeight="74.0" fitWidth="64.0" layoutX="836.0" layoutY="74.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="aButton" fitHeight="74.0" fitWidth="64.0" layoutX="838.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/aKey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="sButton" fitHeight="74.0" fitWidth="64.0" layoutX="887.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="sButton" fitHeight="74.0" fitWidth="64.0" layoutX="887.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/sKey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="dButton" fitHeight="74.0" fitWidth="64.0" layoutX="940.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="dButton" fitHeight="74.0" fitWidth="64.0" layoutX="936.0" layoutY="88.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/dKey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="hButton" fitHeight="74.0" fitWidth="64.0" layoutX="1006.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="hButton" fitHeight="74.0" fitWidth="64.0" layoutX="1006.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/hKey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="pButton" fitHeight="74.0" fitWidth="64.0" layoutX="1006.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pButton" fitHeight="74.0" fitWidth="64.0" layoutX="1006.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/pKey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="enterButton" fitHeight="122.0" fitWidth="121.0" layoutX="1051.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="enterButton" fitHeight="122.0" fitWidth="121.0" layoutX="1061.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/enterKey.png" />
          </image>
       </ImageView>
+      <Text fill="BLACK" layoutX="1083.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Interact">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Text>
+      <Text fill="BLACK" layoutX="1013.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Pause">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Text>
+      <Text fill="BLACK" layoutX="1000.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Interact">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Text>
+      <Text fill="BLACK" layoutX="880.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Movement">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
