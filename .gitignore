@@ -86,4 +86,4 @@ nb-configuration.xml
 ##############################
 ## LOCAL FILES
 ##############################
-Data/highscores.txt
+#highscores.txt
