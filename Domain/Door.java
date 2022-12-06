@@ -1,19 +1,12 @@
 package BobbyHood.GUI;
-
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class Door {
     private Rectangle door;
     private String direction;
     private String fxmlPath;
 
-    public Door() {
-
-    }
+    public Door() {}
 
     public Door(Rectangle door, String direction, String fxmlPath) {
         this.door = door;
