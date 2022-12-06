@@ -287,7 +287,7 @@ public class CharacterController {
             pane.setOpacity(1.0);
             text.setText(BobbyGUI.getGame().johnsProgress());
             BobbyGUI.getGame().setJohnsIndex(++johnIndex);
-            setPaused();
+            paused = true;
         } else if (BobbyGUI.getGame().getPersonsCompleted() == BobbyGUI.getGame().getPersonCount()) {
             switch (endDialogIndex) {
                 case 0 -> {
@@ -300,7 +300,7 @@ public class CharacterController {
                     endDialogIndex++;
                 }
                 case 2 -> {
-                    text.setText("Therefor, with your donations, you helped approximately " + (coins / 15) + " people stay out of poverty for a week.");
+                    text.setText("With your donations, you helped approximately " + (coins / 15) + " people stay out of extreme poverty for a week.");
                     endDialogIndex++;
                 }
                 case 3 -> {

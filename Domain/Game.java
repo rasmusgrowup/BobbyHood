@@ -163,7 +163,7 @@ public class Game {
         // set the players dialog for Lolita
         String[] lolitaDialog = new String[]{
                 "Hey. My name is Bobby.",
-                "Children are more than ___ as likely as adults to live in extreme poverty",
+                "Children are ___ as likely as adults to live in extreme poverty",
                 "Thank you. We will do our best to make some change."
         };
         // add this dialog to the players dialog list.
