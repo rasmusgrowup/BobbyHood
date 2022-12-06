@@ -286,8 +286,8 @@ public class CharacterController {
     public void johnDialog() {
         //paused = true;
         johnIndex = BobbyGUI.getGame().getJohnsIndex();
-        System.out.println("local variable:" + johnIndex);
-        System.out.println("game variable:" + BobbyGUI.getGame().getJohnsIndex());
+        //System.out.println("local variable:" + johnIndex);
+        //System.out.println("game variable:" + BobbyGUI.getGame().getJohnsIndex());
         Text text = (Text) scene.lookup("#dialogText");
         text.setStyle("-fx-font: 18 monospace;");
         Pane pane = (Pane) scene.lookup("#dialogPane");
@@ -356,6 +356,7 @@ public class CharacterController {
     }
 
     public void dialog(Person person) {
+        //System.out.println(isDialogActive);
         paused = true;
         isDialogActive = true;
         currentRoom = BobbyGUI.getGame().getCurrentRoom();
@@ -401,7 +402,7 @@ public class CharacterController {
                             int correctAnswer = npc.getCorrectAnswerIndex();
                             success = correctAnswer == userInput;
                             text.setText(success ? "Correct answer!" : "Wrong answer. Try again later.");
-                            if (!success) { npc.getItem().setAmount(amount / 2); }
+                            if (!success) { npc.getItem().setAmount(amount / 2);}
                             questionIsActive = false;
                         } else {
                             if (success) {
@@ -413,6 +414,7 @@ public class CharacterController {
                                 setDialogSwitch();
                                 setPaused();
                                 pane.setOpacity(0.0);
+                                isDialogActive  = false;
                             } success = false;
                         }
                     }
@@ -465,6 +467,7 @@ public class CharacterController {
                 }
             }
         }
+        System.out.println(isDialogActive);
     }
     public void setBorderValues(int startheight,int width, int height) {
         this.startheight = startheight;
