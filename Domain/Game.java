@@ -526,7 +526,6 @@ public class Game {
         // create and set the dialog for John
         john.setDialog(new String[] {
                 "Hello, Bobby. My name is " + john.getName() + "\n" +
-                "Thank you for joining the UNICEF volunteer program. " +
                 "Are you ready to help fight extreme poverty?\n",
 
                 "Your mission is to collect donations from people at the park. " +
@@ -538,8 +537,7 @@ public class Game {
                 "if they detect you are stating incorrect facts\n",
 
                 "You can try to increase their donations, by either using " +
-                "charm or reason. Each person has their own personality, " +
-                "so use their description to find the right approach.\n",
+                "charm or reason. Remember, each person has their own personality.",
 
                 "Talk to every person in the park, and return to me " +
                 "when you're done. Good luck.",
