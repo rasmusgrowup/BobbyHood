@@ -4,15 +4,20 @@ import BobbyHood.GUI.BobbyGUI;
 import BobbyHood.GUI.Door;
 import BobbyHood.John;
 import BobbyHood.Person;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,6 +32,9 @@ public class BuildingController extends GameController implements Initializable 
     private Door door;
     private John johnCharacter;
 
+    private Stage stage;
+    private Scene sceneswitch;
+
     @FXML
     private AnchorPane scene;
     @FXML
@@ -35,7 +43,6 @@ public class BuildingController extends GameController implements Initializable 
     ImageView bobby, john;
     @FXML
     Text inventoryText, dialogText;
-
     @FXML
     Rectangle doorRect;
 
@@ -53,5 +60,16 @@ public class BuildingController extends GameController implements Initializable 
         characterController.makeMovable(bobby, scene, doors);
         doorRect.setFill(Color.TRANSPARENT);
         characterController.setBorderValues(120, 1200, 800);
+    }
+
+    public void endGame(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/End.fxml"));
+        stage = BobbyGUI.getStage();
+        sceneswitch = new Scene(fxmlLoader.load());
+        sceneswitch.getRoot().requestFocus();
+        stage.setScene(sceneswitch);
+        stage.show();
+        GameController gameController = fxmlLoader.getController();
+        gameController.persistGame(BobbyGUI.getGame());
     }
 }

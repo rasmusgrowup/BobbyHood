@@ -7,6 +7,7 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -162,6 +163,7 @@ public class CharacterController {
 
         scene.setOnKeyReleased(event -> {
             switch (event.getCode()) {
+                //case DIGIT1 ->
                 case W -> {
                     wPressed.set(false);
                     displayControls("#wButton");
@@ -196,7 +198,6 @@ public class CharacterController {
 
     public void setPaused() {
         paused = !paused;
-        //System.out.println(paused);
     }
 
     public void checkDoor(HashMap<String, Door> doors) throws IOException {

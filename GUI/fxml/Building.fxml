@@ -7,6 +7,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.Button?>
 <AnchorPane fx:id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.BuildingController">
    <children>
       <ImageView fitHeight="800" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
@@ -75,5 +76,6 @@
             <Image url="@../images/enterKey.png" />
          </image>
       </ImageView>
+      <Button layoutX="0.0" layoutY="0" mnemonicParsing="false" onAction="#endGame" text="End game" />
    </children>
 </AnchorPane>
