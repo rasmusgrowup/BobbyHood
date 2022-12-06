@@ -1,7 +1,6 @@
-package BobbyHood;
+package BobbyHood.Domain;
 
 import java.util.HashMap;
-import java.util.Set;
 
 public class Handbook {
 

@@ -1,6 +1,9 @@
-package BobbyHood;
+package BobbyHood.Domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class Game {
 
@@ -16,6 +19,7 @@ public class Game {
     private int personCount;
     private int personsCompleted;
     boolean isGameCompleted = false;
+    private boolean firstVisit = true;
     private int johnIndex = 0;
 
     public Game() {
@@ -71,7 +75,24 @@ public class Game {
     }
 
     public String getJohnStartMessage() {
-        return john.getDialog(0);
+        return "\nHello, Bobby. My name is " + john.getName() + "\n" +
+                "\nThank you for joining the UNICEF volunteer program. " +
+                "Are you ready to help fight extreme poverty?\n" +
+
+        "\nYour mission is to collect donations from people at the park. " +
+                "Use this handbook as your guide on what to say\n" +
+
+                "\nYOU RECIEVED A HANDBOOK FROM JOHN\n" +
+
+                "\nUse the handbook wisely. People will decrease their donations " +
+                        "if they detect you are stating incorrect facts\n" +
+
+                "\nYou can try to increase their donations, by either using " +
+                        "charm or reason. Each person has their own personality, " +
+                        "so use their description to find the right approach.\n" +
+
+                "\nTalk to every person in the park, and return to me " +
+                        "when you're done. Good luck.";
     }
 
     private void createInventory() {
@@ -637,22 +658,6 @@ public class Game {
          }
     }
 
-    public boolean johnDialog(John john) {
-        if (personsCompleted < getPersonCount()) {
-            System.out.println("You're not done yet. You've talked to " + personsCompleted + " out of " + getPersonCount() + "");
-        } else if (personsCompleted == getPersonCount()) {
-            System.out.println(john.getDialog(2));
-            System.out.println("You collected " + inventory.getCoins() + " coins.\n" +
-                    "This means you helped feed a family of four for " +
-                    "2 weeks.\n\n" +
-                    "Thanks for your help!");
-            isGameCompleted = true;
-        } else {
-            System.out.println("error");
-        }
-        return true;
-    }
-
     public String johnsProgress() {
         return "You're not done yet. You've talked to " + personsCompleted + " out of " + getPersonCount() + "";
     }
@@ -669,97 +674,110 @@ public class Game {
         return johnIndex;
     }
 
-    public boolean startDialog(NPC npc) {
+    public boolean startDialog(Command command) {
         // check if the command value is empty
-        /*
         if (!command.hasCommandValue()) {
             return false;
         }
-        */
 
-        // get the boolean value of engaged for the current person
-        boolean hasBeenEngagedBefore = npc.getEngaged();
-
-        // we first check if the current person has been engaged before
-        // if not, we start up a dialog
-        // or else we return a message telling the player
-        // that this person has been engaged before
-        if (!hasBeenEngagedBefore) {
-            // here we start the dialog
-            System.out.println(bobby.getDialog(npc, 0)); // the players greeting message
-            System.out.println(npc.getDialog(0)); // the current persons response
-            System.out.println();
-            System.out.println(bobby.getDialog(npc, 1)); // the players question for the person
-            System.out.println(npc.getQuestion()); // the possible answers for the question
-            boolean dialogActive = true; // boolean that we use to escape the following loop
-            boolean firstStep = true;
-            boolean secondStep = false;
-
-            // here we handle the users answer
-            // if the users answer is not an integer,
-            // we catch the exception
-            while (firstStep) {
-                try {
-                    Scanner scanner = new Scanner(System.in); // new scanner
-                    int index = npc.getCorrectAnswerIndex(); // get the index of the correct answer
-                    int userInput = scanner.nextInt(); // get the users input
-                    int amount = npc.getItem().getAmount();
-                    if (userInput == index) {
-                        // check if the userInput equals the index of the correct answer
-                        // if the user input is not a valid number, e.g. too high, print a tip
-                        // and if the answer is wrong, print a message, and quit the dialog
-                        System.out.println("\033[3mCorrect answer!\033[0m");
-                        System.out.println(npc.getDialog(1)); // the persons response if the answer is correct
-                        firstStep = false;
-                        secondStep = true;
-                    } else if (userInput > npc.getDialogLength()){
-                        StringBuilder s = new StringBuilder("Please type ");
-                        for (int i = 0; i < npc.getDialogLength(); i++) {
-                            if (i == npc.getDialogLength() - 1) {
-                                s.append("or ").append(i + 1).append(".");
-                            } else {
-                                s.append(i + 1).append(", ");
-                            }
-                        } System.out.println(s);
-                    } else {
-                        npc.getItem().setAmount(amount / 2);
-                        System.out.println("Wrong answer. The dialog with " + npc.getName() + " ended. Try again later.\nTip: open your handbook to find the right answer.");
-                        break; // escape the dialog
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Not a number. Please try again by typing a number");
-                }
-            }
-            while (secondStep) {
-                try {
-                    System.out.println("\n\033[3mUse (1)charm or (2)reason to increase " + npc.getName() + "'s donation.\033[0m");
-                    Scanner scanner = new Scanner(System.in); // new scanner
-                    int index = npc.getCorrectTypeIndex(); // get the index of the correct type
-                    int userInput = scanner.nextInt(); // get the users input
-                    int amount = npc.getItem().getAmount();
-                    if (userInput == index) {
-                        System.out.println("\033[3mYou used " + npc.printType(userInput) + " on " + npc.getName() + " and it worked!\033[0m\n");
-                        npc.getItem().setAmount(amount * 2); // if the right type is used, increase amount
-                    } else if (userInput > 2 || userInput == 0){
-                        throw new InputMismatchException();
-                    } else {
-                        System.out.println("\033[3m" + npc.getName() + " didn't respond well to " + npc.printType(userInput) + " and will not increase " + npc.printGender() + " donations.\033[0m\n");
-                        npc.getItem().setAmount(amount); // if the right type is used, increase amount
-                    }
-                    System.out.println(npc.getDialog(2)); // the current persons response
-                    inventory.addItem(npc.getItem()); // add the person's items to the players inventory
-                    System.out.println("\033[3mSUCCESS! " + npc.getValue() + " COINS WAS ADDED TO YOUR INVENTORY\033[0m");
-                    System.out.println(bobby.getDialog(npc, 2)); // the players goodbye message
-                    npc.setEngaged(true); // set the value of engaged to true for the person
-                    personsCompleted++;
-                    secondStep = false;
-                    break; // escape the dialog;
-                } catch (InputMismatchException e) {
-                    System.out.println("Please type 1 or 2");
-                }
+        if (command.getCommandValue().equals("john")) {
+            if (personsCompleted < getPersonCount()) {
+                System.out.println("You're not done yet. You've talked to " + personsCompleted + " out of " + getPersonCount() + "");
+            } else if (personsCompleted == getPersonCount()) {
+                System.out.println(john.getDialog(2));
+                System.out.println("You collected " + inventory.getCoins() + " coins.\n" +
+                        "This means you helped feed a family of four for " +
+                        "2 weeks.\n\n" +
+                        "Thanks for your help!");
+                isGameCompleted = true;
+            } else {
+                System.out.println("error");
             }
         } else {
-            System.out.println(npc.getRejected()); // the person's message if the person has already been engaged
+            // get the boolean value of engaged for the current person
+            boolean hasBeenEngagedBefore = currentPerson.getEngaged();
+
+            // we first check if the current person has been engaged before
+            // if not, we start up a dialog
+            // or else we return a message telling the player
+            // that this person has been engaged before
+            if (!hasBeenEngagedBefore) {
+                // here we start the dialog
+                System.out.println(bobby.getDialog(currentPerson, 0)); // the players greeting message
+                System.out.println(currentPerson.getDialog(0)); // the current persons response
+                System.out.println();
+                System.out.println(bobby.getDialog(currentPerson, 1)); // the players question for the person
+                System.out.println(currentPerson.getQuestion()); // the possible answers for the question
+                boolean dialogActive = true; // boolean that we use to escape the following loop
+                boolean firstStep = true;
+                boolean secondStep = false;
+
+                // here we handle the users answer
+                // if the users answer is not an integer,
+                // we catch the exception
+                while (firstStep) {
+                    try {
+                        Scanner scanner = new Scanner(System.in); // new scanner
+                        int index = currentPerson.getCorrectAnswerIndex(); // get the index of the correct answer
+                        int userInput = scanner.nextInt(); // get the users input
+                        int amount = currentPerson.getItem().getAmount();
+                        if (userInput == index) {
+                            // check if the userInput equals the index of the correct answer
+                            // if the user input is not a valid number, e.g. too high, print a tip
+                            // and if the answer is wrong, print a message, and quit the dialog
+                            System.out.println("\033[3mCorrect answer!\033[0m");
+                            System.out.println(currentPerson.getDialog(1)); // the persons response if the answer is correct
+                            firstStep = false;
+                            secondStep = true;
+                        } else if (userInput > currentPerson.getDialogLength()){
+                            StringBuilder s = new StringBuilder("Please type ");
+                            for (int i = 0; i < currentPerson.getDialogLength(); i++) {
+                                if (i == currentPerson.getDialogLength() - 1) {
+                                    s.append("or ").append(i + 1).append(".");
+                                } else {
+                                    s.append(i + 1).append(", ");
+                                }
+                            } System.out.println(s);
+                        } else {
+                            currentPerson.getItem().setAmount(amount / 2);
+                            System.out.println("Wrong answer. The dialog with " + currentPerson.getName() + " ended. Try again later.\nTip: open your handbook to find the right answer.");
+                            break; // escape the dialog
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("Not a number. Please try again by typing a number");
+                    }
+                }
+                while (secondStep) {
+                    try {
+                        System.out.println("\n\033[3mUse (1)charm or (2)reason to increase " + currentPerson.getName() + "'s donation.\033[0m");
+                        Scanner scanner = new Scanner(System.in); // new scanner
+                        int index = currentPerson.getCorrectTypeIndex(); // get the index of the correct type
+                        int userInput = scanner.nextInt(); // get the users input
+                        int amount = currentPerson.getItem().getAmount();
+                        if (userInput == index) {
+                            System.out.println("\033[3mYou used " + currentPerson.printType(userInput) + " on " + currentPerson.getName() + " and it worked!\033[0m\n");
+                            currentPerson.getItem().setAmount(amount * 2); // if the right type is used, increase amount
+                        } else if (userInput > 2 || userInput == 0){
+                            throw new InputMismatchException();
+                        } else {
+                            System.out.println("\033[3m" + currentPerson.getName() + " didn't respond well to " + currentPerson.printType(userInput) + " and will not increase " + currentPerson.printGender() + " donations.\033[0m\n");
+                            currentPerson.getItem().setAmount(amount); // if the right type is used, increase amount
+                        }
+                        System.out.println(currentPerson.getDialog(2)); // the current persons response
+                        inventory.addItem(currentPerson.getItem()); // add the person's items to the players inventory
+                        System.out.println("\033[3mSUCCESS! " + currentPerson.getValue() + " COINS WAS ADDED TO YOUR INVENTORY\033[0m");
+                        System.out.println(bobby.getDialog(currentPerson, 2)); // the players goodbye message
+                        currentPerson.setEngaged(true); // set the value of engaged to true for the person
+                        personsCompleted++;
+                        secondStep = false;
+                        break; // escape the dialog;
+                    } catch (InputMismatchException e) {
+                        System.out.println("Please type 1 or 2");
+                    }
+                }
+            } else {
+                System.out.println(currentPerson.getRejected()); // the person's message if the person has already been engaged
+            }
         }
 
         return true;
@@ -805,9 +823,21 @@ public class Game {
         personsCompleted++;
     }
 
+    public int getPersonsCompleted() {
+        return personsCompleted;
+    }
+
     public Inventory returnInventory() {
         return inventory;
     }
 
     public Player getBobby() { return bobby; }
+
+    public boolean isFirstVisit() {
+        return firstVisit;
+    }
+
+    public void setFirstVisit(boolean firstVisit) {
+        this.firstVisit = firstVisit;
+    }
 }

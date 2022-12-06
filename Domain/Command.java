@@ -1,5 +1,5 @@
 
-package BobbyHood;
+package BobbyHood.Domain;
 
 public interface Command {
 

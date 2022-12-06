@@ -1,4 +1,4 @@
-package BobbyHood;
+package BobbyHood.Domain;
 
 public class NPC extends Person {
     private String gender;
@@ -40,7 +40,7 @@ public class NPC extends Person {
     }
 
     public String getQuestion() {
-        return question + "\nPress Z=1, X=2 or C=3 to answer";
+        return question + "\nPress 1), 2) or 3) to answer";
     }
 
     public int getCorrectAnswerIndex() {

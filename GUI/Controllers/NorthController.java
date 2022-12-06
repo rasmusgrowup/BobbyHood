@@ -1,11 +1,8 @@
 package BobbyHood.GUI.Controllers;
 
+import BobbyHood.Domain.Door;
+import BobbyHood.Domain.Person;
 import BobbyHood.GUI.BobbyGUI;
-import BobbyHood.GUI.Door;
-import BobbyHood.John;
-import BobbyHood.NPC;
-import BobbyHood.Person;
-import BobbyHood.Room;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
@@ -66,5 +63,6 @@ public class NorthController extends GameController implements Initializable {
         doors.put("south", doorSouth);
         doors.put("west", doorWest);
         characterController.setPersons(persons);
+        BobbyGUI.getGame().setFirstVisit(false);
     }
 }

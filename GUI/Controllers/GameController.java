@@ -1,10 +1,10 @@
 package BobbyHood.GUI.Controllers;
 
-import BobbyHood.Coin;
+import BobbyHood.Domain.Coin;
 import BobbyHood.GUI.BobbyGUI;
-import BobbyHood.Game;
-import BobbyHood.Person;
-import BobbyHood.Room;
+import BobbyHood.Domain.Game;
+import BobbyHood.Domain.Person;
+import BobbyHood.Domain.Room;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
