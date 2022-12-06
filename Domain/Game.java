@@ -33,7 +33,7 @@ public class Game {
     }
 
     private void populateHandbook() {
-        handbook = new Handbook("UNICEF Handbook"); // new instance of Handbook
+        handbook = new Handbook("HANDBOOK\n"); // new instance of Handbook
         String fact1, fact2, fact3, fact4, fact5, fact6, fact7, fact8, fact9, fact10; // fact variables
 
         // the strings for the facts
@@ -76,10 +76,9 @@ public class Game {
 
     public String getJohnStartMessage() {
         return "\nHello, Bobby. My name is " + john.getName() + "\n" +
-                "\nThank you for joining the UNICEF volunteer program. " +
                 "Are you ready to help fight extreme poverty?\n" +
 
-        "\nYour mission is to collect donations from people at the park. " +
+                "\nYour mission is to collect donations from people at the park. " +
                 "Use this handbook as your guide on what to say\n" +
 
                 "\nYOU RECIEVED A HANDBOOK FROM JOHN\n" +

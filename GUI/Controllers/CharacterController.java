@@ -148,10 +148,6 @@ public class CharacterController {
                     dPressed.set(true);
                     fadeControls("#dButton");
                 }
-                case P -> {
-                    setPaused();
-                    fadeControls("#pButton");
-                }
                 case H -> {
                     if (!isDialogActive) {
                         displayHandbook();
@@ -195,7 +191,6 @@ public class CharacterController {
                     shiftPressed.set(false);
                     movementVariable = 3;
                 }
-                case P -> displayControls("#pButton");
                 case H -> displayControls("#hButton");
                 case ENTER -> displayControls("#enterButton");
                 }

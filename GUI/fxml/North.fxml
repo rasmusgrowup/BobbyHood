@@ -79,32 +79,22 @@
             <Image url="@../images/hKey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="pButton" fitHeight="74.0" fitWidth="64.0" layoutX="1006.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/pKey.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="enterButton" fitHeight="122.0" fitWidth="121.0" layoutX="1061.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="enterButton" fitHeight="141.0" fitWidth="140.0" layoutX="1061.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/enterKey.png" />
          </image>
       </ImageView>
-      <Text fill="BLACK" layoutX="1083.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Interact">
+      <Text fill="BLACK" layoutX="1083.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace; -fx-font-weight: bold" text="Interact">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Text>
-      <Text fill="BLACK" layoutX="1013.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Pause">
+      <Text fill="BLACK" layoutX="1000.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace; -fx-font-weight: bold" text="Handbook">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
       </Text>
-      <Text fill="BLACK" layoutX="1000.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Handbook">
-         <font>
-            <Font name="System Bold" size="28.0" />
-         </font>
-      </Text>
-      <Text layoutX="880.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Movement">
+      <Text layoutX="880.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace; -fx-font-weight: bold" text="Movement">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
