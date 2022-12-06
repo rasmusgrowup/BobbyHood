@@ -97,7 +97,7 @@
             <Font name="System Bold" size="28.0" />
          </font>
       </Text>
-      <Text fill="BLACK" layoutX="1000.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Interact">
+      <Text fill="BLACK" layoutX="1000.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font: 16 monospace;" text="Handbook">
          <font>
             <Font name="System Bold" size="28.0" />
          </font>
