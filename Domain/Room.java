@@ -3,8 +3,7 @@ package BobbyHood.Domain;
 import java.util.*;
 
 
-public class Room
-{
+public class Room {
     private String description;
     private HashMap<String, Room> exits;
     private HashMap<String, Person> persons;
@@ -59,10 +58,6 @@ public class Room
 
     public HashMap<String, Person> getPersonsList() {
         return persons;
-    }
-
-    public John getJohn(String john) {
-        return (John) persons.get(john.toLowerCase());
     }
 }
 

@@ -7,8 +7,8 @@ public class Handbook {
     private String titel;
     private HashMap<String, String> facts;
 
-    Handbook(String titel) {
-        this.titel = titel;
+    Handbook(String title) {
+        this.titel = title;
         facts = new HashMap<String, String>();
     }
 

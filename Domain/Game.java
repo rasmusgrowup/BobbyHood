@@ -16,7 +16,6 @@ public class Game {
     private Handbook handbook;
     private Inventory inventory;
     private ArrayList<Room> rooms = new ArrayList<>();
-    private int personCount;
     private int personsCompleted;
     boolean isGameCompleted = false;
     private boolean firstVisit = true;
@@ -576,14 +575,6 @@ public class Game {
         return currentRoom;
     }
 
-    public NPC getCurrentPerson() {
-        return currentPerson;
-    }
-
-    public void setCurrentPerson(NPC currentPerson) {
-        this.currentPerson = currentPerson;
-    }
-
     public boolean describe(Command command) {
         // check if the command value is empty
         if (!command.hasCommandValue()) {
@@ -596,7 +587,7 @@ public class Game {
         Person engagedPerson = currentRoom.getPerson(person);
 
         // check if the person exists
-        if (engagedPerson == null) {
+        if (engagedPerson == null || engagedPerson instanceof John) {
             return false; // return false if the person doesn't exist
         } else {
             currentPerson = (NPC) engagedPerson; // Set currentPerson to the person we want to talk to
@@ -671,10 +662,10 @@ public class Game {
         return johnIndex;
     }
 
-    public boolean startDialog(Command command) {
+    public void startDialog(Command command) {
         // check if the command value is empty
         if (!command.hasCommandValue()) {
-            return false;
+            return;
         }
 
         if (command.getCommandValue().equals("john")) {
@@ -777,7 +768,6 @@ public class Game {
             }
         }
 
-        return true;
     }
 
     public boolean quit(Command command) {
@@ -790,10 +780,6 @@ public class Game {
 
     public String getPersonDescription() {
         return currentPerson.getDescription();
-    }
-
-    public CommandWords getCommands() {
-        return commands;
     }
 
     public List<String> getCommandDescriptions() {
@@ -829,10 +815,6 @@ public class Game {
     }
 
     public Player getBobby() { return bobby; }
-
-    public boolean isFirstVisit() {
-        return firstVisit;
-    }
 
     public void setFirstVisit(boolean firstVisit) {
         this.firstVisit = firstVisit;

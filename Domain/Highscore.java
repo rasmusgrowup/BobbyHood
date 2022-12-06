@@ -34,7 +34,6 @@ public class Highscore {
         }
         try {
             File newscorefile = new File(filepath);
-            newscorefile.createNewFile();
             FileWriter myWriter = new FileWriter(filepath,false);
             for(int i = 0; i < highscores.size(); i++) {
                 myWriter.write(Integer.toString(highscores.get(i)));
@@ -54,8 +53,7 @@ public class Highscore {
     }
 
     private void readHighscores(){
-        try
-        {
+        try {
             File scorefile = new File(filepath);
             if(!scorefile.exists()) {
                 scorefile.createNewFile();
@@ -63,29 +61,13 @@ public class Highscore {
             FileReader fr = new FileReader(scorefile);
             BufferedReader br = new BufferedReader(fr);
             String line;
-            while((line = br.readLine()) != null)
-            {
+            while((line = br.readLine()) != null) {
                   highscores.add(Integer.parseInt(line));
             }
             fr.close();
         }
-        catch(IOException e)
-        {
+        catch(IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public void printScores(){
-        int j = 1;
-        for(int i = 0; i < highscores.size(); i++){
-            System.out.println(j + ": " + highscores.get(i));
-            j++;
-        }
-    }
-    public static void main(String args[]) throws IOException
-    {
-        Highscore scores = new Highscore("Data/highscores.txt");
-        scores.writeHighscore(50);
-        scores.printScores();
     }
 }

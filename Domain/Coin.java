@@ -13,11 +13,6 @@ public class Coin implements Item {
     }
 
     @Override
-    public String setType() {
-        return null;
-    }
-
-    @Override
     public void setAmount(int amount) {
         this.amount = amount;
     }

@@ -28,8 +28,5 @@ public class Inventory {
 
     public String printInventory(Inventory inventory) {
         return "## Inventory status ##" + "\n" + "Coins collected: " + inventory.getCoins();
-        //System.out.println();
-        //System.out.println("## Inventory status ##");
-        //System.out.println("Coins collected: " + inventory.getCoins());
     }
 }

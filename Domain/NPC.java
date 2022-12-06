@@ -18,10 +18,6 @@ public class NPC extends Person {
         this.item = item;
     }
 
-    public NPC() {
-        String[] dialog = new String[3];
-    }
-
     // Set dialog method
     public void setDialog(String[] dialog) {
         super.setDialog(dialog);
@@ -29,10 +25,6 @@ public class NPC extends Person {
 
     public Item getItem() {
         return item;
-    }
-
-    public void setItemAmount() {
-        item.getAmount();
     }
 
     public int getValue() {
@@ -49,10 +41,6 @@ public class NPC extends Person {
 
     public int getCorrectTypeIndex() {
         return correctTypeIndex;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public String printGender() {
