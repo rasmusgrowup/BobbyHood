@@ -1,11 +1,10 @@
 package BobbyHood.GUI;
 import BobbyHood.GUI.Controllers.GameController;
-import BobbyHood.Game;
-import BobbyHood.Room;
+import BobbyHood.Domain.Game;
+import BobbyHood.Domain.Room;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;

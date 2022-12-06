@@ -1,8 +1,8 @@
 package BobbyHood.GUI.Controllers;
 
 
-import BobbyHood.GUI.Door;
-import BobbyHood.Person;
+import BobbyHood.Domain.Door;
+import BobbyHood.Domain.Person;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;

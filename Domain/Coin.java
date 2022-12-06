@@ -1,4 +1,4 @@
-package BobbyHood;
+package BobbyHood.Domain;
 
 public class Coin implements Item {
     private int amount;

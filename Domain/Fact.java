@@ -1,4 +1,4 @@
-package BobbyHood;
+package BobbyHood.Domain;
 
 public class Fact {
     private String text;

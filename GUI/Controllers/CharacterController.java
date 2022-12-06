@@ -1,8 +1,11 @@
 package BobbyHood.GUI.Controllers;
 
-import BobbyHood.*;
+import BobbyHood.Domain.John;
+import BobbyHood.Domain.NPC;
+import BobbyHood.Domain.Person;
+import BobbyHood.Domain.Room;
 import BobbyHood.GUI.BobbyGUI;
-import BobbyHood.GUI.Door;
+import BobbyHood.Domain.Door;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -30,16 +33,19 @@ public class CharacterController {
     private BooleanProperty sPressed = new SimpleBooleanProperty();
     private BooleanProperty dPressed = new SimpleBooleanProperty();
     private BooleanProperty shiftPressed = new SimpleBooleanProperty();
-    private boolean paused, success;
+    private boolean paused, success, endTheGame;
+    boolean firstVisit = true;
     private boolean isDialogActive;
     private boolean isHandbookOpen;
     private int dIndex = 0;
     private int charmIndex = 0;
     private int userInput = 0;
+    private int endDialogIndex = 0;
+    private int personCost = 5494;
     private int johnIndex;
     private boolean dialogSwitch = true;
     private boolean questionIsActive;
-    public boolean isControlsPressed;
+    //public boolean isControlsPressed;
     private BooleanBinding keyPressed = wPressed.or(aPressed).or(sPressed).or(dPressed).or(shiftPressed);
 
     private int movementVariable = 3;
@@ -109,17 +115,23 @@ public class CharacterController {
     void movementSetup(HashMap<String, Door> doors) {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case Z -> {
+                case DIGIT1 -> {
                     userInput = 1;
-                    checkPerson();
+                    if (questionIsActive) {
+                        checkPerson();
+                    }
                 }
-                case X -> {
+                case DIGIT2 -> {
                     userInput = 2;
-                    checkPerson();
+                    if (questionIsActive) {
+                        checkPerson();
+                    }
                 }
-                case C -> {
+                case DIGIT3 -> {
                     userInput = 3;
-                    checkPerson();
+                    if (questionIsActive) {
+                        checkPerson();
+                    }
                 }
                 case W -> {
                     wPressed.set(true);
@@ -280,8 +292,10 @@ public class CharacterController {
         text.setStyle("-fx-font: 18 monospace;");
         Pane pane = (Pane) scene.lookup("#dialogPane");
         text.setText(BobbyGUI.getGame().getJohnStartMessage());
-        pane.setOpacity(1.0);
+        int coins = BobbyGUI.getGame().returnInventory().getCoins();
+        //pane.setOpacity(1.0);
         if (BobbyGUI.getGame().getJohnsIndex() <= 5) {
+            pane.setOpacity(1.0);
             text.setText(BobbyGUI.getGame().getJohnDialog(BobbyGUI.getGame().getJohnsIndex()));
             BobbyGUI.getGame().setJohnsIndex(++johnIndex);
         } else if (BobbyGUI.getGame().getJohnsIndex() == 6) {
@@ -289,10 +303,49 @@ public class CharacterController {
             BobbyGUI.getGame().setJohnsIndex(++johnIndex);
             setPaused();
             isDialogActive = false;
-        } else if (BobbyGUI.getGame().getJohnsIndex() == 7) {
+        } else if (BobbyGUI.getGame().getJohnsIndex() == 7 && BobbyGUI.getGame().getPersonsCompleted() != BobbyGUI.getGame().getPersonCount()) {
+            pane.setOpacity(1.0);
             text.setText(BobbyGUI.getGame().johnsProgress());
             BobbyGUI.getGame().setJohnsIndex(++johnIndex);
             setPaused();
+        } else if (BobbyGUI.getGame().getPersonsCompleted() == BobbyGUI.getGame().getPersonCount()) {
+            switch (endDialogIndex) {
+                case 0 -> {
+                    text.setText(BobbyGUI.getGame().getJohnDialog(7));
+                    pane.setOpacity(1.0);
+                    endDialogIndex++;
+                }
+                case 1 -> {
+                    text.setText("You collected " + coins + " coins. The international poverty line is defined as living for under $2.15 a day.");
+                    endDialogIndex++;
+                }
+                case 2 -> {
+                    text.setText("Therefor, with your donations, you helped approximately " + (coins / 15) + " people stay out of poverty for a week.");
+                    endDialogIndex++;
+                }
+                case 3 -> {
+                    text.setText("In 2022, there is approximately 700.000.000 people living under the poverty line.");
+                    endDialogIndex++;
+                }
+                case 4 -> {
+                    text.setText("With these donations, there is only " + (700000000 - (coins / 15)) + " living in poverty this week.");
+                    endDialogIndex++;
+                }
+                case 5 -> {
+                    text.setText("So, as you can see, Bobby. A little hard work can make a big difference for a lot of people.");
+                    endDialogIndex++;
+                }
+                case 6 -> {
+                    text.setText("But to solve this problem before 2030, we'd need " + ((700000000 * personCost) / coins) + " volunteers like you.");
+                    endDialogIndex++;
+                }
+                case 7 -> {
+                    System.out.println("end the game");
+                    endGame();
+                }
+            }
+            BobbyGUI.getGame().setJohnsIndex(++johnIndex);
+            endTheGame = true;
         } else {
             pane.setOpacity(0.0);
             BobbyGUI.getGame().setJohnsIndex(7);
@@ -366,7 +419,7 @@ public class CharacterController {
                     case 2 -> {
                         switch (charmIndex) {
                             case 0 -> {
-                                text.setText("Use charm (Z) or reason (X) to persuade " + npc.getName() + " into increasing " + npc.printGender() + " donation.");
+                                text.setText("Use charm 1) or reason 2) to persuade " + npc.getName() + " into increasing " + npc.printGender() + " donation.");
                                 charmIndex++;
                                 questionIsActive = true;
                             }
@@ -417,5 +470,20 @@ public class CharacterController {
         this.startheight = startheight;
         this.width = width;
         this.height = height;
+    }
+
+    public void endGame() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(BobbyGUI.class.getResource("fxml/End.fxml"));
+            Stage stage = BobbyGUI.getStage();
+            Scene endscene = new Scene(fxmlLoader.load());
+            endscene.getRoot().requestFocus();
+            stage.setScene(endscene);
+            stage.show();
+            GameController gameController = fxmlLoader.getController();
+            gameController.persistGame(BobbyGUI.getGame());
+        } catch (Exception e) {
+            System.out.println("error");
+        }
     }
 }

@@ -1,4 +1,4 @@
-package BobbyHood;
+package BobbyHood.Domain;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -84,7 +84,7 @@ public class Highscore {
     }
     public static void main(String args[]) throws IOException
     {
-        Highscore scores = new Highscore("highscores.txt");
+        Highscore scores = new Highscore("Data/highscores.txt");
         scores.writeHighscore(50);
         scores.printScores();
     }

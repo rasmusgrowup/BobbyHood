@@ -1,4 +1,4 @@
-package BobbyHood;
+package BobbyHood.Domain;
 
 import java.util.List;
 

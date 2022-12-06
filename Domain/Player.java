@@ -1,6 +1,4 @@
-package BobbyHood;
-
-import org.w3c.dom.ls.LSOutput;
+package BobbyHood.Domain;
 
 import java.util.HashMap;
 

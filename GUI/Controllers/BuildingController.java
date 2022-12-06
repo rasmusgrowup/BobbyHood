@@ -1,9 +1,9 @@
 package BobbyHood.GUI.Controllers;
 
 import BobbyHood.GUI.BobbyGUI;
-import BobbyHood.GUI.Door;
-import BobbyHood.John;
-import BobbyHood.Person;
+import BobbyHood.Domain.Door;
+import BobbyHood.Domain.John;
+import BobbyHood.Domain.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +60,9 @@ public class BuildingController extends GameController implements Initializable 
         characterController.makeMovable(bobby, scene, doors);
         doorRect.setFill(Color.TRANSPARENT);
         characterController.setBorderValues(120, 1200, 800);
+        dialogText.setText("Press 'enter' to talk with John");
+        dialogText.setStyle("-fx-font: 18 monospace;");
+        characterController.setPaused();
     }
 
     public void endGame(ActionEvent event) throws IOException {

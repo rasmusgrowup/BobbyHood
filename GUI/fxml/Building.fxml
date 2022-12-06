@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -7,7 +8,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.control.Button?>
 <AnchorPane fx:id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BobbyHood.GUI.Controllers.BuildingController">
    <children>
       <ImageView fitHeight="800" fitWidth="1200.0" pickOnBounds="true" preserveRatio="true">
@@ -15,7 +15,7 @@
             <Image url="@../images/Building.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="bobby" fitHeight="90" fitWidth="93" layoutX="450" layoutY="365" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="bobby" fitHeight="90" fitWidth="93" layoutX="410.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/bobby.png" />
          </image>
@@ -37,7 +37,7 @@
       </Pane>
       <Pane fx:id="handbookPane" layoutX="300" layoutY="100" prefHeight="600" prefWidth="600" style="-fx-background-color: #f6f6f6; -fx-opacity: 0.0;">
          <children>
-            <Text fx:id="handbook" layoutX="40.0" layoutY="40.0" wrappingWidth="520" style="-fx-font: 16 monospace;"/>
+            <Text fx:id="handbook" layoutX="40.0" layoutY="40.0" style="-fx-font: 16 monospace;" wrappingWidth="520" />
          </children>
       </Pane>
       <Rectangle fx:id="doorRect" height="100" layoutX="440" layoutY="700" width="300" />

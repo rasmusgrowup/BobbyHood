@@ -1,8 +1,8 @@
 package BobbyHood.textUI;
 
 import java.util.Scanner;
-import BobbyHood.Command;
-import BobbyHood.Game;
+import BobbyHood.Domain.Command;
+import BobbyHood.Domain.Game;
 
 public class Parser 
 {

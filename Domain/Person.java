@@ -1,4 +1,4 @@
-package BobbyHood;
+package BobbyHood.Domain;
 
 import javafx.scene.image.ImageView;
 

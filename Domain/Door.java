@@ -1,4 +1,4 @@
-package BobbyHood.GUI;
+package BobbyHood.Domain;
 import javafx.scene.shape.Rectangle;
 
 public class Door {

@@ -14,7 +14,7 @@
             <Image url="@../images/Startscreen_amnesty.png" />
          </image>
       </ImageView>
-      <Text fill="WHITE" layoutX="257.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: firebrick; -fx-stroke-width: 2px;" text="Welcome to Bobby Hood" textAlignment="CENTER" wrappingWidth="650.21630859375">
+      <Text fill="WHITE" layoutX="257.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: firebrick; -fx-stroke-width: 2px;" text="Thanks for playing" textAlignment="CENTER" wrappingWidth="650.21630859375">
          <font>
             <Font name="System Bold" size="56.0" />
          </font>
