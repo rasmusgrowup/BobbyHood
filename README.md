@@ -23,7 +23,7 @@ Remember that you should be in the root directory of your project
 
 ### Creating a new branch
 Before creating a new branch, pull the changes from upstream.
-Your master needs to be up to date.
+Your master needs to be up-to-date.
 
 ```
 $ git pull origin
@@ -37,14 +37,14 @@ Don't include the brackets. The command could be:
 $ git checkout -b awesome_branch origin/main
 
 ### Pushing your changes
-Push the branch on github :
+Push the branch on GitHub :
 
 ```
 $ git push -u origin [name_of_your_new_branch]
 ```
 The command would then be: $ git push -u origin awesome_branch
 
-After you've pushed your changes to github, you are prompted to
+After you've pushed your changes to GitHub, you are prompted to
 create a pull request. Copy the url from the terminal, and follow
 the instructions.
 
